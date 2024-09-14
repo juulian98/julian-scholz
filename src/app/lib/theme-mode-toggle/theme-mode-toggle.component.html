@@ -1,0 +1,35 @@
+<div class="relative w-16 h-8 bg-dark-void-dark dark:bg-dark-void rounded-3xl">
+  <div class="relative w-full h-full inset-0">
+    <label for="theme-mode-toggle-button">
+      <input #themeModeCheckbox type="checkbox" id="theme-mode-toggle-button" class="peer hidden"
+             (change)="toggleThemeMode()" aria-label="Theme umschalten">
+      <div
+        class="absolute m-1 size-6 rounded-3xl bg-vanilla-dark transform translate-x-0 duration-700 cursor-pointer
+               peer-checked:bg-transparent peer-checked:transform peer-checked:translate-x-7 peer-checked:shadow-[0.25rem_0_0_0] peer-checked:shadow-vanilla-light"
+        aria-hidden="true"></div>
+      <span
+        class="absolute bg-snow transition-all duration-300 rounded-[50%] top-1.5 left-5 z-0 w-5 h-[0.125rem]
+               peer-checked:w-0.5 peer-checked:h-0.5" aria-hidden="true"></span>
+      <span
+        class="absolute bg-snow transition-all duration-300 rounded-[50%] top-3 left-3 z-[1] w-6 h-[0.125rem]
+               peer-checked:w-1 peer-checked:h-1 peer-checked:transform-gpu peer-checked:translate-x-5"
+        aria-hidden="true"></span>
+      <span
+        class="absolute bg-snow transition-all duration-300 rounded-[50%] top-[1.125rem] left-5 z-0 w-5 h-[0.125rem]
+               peer-checked:w-0.5 peer-checked:h-0.5 peer-checked:transform-gpu peer-checked:-translate-x-2"
+        aria-hidden="true"></span>
+      <span
+        class="absolute bg-snow transition-all duration-300 rounded-[50%] top-4 left-3 z-0 w-0.5 h-0.5 transform-gpu translate-x-0.5 opacity-0
+               peer-checked:opacity-100 peer-checked:transform-gpu peer-checked:translate-x-2.5 peer-checked:transition-all peer-checked:duration-300 peer-checked:delay-100"
+        aria-hidden="true"></span>
+      <span
+        class="absolute bg-snow transition-all duration-300 rounded-[50%] top-6 left-7 z-0 w-1 h-1 transform-gpu translate-x-0.5 opacity-0
+               peer-checked:opacity-100 peer-checked:transform-gpu peer-checked:-translate-x-1 peer-checked:transition-all peer-checked:duration-700 peer-checked:delay-200"
+        aria-hidden="true"></span>
+      <span
+        class="absolute bg-snow transition-all duration-300 rounded-[50%] top-5 left-4 z-0 w-0.5 h-0.5 transform-gpu translate-x-5 opacity-0
+               peer-checked:opacity-100 peer-checked:transform-gpu peer-checked:translate-x-6 peer-checked:transition-all peer-checked:duration-500 peer-checked:delay-500"
+        aria-hidden="true"></span>
+    </label>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+[
+  {
+    "tags": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "TypeScript",
+      "PHP",
+      "Java",
+      "SQL"
+    ]
+  },
+  {
+    "tags": [
+      "Node.js",
+      "Nx",
+      "Angular",
+      "NestJS",
+      "SpringBoot",
+      "TailwindCSS",
+      "Bootstrap"
+    ]
+  },
+  {
+    "tags": [
+      "Git",
+      "CI/CD",
+      "DevOps",
+      "DevSecOps",
+      "SDLC",
+      "SSDLC",
+      "Docker"
+    ]
+  },
+  {
+    "tags": [
+      "FirstSpirit",
+      "Liferay",
+      "Jenkins",
+      "BitBucket",
+      "GitHub",
+      "IntelliJ",
+      "VSCode"
+    ]
+  },
+  {
+    "tags": [
+      "Security",
+      "ApplicationSecurity",
+      "OWASPTop10"
+    ]
+  },
+  {
+    "tags": [
+      "MySQL",
+      "MariaDB",
+      "MongoDB",
+      "OracleDB"
+    ]
+  }
+]

@@ -1,0 +1,27 @@
+<div
+  class="py-16 bg-gradient-to-r from-dark-void dark:from-dark-void-light to-vanilla-darker dark:to-vanilla-dark text-base text-center">
+  <ul class="relative mx-auto w-16 transform rotate-[-35deg] skew-x-[20deg] skew-y-[5deg]">
+    <li *ngFor="let navEntry of sortedNavEntries">
+      <a
+        class="block relative bg-vanilla hover:bg-vanilla h-10 w-16 align-middle leading-10
+               border-b border-solid border-vanilla shadow-[-2rem_1.5rem_0] xl:hover:shadow-[-2rem_2rem_0]
+               shadow-vanilla-darker/10 xl:hover:shadow-vanilla-darker/10
+               xl:transition-all xl:ease-linear xl:duration-[250ms]
+
+               before:absolute xl:before:transition-all xl:before:ease-linear xl:before:duration-[250ms] before:w-2
+               after:absolute xl:after:transition-all xl:after:ease-linear xl:after:duration-[250ms] after:w-2
+               before:h-10 before:bg-vanilla-dark before:top-1 before:-left-2 before:transform before:skew-y-[-45deg]
+               after:h-16 after:bg-vanilla-light after:-bottom-9 after:left-6 after:transform after:rotate-90 after:skew-x-0 after:skew-y-[45deg]
+
+               xl:hover:transform xl:hover:translate-x-[0.875rem] xl:hover:-translate-y-[0.875rem]
+               xl:hover:transition-all xl:hover:ease-linear xl:hover:duration-[250ms]
+               xl:hover:before:transition-all xl:hover:before:ease-linear xl:hover:before:duration-[250ms]
+               xl:hover:after:transition-all xl:hover:after:ease-linear xl:hover:after:duration-[250ms]
+               xl:hover:before:w-4 xl:hover:before:top-2 xl:hover:before:-left-4
+               xl:hover:after:w-4 xl:hover:after:-bottom-10 xl:hover:after:left-4 xl:hover:after:h-16"
+        [href]="navEntry.url" target="_blank" [attr.aria-label]="navEntry.name">
+        <fa-icon [icon]="navEntry.iconDefinition" class="text-dark-void"></fa-icon>
+      </a>
+    </li>
+  </ul>
+</div>

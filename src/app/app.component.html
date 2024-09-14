@@ -1,0 +1,27 @@
+<app-header></app-header>
+
+<app-navigation></app-navigation>
+
+<div class="py-5"></div>
+
+<main>
+  <app-about-me></app-about-me>
+
+  <app-book-recommendations
+    [id]="routeEntries.bookRecommendations.path"
+  ></app-book-recommendations>
+
+  <app-vita
+    [id]="routeEntries.vita.path"
+  ></app-vita>
+
+  <app-favorites
+    [id]="routeEntries.favorites.path"
+  ></app-favorites>
+</main>
+
+<app-back-to-top-button></app-back-to-top-button>
+
+<ng-container #modalContainer></ng-container>
+
+<router-outlet></router-outlet>

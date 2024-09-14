@@ -1,0 +1,19 @@
+<header>
+  <h1 class="hidden">Willkommen auf meiner Website!</h1>
+  <div
+    class="flex flex-wrap content-center min-h-svh text-[clamp(2rem,6vw+5rem,12rem)] select-none"
+    [style.font-weight]="fontWeight">
+    <span class="ml-2 sm:ml-[10vw] lg:ml-[15vw]">{{ firstLine }}</span>
+    <app-header-nav class="w-full sticky -top-[1px] z-40 sm:z-auto"></app-header-nav>
+    <span class="inline-block relative ml-auto mr-2 sm:mr-[10vw] text-transparent">
+      <span>{{ secondLine }}</span>
+      <canvas #canvas
+              [ngStyle]="{
+                '--header-second-line-top': showCanvas ? '0' : '200%'
+              }"
+              class="absolute inset-0 size-full brightness-100 pointer-events-none
+                     top-[--header-second-line-top] transition-[top] duration-1000"
+              aria-hidden="true"></canvas>
+  </span>
+  </div>
+</header>

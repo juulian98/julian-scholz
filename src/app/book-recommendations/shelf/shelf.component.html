@@ -1,0 +1,20 @@
+<div class="relative w-fit border-solid border-b-[0.75rem] border-b-dark-void-dark dark:border-b-dark-void-light/60
+            mx-auto my-5 bg-transparent
+
+            after:absolute after:-bottom-3 after:left-8 after:right-8 after:h-2.5 after:bg-transparent
+            after:[transform:rotateX(-25deg)] after:shadow-[0_0_1rem_0.125rem] after:shadow-dark-void dark:after:shadow-transparent">
+  <div class="after:block after:relative after:[clip-path:polygon(1.5rem_0,calc(100%-1.5rem)_0,100%_100%,0_100%)]
+              after:bg-dark-void dark:after:bg-dark-void-light
+              after:border-solid after:border-b-[1.5rem] after:border-b-dark-void dark:after:border-b-dark-void-light">
+    <div [ngStyle]="{
+      '--shelf-book-gap': bookGap + 'px',
+      '--shelf-margin-left': shelfMarginLeft + 'px',
+      '--shelf-margin-right': shelfMarginRight + 'px'
+    }"
+         class="relative flex *:flex-shrink-0 justify-center items-end gap-[--shelf-book-gap] top-3 ml-[--shelf-margin-left] mr-[--shelf-margin-right]">
+      <ng-container *ngFor="let bookDetailEntry of bookDetails; index as i">
+        <app-book-recommendations-book [bookIndex]="i" [bookWidth]="bookWidth" [bookDetails]="bookDetailEntry"></app-book-recommendations-book>
+      </ng-container>
+    </div>
+  </div>
+</div>

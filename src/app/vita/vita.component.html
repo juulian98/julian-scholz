@@ -1,0 +1,40 @@
+<section>
+  <h2>Vita</h2>
+  <div class="divider"></div>
+  <ol #vitaEntriesElement
+      class="relative ms-3 border-s border-dark-void dark:border-snow
+             [&_mark]:[--vita-entry-mark-highlighted:0]
+             [&_mark]:bg-transparent [&_mark]:text-custom-light-dark
+             [&_mark>span]:[--vita-entry-mark-highlight-color:--vita-entry-mark-highlight-color-light] dark:[&_mark>span]:[--vita-entry-mark-highlight-color:--vita-entry-mark-highlight-color-dark]
+             [&_mark>span]:[background:linear-gradient(120deg,var(--vita-entry-mark-highlight-color,transparent)_50%,transparent_50%)_110%_0_/_200%_100%_no-repeat]
+             [&_mark>span]:![background-position:calc((1-var(--vita-entry-mark-highlighted))*110%)_0] [&_mark>span]:[transition:background-position_1s]">
+    <li *ngFor="let vitaEntry of vitaEntries; last as isLast"
+        [ngStyle]="{'--vita-entry-margin-bottom': !isLast ? '2.5rem' : '0'}"
+        class="relative mb-[--vita-entry-margin-bottom] ms-6">
+      <div
+        class="absolute flex items-center justify-center size-6 bg-dark-void-dark dark:bg-dark-void rounded-full -start-9 top-1 ring-[0.3125rem] ring-dark-void dark:ring-dark-void-light"
+        aria-hidden="true">
+        <fa-icon [icon]="vitaEntry.iconDefinition" size="sm" class="text-vanilla"></fa-icon>
+      </div>
+      <div class="flex items-center">
+        <h3>{{ vitaEntry.title }}</h3>
+        <div *ngIf="vitaEntry.titleDescription"
+             class="bg-dark-void dark:bg-dark-void-light text-vanilla-light text-sm font-medium px-2.5 py-0.5 rounded ms-4 mb-2 select-none
+                     transition duration-300 ease-in-out hover:bg-vanilla-light hover:text-dark-void hover:scale-[1.2]">
+          {{ vitaEntry.titleDescription | uppercase }}
+        </div>
+      </div>
+      <time
+        class="block mb-4 text-sm font-normal italic leading-none">{{ vitaEntry.timePeriod }}
+      </time>
+      <div
+        class="inline-block mb-4 text-sm font-normal bg-dark-void dark:bg-dark-void-light text-snow px-2.5 py-0.5 rounded"
+        aria-hidden="true">
+        <fa-icon [icon]="faLocationDot" class="text-vanilla me-1"></fa-icon>
+        {{ vitaEntry.location }}
+      </div>
+      <p class="mb-4 text-base font-normal"
+         [innerHTML]="vitaEntry.description"></p>
+    </li>
+  </ol>
+</section>

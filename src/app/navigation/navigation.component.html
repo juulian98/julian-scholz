@@ -1,0 +1,47 @@
+<div class="flex justify-center sticky top-0 2xl:bottom-8 py-5 z-40
+            [--header-nav-ul-gap:0.25rem]
+            sm:[--header-nav-ul-gap:1rem]
+            [--header-nav-item-width:4.25rem]
+            sm:[--header-nav-item-width:5rem]
+            [--header-nav-logo-gap:0.5rem]
+            sm:[--header-nav-logo-gap:0.75rem]"
+>
+  <nav [ngStyle]="{'--header-nav-expanded': navbarExpanded}"
+       class="h-12 pl-0 flex rounded-5xl overflow-hidden bg-dark-void dark:bg-dark-void-light text-sm"
+  >
+    <div [ngStyle]="{'--header-nav-item-count': sortedRouteEntries.length}"
+         class="grid grid-cols-[auto_calc(var(--header-nav-expanded)*(var(--header-nav-item-count)*var(--header-nav-item-width)))_auto]
+                transition-[grid-template-columns] duration-1000 ease-header-nav-function"
+    >
+      <a [routerLink]="['/']" class="w-12 grid place-items-center pl-[--header-nav-logo-gap]" aria-label="JS">
+        <fa-icon [icon]="faJs" size="xl"
+                 class="text-vanilla
+                        hover:[--header-nav-intent:1] focus-visible:[--header-nav-intent:1]
+                        rotate-[calc(var(--header-nav-intent,0)*360deg)] transition-transform duration-500">
+        </fa-icon>
+      </a>
+      <ul class="flex items-center m-0 py-0 px-[--header-nav-ul-gap] list-none">
+        <li *ngFor="let navigationEntry of sortedRouteEntries; index as i; last as isLast"
+            class="size-full">
+          <app-navigation-entry
+            [navigationEntry]="navigationEntry"
+            [navigationEntryIndex]="i"
+            [navigationLastEntry]="isLast">
+          </app-navigation-entry>
+        </li>
+      </ul>
+      <div class="relative flex gap-x-0 gap-y-[--header-nav-logo-gap] items-center px-[--header-nav-logo-gap]
+                  bg-dark-void dark:bg-dark-void-light
+
+                  before:absolute before:right-full before:h-12 before:w-14
+                  before:[scale:calc(1-var(--header-nav-expanded))_1]
+                  before:transition-[scale] before:duration-200 before:origin-[100%_50%]
+
+                  transition-[padding] duration-1000 ease-header-nav-function"
+      >
+        <app-theme-mode-toggle></app-theme-mode-toggle>
+      </div>
+    </div>
+  </nav>
+</div>
+

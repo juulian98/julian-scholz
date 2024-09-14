@@ -1,0 +1,31 @@
+<div [ngStyle]="{
+  '--favorites-overlay-border-radius': borderRadius,
+  '--favorites-overlay-tag-list-cols': tagList.length,
+  '--favorites-overlay-tag-list-item-py': '0.5rem',
+  '--favorites-overlay-tag-list-item-line-height': '1.75rem'
+}"
+     class="[--favorites-overlay-py:0.75rem] sm:[--favorites-overlay-py:1.5rem]
+            [--favorites-overlay-items-gap-y:0.25rem] sm:[--favorites-overlay-items-gap-y:1rem]
+            h-full
+            max-h-[calc(2*var(--favorites-overlay-py)+calc(calc(var(--favorites-overlay-tag-list-cols)-1)*var(--favorites-overlay-items-gap-y))+calc(var(--favorites-overlay-tag-list-cols)*calc(2*(var(--favorites-overlay-tag-list-item-py))+var(--favorites-overlay-tag-list-item-line-height))))]
+            rounded-[--favorites-overlay-border-radius] transition-[border-radius] duration-[3000ms] bg-dark-void/80 dark:bg-dark-void-light/80
+            overflow-hidden cursor-pointer [transform:translateZ(0)]"
+     (click)="processOverlayChanges(true)">
+  <div
+    class="h-full flex flex-col gap-x-0 gap-y-[--favorites-overlay-items-gap-y] relative px-0 py-[--favorites-overlay-py]">
+    <div *ngFor="let tagListEntry of tagList; index as i"
+         [ngStyle]="{
+          '--favorites-overlay-entry-direction': i % 2 ? 'reverse': 'normal',
+          '--favorites-overlay-entry-duration': tagListEntry.duration
+         }"
+         class="favorites-overlay-tag-list-item flex w-fit animate-[favoritesOverlayLoop_var(--favorites-overlay-entry-duration)_linear_var(--favorites-overlay-entry-direction)_infinite] xl:hover:[animation-play-state:paused]">
+      <ng-container *ngFor="let _ of [].constructor(2)">
+        <div class="flex items-center mr-4 gap-x-1 gap-y-0 text-lg leading-[--favorites-overlay-tag-list-item-line-height] font-normal
+                    bg-dark-void/50 text-snow px-5 py-[--favorites-overlay-tag-list-item-py] rounded [transform:translateZ(0)]"
+             *ngFor="let tagListTextEntry of tagListEntry.tags">
+          <span class="text-vanilla">#</span>{{ tagListTextEntry }}
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

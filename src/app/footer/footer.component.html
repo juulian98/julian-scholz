@@ -1,0 +1,21 @@
+<footer class="bg-custom-light-dark !bg-opacity-90 rounded-5xl">
+  <div class="px-8 py-6 md:flex md:items-center">
+    <div class="flex justify-center space-x-6 md:order-2 md:ml-12">
+      <a href="mailto:jul.scholz@gmail.com" class="animate-bounce" aria-label="Mail">
+        <fa-icon [icon]="faEnvelope" size="xl" class="text-custom-light-dark"></fa-icon>
+      </a>
+      <a *ngFor="let footerLink of sortedFooterLinkEntries; index as i"
+         [href]="footerLink.url" target="_blank" [attr.aria-label]="footerLink.name">
+        <fa-icon [icon]="footerLink.iconDefinition" size="xl" class="text-custom-light-dark"></fa-icon>
+      </a>
+    </div>
+    <div class="flex flex-col mt-6 md:order-1 md:mt-0 text-center text-xs leading-5">
+      <button (click)="openInspirationsModal()">&copy; {{ currentYear }} Julian Scholz, Alle Rechte vorbehalten.
+      </button>
+      <div class="flex justify-evenly">
+        <button (click)="openLegalNoticeModal()">Impressum</button>
+        <button (click)="openPrivacyPolicyModal()">Datenschutzerklärung</button>
+      </div>
+    </div>
+  </div>
+</footer>

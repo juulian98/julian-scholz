@@ -1,0 +1,127 @@
+@tailwind base;
+@layer base {
+  @font-face {
+    font-family: "Geist Sans";
+    font-style: normal;
+    font-weight: 100 900;
+    src: url("./assets/fonts/geist/geist-sans/GeistVF.woff2") format("woff2"),
+    url("./assets/fonts/geist/geist-sans/GeistVF.woff") format("woff"),
+    url("./assets/fonts/geist/geist-sans/GeistVF.ttf") format("truetype");
+    font-display: swap;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    @apply bg-dark-void-dark w-[10px];
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-dark-void-light rounded-5xl;
+  }
+
+  /* Thememode-Toggler */
+  ::view-transition-group(root) {
+    @apply [animation-duration:1.25s];
+  }
+
+  ::view-transition-new(root),
+  ::view-transition-old(root) {
+    @apply mix-blend-normal;
+  }
+
+  ::view-transition-new(root) {
+    @apply dark:animate-[themeModeToggleRevealDark_3s] dark:z-[101];
+  }
+
+  ::view-transition-old(root) {
+    @apply animate-[themeModeToggleRevealLight_3s] dark:animate-none z-[100] dark:z-auto;
+  }
+
+  section {
+    @apply container mx-auto px-8 pt-20 pb-10;
+  }
+
+  h1 {
+    @apply text-8xl font-extrabold mb-8;
+  }
+
+  h2 {
+    @apply text-5xl font-bold mb-4;
+  }
+
+  h3 {
+    @apply text-2xl font-semibold mb-2;
+  }
+
+  h4 {
+    @apply text-xl font-medium mb-1.5;
+  }
+
+  h5 {
+    @apply text-lg font-medium mb-1;
+  }
+
+  h6 {
+    @apply text-base font-medium mb-0.5;
+  }
+
+  .modal-body {
+    h3 {
+      @apply mt-4;
+    }
+
+    h4 {
+      @apply mt-3;
+    }
+
+    h5 {
+      @apply mt-2;
+    }
+
+    h6 {
+      @apply mt-1;
+    }
+
+    ul {
+      @apply list-disc list-inside;
+    }
+  }
+
+  .book-cover, .modal-body {
+    a {
+      @apply border-b border-dotted border-dark-void dark:border-snow hover:border-solid hover:border-vanilla;
+    }
+  }
+
+  .book-cover {
+    a {
+      @apply border-dark-void;
+    }
+  }
+}
+
+@tailwind components;
+@layer components {
+  .divider {
+    @apply w-36 mb-8 border-[1px] border-vanilla;
+  }
+}
+
+@tailwind utilities;
+@layer utilities {
+  .bg-custom-light-dark {
+    @apply bg-snow dark:bg-dark-void;
+  }
+
+  .text-custom-light-dark {
+    @apply text-dark-void dark:text-snow;
+  }
+
+  .rounded-4xl {
+    @apply rounded-[50px];
+  }
+
+  .rounded-5xl {
+    @apply rounded-[100px];
+  }
+}
