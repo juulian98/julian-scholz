@@ -47,7 +47,9 @@ export class FavoritesComponent implements OnInit, OnDestroy {
     `${environment.imagesUrl}/favorites/bg/${gsap.utils.random(0, this.backgroundImagesCount - 1, 1)}`;
   protected readonly outlineOffset: number = 1;
   protected outlineWidth: number = 0;
+
   private readonly showFavoritesOverlayThreshold: number = 0.6;
+  private showFavoritesOverlayInitialisationDone: boolean = false;
   protected showFavoritesOverlay: boolean = false;
 
   @ViewChild('scrollImage')
@@ -104,6 +106,11 @@ export class FavoritesComponent implements OnInit, OnDestroy {
             scrub: true,
             onUpdate: (self) => {
               if (typeof self?.progress === 'number') {
+                if (!this.showFavoritesOverlayInitialisationDone) {
+                  self.update(true, false, false);
+                  this.showFavoritesOverlayInitialisationDone = true;
+                }
+
                 this.showFavoritesOverlay = self.progress >= this.showFavoritesOverlayThreshold;
               }
             }
