@@ -106,12 +106,13 @@ export class FavoritesComponent implements OnInit, OnDestroy {
             scrub: true,
             onUpdate: (self) => {
               if (typeof self?.progress === 'number') {
+                this.showFavoritesOverlay = self.progress >= this.showFavoritesOverlayThreshold;
+
                 if (!this.showFavoritesOverlayInitialisationDone) {
                   self.update(true, false, false);
                   this.showFavoritesOverlayInitialisationDone = true;
+                  this.changeDetectorRef.detectChanges();
                 }
-
-                this.showFavoritesOverlay = self.progress >= this.showFavoritesOverlayThreshold;
               }
             }
           }
