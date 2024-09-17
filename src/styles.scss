@@ -21,7 +21,7 @@
 
   /* Thememode-Toggler */
   ::view-transition-group(root) {
-    @apply [animation-duration:1.25s];
+    @apply [animation-duration:2s];
   }
 
   ::view-transition-new(root),
@@ -30,11 +30,11 @@
   }
 
   ::view-transition-new(root) {
-    @apply dark:animate-[themeModeToggleRevealDark_3s] dark:z-[101];
+    @apply dark:animate-[themeModeToggleRevealDark_2.25s] dark:z-[101];
   }
 
   ::view-transition-old(root) {
-    @apply animate-[themeModeToggleRevealLight_3s] dark:animate-none z-[100] dark:z-auto;
+    @apply animate-[themeModeToggleRevealLight_2.25s] dark:animate-none z-[100] dark:z-auto;
   }
 
   section {
