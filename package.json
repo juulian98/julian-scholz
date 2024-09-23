@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^18.2.4",
-    "@angular/cli": "^18.2.4",
+    "@angular/cli": "^18.2.5",
     "@angular/compiler-cli": "^18.2.4",
     "@cloudflare/workers-types": "^4.20240821.1",
     "@types/jasmine": "~5.1.4",
