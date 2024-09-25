@@ -17,10 +17,12 @@ fs.readFile(indexPath, 'utf8', (err, data) => {
     process.exit(1);
   }
 
-  const indexResult = data.replace(
-    'content="DUMMY_KEYWORDS_VALUE"',
-    `content="${tagList.flatMap(item => item.tags).join(', ')}"`
-  ).replace(/"knowsAbout":\s*([^,]*)/, `"knowsAbout": ${JSON.stringify(tagList.flatMap(item => item.tags))}`);
+  const indexResult = data
+    .replace('</style>', '.svg-inline--fa{display:none}</style>')
+    .replace(
+      'content="DUMMY_KEYWORDS_VALUE"',
+      `content="${tagList.flatMap(item => item.tags).join(', ')}"`
+    ).replace(/"knowsAbout":\s*([^,]*)/, `"knowsAbout": ${JSON.stringify(tagList.flatMap(item => item.tags))}`);
 
   fs.writeFile(indexPath, indexResult, 'utf8', (err) => {
     if (err) {
