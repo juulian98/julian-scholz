@@ -21,14 +21,16 @@
         </fa-icon>
       </a>
       <ul class="flex items-center m-0 py-0 px-[--header-nav-ul-gap] list-none">
-        <li *ngFor="let navigationEntry of sortedRouteEntries; index as i; last as isLast"
+        @for (navigationEntry of sortedRouteEntries; track navigationEntry; let i = $index; let isLast = $last) {
+          <li
             class="size-full">
-          <app-navigation-entry
-            [navigationEntry]="navigationEntry"
-            [navigationEntryIndex]="i"
-            [navigationLastEntry]="isLast">
-          </app-navigation-entry>
-        </li>
+            <app-navigation-entry
+              [navigationEntry]="navigationEntry"
+              [navigationEntryIndex]="i"
+              [navigationLastEntry]="isLast">
+            </app-navigation-entry>
+          </li>
+        }
       </ul>
       <div class="relative flex gap-x-0 gap-y-[--header-nav-logo-gap] items-center px-[--header-nav-logo-gap]
                   bg-dark-void dark:bg-dark-void-light

@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {NgClass, NgForOf, NgStyle} from "@angular/common";
+import {NgClass, NgStyle} from "@angular/common";
 import {BookRecommendationsBookComponent} from "../book/book.component";
 import {BookModel} from "../book/models/book.model";
 
@@ -9,7 +9,6 @@ import {BookModel} from "../book/models/book.model";
   imports: [
     NgStyle,
     BookRecommendationsBookComponent,
-    NgForOf,
     NgClass
   ],
   templateUrl: './shelf.component.html'

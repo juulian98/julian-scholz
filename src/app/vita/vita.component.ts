@@ -18,7 +18,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {VitaEntryModel} from "./models/vita-entry.model";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {KeyValuePipe, NgForOf, NgIf, NgStyle, UpperCasePipe} from "@angular/common";
+import {KeyValuePipe, NgStyle, UpperCasePipe} from "@angular/common";
 import {IconDefinition} from "@fortawesome/fontawesome-common-types";
 import {gsap} from "../lib/misc/gsap/gsap";
 import {TAILWIND_COLORS} from "../../../tailwind.colors";
@@ -29,8 +29,6 @@ import {TAILWIND_COLORS} from "../../../tailwind.colors";
   imports: [
     FaIconComponent,
     KeyValuePipe,
-    NgForOf,
-    NgIf,
     UpperCasePipe,
     NgStyle
   ],

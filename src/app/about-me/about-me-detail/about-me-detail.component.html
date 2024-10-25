@@ -8,4 +8,6 @@
              transition-[color] duration-700 ease-out
              opacity-[calc(0.1+var(--about-me-span-active))]"
 >{{ detail.text }}</span>
-<span *ngIf="detail.endOfLine || detail.endOfSection" [ngClass]="{'mt-16': detail.endOfSection}" class="block" aria-hidden="true"></span>
+@if (detail.endOfLine || detail.endOfSection) {
+  <span [ngClass]="{'mt-16': detail.endOfSection}" class="block" aria-hidden="true"></span>
+}

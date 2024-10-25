@@ -9,7 +9,7 @@ import {
   ViewChild
 } from '@angular/core';
 import {gsap, ScrollTrigger} from "../lib/misc/gsap/gsap";
-import {DOCUMENT, NgIf, NgOptimizedImage, NgStyle} from "@angular/common";
+import {DOCUMENT, NgOptimizedImage, NgStyle} from "@angular/common";
 import {FavoritesOverlayComponent} from "./favorites-overlay/favorites-overlay.component";
 import {FooterComponent} from "../footer/footer.component";
 import {ThemeModeToggleService} from "../lib/theme-mode-toggle/theme-mode-toggle.service";
@@ -25,8 +25,7 @@ import {environment} from "../../environment/environment";
     NgOptimizedImage,
     NgStyle,
     FavoritesOverlayComponent,
-    FooterComponent,
-    NgIf,
+    FooterComponent
   ],
   templateUrl: './favorites.component.html'
 })

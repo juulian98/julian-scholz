@@ -12,9 +12,10 @@
       '--shelf-margin-right': shelfMarginRight + 'px'
     }"
          class="relative flex *:flex-shrink-0 justify-center items-end gap-[--shelf-book-gap] top-3 ml-[--shelf-margin-left] mr-[--shelf-margin-right]">
-      <ng-container *ngFor="let bookDetailEntry of bookDetails; index as i">
-        <app-book-recommendations-book [bookIndex]="i" [bookWidth]="bookWidth" [bookDetails]="bookDetailEntry"></app-book-recommendations-book>
-      </ng-container>
+      @for (bookDetailEntry of bookDetails; track bookDetailEntry; let i = $index) {
+        <app-book-recommendations-book [bookIndex]="i" [bookWidth]="bookWidth"
+                                       [bookDetails]="bookDetailEntry"></app-book-recommendations-book>
+      }
     </div>
   </div>
 </div>

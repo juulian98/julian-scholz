@@ -15,11 +15,13 @@
       <h2 class="hidden">{{ secondSplitText }} {{ thirdSplitText }} {{ fourthSplitText }}</h2>
       <div class="text-center bg-gradient-to-br from-vanilla-extra-dark dark:from-vanilla-light
                   to-dark-void-dark dark:to-snow bg-clip-text">
-        <app-about-me-detail *ngFor="let detailListEntry of detailList"
-                             [scrollTrigger]="scrollTrigger"
-                             [detail]="detailListEntry"
-                             [ppc]="ppc"
-        ></app-about-me-detail>
+        @for (detailListEntry of detailList; track detailListEntry) {
+          <app-about-me-detail
+            [scrollTrigger]="scrollTrigger"
+            [detail]="detailListEntry"
+            [ppc]="ppc"
+          ></app-about-me-detail>
+        }
       </div>
     </div>
   </div>

@@ -1,7 +1,7 @@
 import {AfterViewInit, ChangeDetectorRef, Component, DestroyRef, ElementRef, inject, ViewChild} from "@angular/core";
 import {BookRecommendationsShelfComponent} from "./shelf/shelf.component";
 import {BookModel} from "./book/models/book.model";
-import {DOCUMENT, NgForOf, NgIf} from "@angular/common";
+import {DOCUMENT} from "@angular/common";
 import {debounceTime, fromEvent} from "rxjs";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {gsap} from "../lib/misc/gsap/gsap";
@@ -11,9 +11,7 @@ import {environment} from "../../environment/environment";
   selector: 'app-book-recommendations',
   standalone: true,
   imports: [
-    BookRecommendationsShelfComponent,
-    NgForOf,
-    NgIf
+    BookRecommendationsShelfComponent
   ],
   templateUrl: './book-recommendations.component.html'
 })

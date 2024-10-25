@@ -1,5 +1,5 @@
 import {AfterViewInit, Component} from '@angular/core';
-import {NgForOf, NgStyle} from "@angular/common";
+import {NgStyle} from "@angular/common";
 import {AboutMeDetailModel} from "./about-me-detail/models/about-me-detail.model";
 import {AboutMeDetailComponent} from "./about-me-detail/about-me-detail.component";
 
@@ -8,8 +8,7 @@ import {AboutMeDetailComponent} from "./about-me-detail/about-me-detail.componen
   standalone: true,
   imports: [
     NgStyle,
-    AboutMeDetailComponent,
-    NgForOf
+    AboutMeDetailComponent
   ],
   templateUrl: './about-me.component.html'
 })

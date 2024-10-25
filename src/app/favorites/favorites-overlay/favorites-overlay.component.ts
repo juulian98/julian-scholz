@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, inject} from "@angular/core";
-import {KeyValuePipe, NgForOf, NgStyle} from "@angular/common";
+import {KeyValuePipe, NgStyle} from "@angular/common";
 import {FavoritesOverlayEntryModel} from "./models/favorites-overlay-entry.model";
 import tagListData from "../../../tag-list.json";
 import {gsap} from "../../lib/misc/gsap/gsap";
@@ -8,7 +8,6 @@ import {gsap} from "../../lib/misc/gsap/gsap";
   selector: 'app-favorites-overlay',
   standalone: true,
   imports: [
-    NgForOf,
     KeyValuePipe,
     NgStyle
   ],

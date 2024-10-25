@@ -1,9 +1,10 @@
 <div
   class="py-16 bg-gradient-to-r from-dark-void dark:from-dark-void-light to-vanilla-darker dark:to-vanilla-dark text-base text-center">
   <ul class="relative mx-auto w-16 transform rotate-[-35deg] skew-x-[20deg] skew-y-[5deg]">
-    <li *ngFor="let navEntry of sortedNavEntries">
-      <a
-        class="block relative bg-vanilla hover:bg-vanilla h-10 w-16 align-middle leading-10
+    @for (navEntry of sortedNavEntries; track navEntry) {
+      <li>
+        <a
+          class="block relative bg-vanilla hover:bg-vanilla h-10 w-16 align-middle leading-10
                border-b border-solid border-vanilla shadow-[-2rem_1.5rem_0] xl:hover:shadow-[-2rem_2rem_0]
                shadow-vanilla-darker/10 xl:hover:shadow-vanilla-darker/10
                xl:transition-all xl:ease-linear xl:duration-[250ms]
@@ -19,9 +20,10 @@
                xl:hover:after:transition-all xl:hover:after:ease-linear xl:hover:after:duration-[250ms]
                xl:hover:before:w-4 xl:hover:before:top-2 xl:hover:before:-left-4
                xl:hover:after:w-4 xl:hover:after:-bottom-10 xl:hover:after:left-4 xl:hover:after:h-16"
-        [href]="navEntry.url" target="_blank" [attr.aria-label]="navEntry.name">
-        <fa-icon [icon]="navEntry.iconDefinition" class="text-dark-void"></fa-icon>
-      </a>
-    </li>
+          [href]="navEntry.url" target="_blank" [attr.aria-label]="navEntry.name">
+          <fa-icon [icon]="navEntry.iconDefinition" class="text-dark-void"></fa-icon>
+        </a>
+      </li>
+    }
   </ul>
 </div>

@@ -1,9 +1,11 @@
 <section #bookRecommendationsSection>
   <h2>Buchtipps</h2>
   <div class="divider"></div>
-  <app-book-recommendations-shelf *ngFor="let shelveRow of shelveRows"
-                                  [shelfMarginLeft]="shelfMarginLeft"
-                                  [shelfMarginRight]="shelfMarginRight"
-                                  [bookWidth]="bookWidth" [bookGap]="bookGap"
-                                  [bookDetails]="shelveRow"></app-book-recommendations-shelf>
+  @for (shelveRow of shelveRows; track shelveRow) {
+    <app-book-recommendations-shelf
+      [shelfMarginLeft]="shelfMarginLeft"
+      [shelfMarginRight]="shelfMarginRight"
+      [bookWidth]="bookWidth" [bookGap]="bookGap"
+      [bookDetails]="shelveRow"></app-book-recommendations-shelf>
+  }
 </section>

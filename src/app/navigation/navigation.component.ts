@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnDestroy} from '@angular/core';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {faJs} from '@fortawesome/free-brands-svg-icons'
-import {KeyValuePipe, NgForOf, NgStyle} from "@angular/common";
+import {KeyValuePipe, NgStyle} from "@angular/common";
 import {ThemeModeToggleComponent} from "../lib/theme-mode-toggle/theme-mode-toggle.component";
 import {Route, RouterLink} from "@angular/router";
 import {routeEntries} from "../app.routes";
@@ -15,7 +15,6 @@ import {ScrollTrigger} from "../lib/misc/gsap/gsap";
   standalone: true,
   imports: [
     FontAwesomeModule,
-    NgForOf,
     NgStyle,
     ThemeModeToggleComponent,
     KeyValuePipe,

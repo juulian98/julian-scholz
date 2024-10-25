@@ -2,7 +2,7 @@ import {Component, ViewContainerRef} from '@angular/core';
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {IconDefinition} from "@fortawesome/fontawesome-common-types";
 import {faClose} from "@fortawesome/free-solid-svg-icons";
-import {NgIf, NgSwitch, NgSwitchCase, NgTemplateOutlet} from "@angular/common";
+import {NgTemplateOutlet} from "@angular/common";
 import {ModalTemplate} from "./utils/modal-template.enum";
 
 @Component({
@@ -10,10 +10,7 @@ import {ModalTemplate} from "./utils/modal-template.enum";
   standalone: true,
   imports: [
     FaIconComponent,
-    NgTemplateOutlet,
-    NgSwitchCase,
-    NgSwitch,
-    NgIf
+    NgTemplateOutlet
   ],
   templateUrl: './modal-container.component.html'
 })

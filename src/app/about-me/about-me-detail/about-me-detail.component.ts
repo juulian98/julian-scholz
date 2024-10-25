@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, Input, OnDestroy} from '@angular/core';
-import {NgClass, NgIf, NgStyle} from "@angular/common";
+import {NgClass, NgStyle} from "@angular/common";
 import {AboutMeDetailModel} from "./models/about-me-detail.model";
 import {ScrollTrigger} from "../../lib/misc/gsap/gsap";
 
@@ -8,7 +8,6 @@ import {ScrollTrigger} from "../../lib/misc/gsap/gsap";
   standalone: true,
   imports: [
     NgStyle,
-    NgIf,
     NgClass
   ],
   templateUrl: './about-me-detail.component.html'

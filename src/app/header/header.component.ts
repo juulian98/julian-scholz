@@ -76,9 +76,9 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
         debounceTime(250),
         takeUntilDestroyed(this.destroyRef),
       ).subscribe(() => {
-        if (typeof this.windowWidth === 'number' && this.angularDocument.defaultView!.innerWidth !== this.windowWidth) {
-          this.initComponent();
-        }
+      if (typeof this.windowWidth === 'number' && this.angularDocument.defaultView!.innerWidth !== this.windowWidth) {
+        this.initComponent();
+      }
     });
 
     setTimeout(() => {
