@@ -9,7 +9,6 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-back-to-top-button',
-  standalone: true,
   imports: [
     FaIconComponent,
     NgStyle

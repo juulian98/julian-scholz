@@ -5,7 +5,6 @@ import {FavoritesComponent} from "./favorites/favorites.component";
 import {NavigationComponent} from "./navigation/navigation.component";
 import {routeEntries} from "./app.routes";
 import {VitaComponent} from "./vita/vita.component";
-import {FooterComponent} from "./footer/footer.component";
 import {AboutMeComponent} from "./about-me/about-me.component";
 import {BackToTopButtonComponent} from "./back-to-top-button/back-to-top-button.component";
 import {ModalService} from "./modals/modal.service";
@@ -15,14 +14,12 @@ import {BookRecommendationsComponent} from "./book-recommendations/book-recommen
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [
     RouterOutlet,
     HeaderComponent,
     FavoritesComponent,
     NavigationComponent,
     VitaComponent,
-    FooterComponent,
     AboutMeComponent,
     BackToTopButtonComponent,
     BookRecommendationsComponent

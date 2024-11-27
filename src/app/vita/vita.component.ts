@@ -18,17 +18,15 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {VitaEntryModel} from "./models/vita-entry.model";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {KeyValuePipe, NgStyle, UpperCasePipe} from "@angular/common";
+import {NgStyle, UpperCasePipe} from "@angular/common";
 import {IconDefinition} from "@fortawesome/fontawesome-common-types";
 import {gsap} from "../lib/misc/gsap/gsap";
 import {TAILWIND_COLORS} from "../../../tailwind.colors";
 
 @Component({
   selector: 'app-vita',
-  standalone: true,
   imports: [
     FaIconComponent,
-    KeyValuePipe,
     UpperCasePipe,
     NgStyle
   ],

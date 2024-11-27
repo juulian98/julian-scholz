@@ -9,7 +9,6 @@ import {environment} from "../../environment/environment";
 
 @Component({
   selector: 'app-book-recommendations',
-  standalone: true,
   imports: [
     BookRecommendationsShelfComponent
   ],

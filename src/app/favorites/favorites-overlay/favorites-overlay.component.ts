@@ -1,14 +1,12 @@
 import {ChangeDetectorRef, Component, inject} from "@angular/core";
-import {KeyValuePipe, NgStyle} from "@angular/common";
+import {NgStyle} from "@angular/common";
 import {FavoritesOverlayEntryModel} from "./models/favorites-overlay-entry.model";
 import tagListData from "../../../tag-list.json";
 import {gsap} from "../../lib/misc/gsap/gsap";
 
 @Component({
   selector: 'app-favorites-overlay',
-  standalone: true,
   imports: [
-    KeyValuePipe,
     NgStyle
   ],
   templateUrl: './favorites-overlay.component.html'

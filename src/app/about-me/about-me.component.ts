@@ -5,7 +5,6 @@ import {AboutMeDetailComponent} from "./about-me-detail/about-me-detail.componen
 
 @Component({
   selector: 'app-about-me',
-  standalone: true,
   imports: [
     NgStyle,
     AboutMeDetailComponent

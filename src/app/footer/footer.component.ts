@@ -2,7 +2,6 @@ import {Component, inject, OnInit} from '@angular/core';
 import {NavService} from "../header/nav/nav.service";
 import {NavEntryModel} from "../header/nav/models/nav-entry.model";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {NgStyle} from "@angular/common";
 import {IconDefinition} from "@fortawesome/fontawesome-common-types";
 import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
 import {ModalService} from "../modals/modal.service";
@@ -10,10 +9,8 @@ import {ModalTemplate} from "../modals/utils/modal-container/utils/modal-templat
 
 @Component({
   selector: 'app-footer',
-  standalone: true,
   imports: [
-    FaIconComponent,
-    NgStyle
+    FaIconComponent
   ],
   templateUrl: './footer.component.html'
 })

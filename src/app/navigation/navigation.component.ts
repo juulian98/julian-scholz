@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnDestroy} from '@angular/core';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {faJs} from '@fortawesome/free-brands-svg-icons'
-import {KeyValuePipe, NgStyle} from "@angular/common";
+import {NgStyle} from "@angular/common";
 import {ThemeModeToggleComponent} from "../lib/theme-mode-toggle/theme-mode-toggle.component";
 import {Route, RouterLink} from "@angular/router";
 import {routeEntries} from "../app.routes";
@@ -12,12 +12,10 @@ import {ScrollTrigger} from "../lib/misc/gsap/gsap";
 
 @Component({
   selector: 'app-navigation',
-  standalone: true,
   imports: [
     FontAwesomeModule,
     NgStyle,
     ThemeModeToggleComponent,
-    KeyValuePipe,
     RouterLink,
     NavigationEntryComponent
   ],

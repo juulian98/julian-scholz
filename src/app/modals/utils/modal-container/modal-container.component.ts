@@ -7,7 +7,6 @@ import {ModalTemplate} from "./utils/modal-template.enum";
 
 @Component({
   selector: 'app-modal-container',
-  standalone: true,
   imports: [
     FaIconComponent,
     NgTemplateOutlet

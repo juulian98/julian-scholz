@@ -1,15 +1,13 @@
 import {Component, Input} from "@angular/core";
-import {NgClass, NgStyle} from "@angular/common";
+import {NgStyle} from "@angular/common";
 import {BookRecommendationsBookComponent} from "../book/book.component";
 import {BookModel} from "../book/models/book.model";
 
 @Component({
   selector: 'app-book-recommendations-shelf',
-  standalone: true,
   imports: [
     NgStyle,
-    BookRecommendationsBookComponent,
-    NgClass
+    BookRecommendationsBookComponent
   ],
   templateUrl: './shelf.component.html'
 })

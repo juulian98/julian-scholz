@@ -4,7 +4,6 @@ import {BookModel} from "./models/book.model";
 
 @Component({
   selector: 'app-book-recommendations-book',
-  standalone: true,
   imports: [
     NgStyle,
     NgClass,

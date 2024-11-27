@@ -20,7 +20,6 @@ import {environment} from "../../environment/environment";
 
 @Component({
   selector: 'app-favorites',
-  standalone: true,
   imports: [
     NgOptimizedImage,
     NgStyle,

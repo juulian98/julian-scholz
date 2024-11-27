@@ -2,11 +2,10 @@ import {AfterViewInit, Component, ElementRef, inject, Renderer2, ViewChild} from
 import {ThemeModeToggleService} from "./theme-mode-toggle.service";
 import {ThemeMode} from "./utils/theme-mode-toggle.enum";
 import {THEME_MODE_STORAGE_SERVICE, ThemeModeLocalStorageService} from "./theme-mode-storage.service";
-import {AsyncPipe, DOCUMENT} from "@angular/common";
+import {DOCUMENT} from "@angular/common";
 
 @Component({
   selector: 'app-theme-mode-toggle',
-  standalone: true,
   providers: [
     {
       provide: THEME_MODE_STORAGE_SERVICE,
@@ -14,9 +13,7 @@ import {AsyncPipe, DOCUMENT} from "@angular/common";
     },
   ],
   templateUrl: './theme-mode-toggle.component.html',
-  imports: [
-    AsyncPipe
-  ]
+  imports: []
 })
 export class ThemeModeToggleComponent implements AfterViewInit {
 

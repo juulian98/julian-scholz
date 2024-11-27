@@ -10,7 +10,6 @@ import {
   ViewChild
 } from '@angular/core';
 import {CommonModule, DOCUMENT} from "@angular/common";
-import {RouterOutlet} from "@angular/router";
 import {HeaderNavComponent} from "./nav/nav.component";
 import {ThemeMode} from "../lib/theme-mode-toggle/utils/theme-mode-toggle.enum";
 import {RingModel} from "./models/ring.model";
@@ -22,8 +21,7 @@ import {gsap} from "../lib/misc/gsap/gsap";
 
 @Component({
   selector: 'app-header',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet, HeaderNavComponent],
+  imports: [CommonModule, HeaderNavComponent],
   templateUrl: './header.component.html'
 })
 export class HeaderComponent implements AfterViewInit, OnDestroy {

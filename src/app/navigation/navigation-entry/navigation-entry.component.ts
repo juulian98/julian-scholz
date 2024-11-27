@@ -1,15 +1,13 @@
 import {AfterViewInit, Component, Input, OnDestroy} from '@angular/core';
 import {Route, RouterLink} from "@angular/router";
-import {AsyncPipe, NgStyle} from "@angular/common";
+import {NgStyle} from "@angular/common";
 import {ScrollTrigger} from "../../lib/misc/gsap/gsap";
 
 @Component({
   selector: 'app-navigation-entry',
-  standalone: true,
   imports: [
     NgStyle,
-    RouterLink,
-    AsyncPipe
+    RouterLink
   ],
   templateUrl: './navigation-entry.component.html'
 })

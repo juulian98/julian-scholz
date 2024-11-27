@@ -5,7 +5,6 @@ import {ScrollTrigger} from "../../lib/misc/gsap/gsap";
 
 @Component({
   selector: 'app-about-me-detail',
-  standalone: true,
   imports: [
     NgStyle,
     NgClass
