@@ -7,13 +7,13 @@
               after:bg-dark-void dark:after:bg-dark-void-light
               after:border-solid after:border-b-[1.5rem] after:border-b-dark-void dark:after:border-b-dark-void-light">
     <div [ngStyle]="{
-      '--shelf-book-gap': bookGap + 'px',
-      '--shelf-margin-left': shelfMarginLeft + 'px',
-      '--shelf-margin-right': shelfMarginRight + 'px'
+      '--shelf-book-gap': bookGap() + 'px',
+      '--shelf-margin-left': shelfMarginLeft() + 'px',
+      '--shelf-margin-right': shelfMarginRight() + 'px'
     }"
          class="relative flex *:flex-shrink-0 justify-center items-end gap-[--shelf-book-gap] top-3 ml-[--shelf-margin-left] mr-[--shelf-margin-right]">
-      @for (bookDetailEntry of bookDetails; track bookDetailEntry; let i = $index) {
-        <app-book-recommendations-book [bookIndex]="i" [bookWidth]="bookWidth"
+      @for (bookDetailEntry of bookDetails(); track bookDetailEntry; let i = $index) {
+        <app-book-recommendations-book [bookIndex]="i" [bookWidth]="bookWidth()"
                                        [bookDetails]="bookDetailEntry"></app-book-recommendations-book>
       }
     </div>

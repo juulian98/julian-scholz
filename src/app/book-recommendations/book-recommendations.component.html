@@ -1,7 +1,7 @@
 <section #bookRecommendationsSection>
   <h2>Buchtipps</h2>
   <div class="divider"></div>
-  @for (shelveRow of shelveRows; track shelveRow) {
+  @for (shelveRow of shelveRows(); track shelveRow) {
     <app-book-recommendations-shelf
       [shelfMarginLeft]="shelfMarginLeft"
       [shelfMarginRight]="shelfMarginRight"

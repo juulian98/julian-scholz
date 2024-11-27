@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, DestroyRef, inject} from '@angular/core';
+import {AfterViewInit, Component, computed, DestroyRef, inject, signal} from '@angular/core';
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {IconDefinition} from "@fortawesome/fontawesome-common-types";
 import {faCaretUp} from '@fortawesome/free-solid-svg-icons';
@@ -28,8 +28,9 @@ export class BackToTopButtonComponent implements AfterViewInit {
 
   protected readonly circumference: number = 2 * Math.PI * this.radiusInnerCircle;
 
-  protected strokeDashoffset: number = this.calculateStrokeDashoffset(0);
-  protected isVisible: boolean = false;
+  private scrollPercentage = signal<number>(0);
+  protected strokeDashoffset = computed(() => this.calculateStrokeDashoffset(this.scrollPercentage()));
+  protected isVisible = computed(() => this.scrollPercentage() >= 5);
 
   ngAfterViewInit(): void {
     fromEvent(this.angularDocument.defaultView!, 'scroll')
@@ -49,10 +50,8 @@ export class BackToTopButtonComponent implements AfterViewInit {
   protected calculateStrokeDashoffsetWithScrollPosition(): void {
     const scrollTopHeight = this.angularDocument.defaultView!.scrollY;
     const totalHeight = this.angularDocument.documentElement.scrollHeight - this.angularDocument.defaultView!.innerHeight;
-    const scrollPercentage = Math.round((scrollTopHeight / totalHeight) * 100);
-    this.strokeDashoffset = this.calculateStrokeDashoffset(scrollPercentage < 100 ? scrollPercentage : 100);
-
-    this.isVisible = scrollPercentage >= 5;
+    const newScrollPercentage = Math.round((scrollTopHeight / totalHeight) * 100);
+    this.scrollPercentage.set(Math.min(newScrollPercentage, 100));
   }
 
 }

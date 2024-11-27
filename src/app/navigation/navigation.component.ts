@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnDestroy} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, signal} from '@angular/core';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {faJs} from '@fortawesome/free-brands-svg-icons'
 import {NgStyle} from "@angular/common";
@@ -26,7 +26,7 @@ export class NavigationComponent implements AfterViewInit, OnDestroy {
   protected readonly faJs: IconDefinition = faJs;
   protected readonly routeEntries = routeEntries;
 
-  protected navbarExpanded: number = 0;
+  protected navbarExpanded = signal<number>(0);
 
   private gsapScrollTrigger: ScrollTrigger | undefined;
 
@@ -40,10 +40,10 @@ export class NavigationComponent implements AfterViewInit, OnDestroy {
     this.gsapScrollTrigger = ScrollTrigger.create({
       trigger: 'header',
       scrub: true,
-      onEnter: () => this.navbarExpanded = 0,
-      onEnterBack: () => this.navbarExpanded = 0,
-      onLeave: () => this.navbarExpanded = 1,
-      onLeaveBack: () => this.navbarExpanded = 1
+      onEnter: () => this.navbarExpanded.set(0),
+      onEnterBack: () => this.navbarExpanded.set(0),
+      onLeave: () => this.navbarExpanded.set(1),
+      onLeaveBack: () => this.navbarExpanded.set(1)
     });
   }
 

@@ -6,8 +6,8 @@ import {
   ElementRef,
   inject,
   OnDestroy,
-  Renderer2,
-  ViewChild
+  Renderer2, signal,
+  viewChild
 } from '@angular/core';
 import {CommonModule, DOCUMENT} from "@angular/common";
 import {HeaderNavComponent} from "./nav/nav.component";
@@ -35,8 +35,7 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
   private themeMode: ThemeMode | undefined;
   private windowWidth: number | undefined;
 
-  @ViewChild('canvas')
-  private readonly canvas!: ElementRef<HTMLCanvasElement>;
+  private readonly canvas = viewChild.required<ElementRef<HTMLCanvasElement>>('canvas');
   private context!: CanvasRenderingContext2D;
   private rings!: RingModel[];
   private dpi!: number;
@@ -54,7 +53,7 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
 
   protected readonly firstLine: string = 'julian';
   protected readonly secondLine: string = 'scholz.';
-  protected showCanvas: boolean = false;
+  protected showCanvas = signal<boolean>(false);
 
   ngAfterViewInit(): void {
     this.themeModeToggleService.modeChanged$
@@ -84,7 +83,7 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
 
       this.startRingAnimations();
 
-      this.showCanvas = true;
+      this.showCanvas.set(true);
     }, 500);
 
   }
@@ -115,7 +114,7 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
       return Math.round(px);
     }
 
-    this.context = this.context || this.canvas.nativeElement.getContext('2d')!;
+    this.context = this.context || this.canvas().nativeElement.getContext('2d')!;
 
     this.textCanvas = this.textCanvas || this.renderer.createElement('canvas');
     this.textContext = this.textContext || this.textCanvas.getContext('2d')!;
@@ -125,8 +124,8 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
 
     this.dpi = this.angularDocument.defaultView!.devicePixelRatio || 1;
 
-    this.ringCanvas.height = this.textCanvas.height = this.canvas.nativeElement.height = this.canvas.nativeElement.offsetHeight * this.dpi;
-    this.ringCanvas.width = this.textCanvas.width = this.canvas.nativeElement.width = this.canvas.nativeElement.offsetWidth * this.dpi;
+    this.ringCanvas.height = this.textCanvas.height = this.canvas().nativeElement.height = this.canvas().nativeElement.offsetHeight * this.dpi;
+    this.ringCanvas.width = this.textCanvas.width = this.canvas().nativeElement.width = this.canvas().nativeElement.offsetWidth * this.dpi;
 
     this.textContext.fillStyle = (this.themeMode !== ThemeMode.DARK ? TAILWIND_COLORS.snow : TAILWIND_COLORS["dark-void"].DEFAULT);
     this.textContext.textAlign = 'center';
@@ -146,12 +145,12 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
     }
 
     this.origin = {
-      x: this.canvas.nativeElement.width * 0.25,
-      y: this.canvas.nativeElement.height * 0.525,
+      x: this.canvas().nativeElement.width * 0.25,
+      y: this.canvas().nativeElement.height * 0.525,
     }
 
     this.context.globalCompositeOperation = 'source-over';
-    this.context.clearRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
+    this.context.clearRect(0, 0, this.canvas().nativeElement.width, this.canvas().nativeElement.height);
     this.context.drawImage(this.textCanvas, 0, 0);
     this.context.globalCompositeOperation = 'source-in';
 
@@ -178,7 +177,7 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
     }
     this.ringContext.fillStyle = gradient;
 
-    this.ringContext.fillRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
+    this.ringContext.fillRect(0, 0, this.canvas().nativeElement.width, this.canvas().nativeElement.height);
     this.ringContext.lineWidth = this.dpi;
     this.ringContext.lineCap = 'round';
 

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, inject, ViewChild, ViewContainerRef} from '@angular/core';
+import {AfterViewInit, Component, inject, ViewContainerRef, viewChild} from '@angular/core';
 import {HeaderComponent} from "./header/header.component";
 import {RouterOutlet} from "@angular/router";
 import {FavoritesComponent} from "./favorites/favorites.component";
@@ -42,8 +42,7 @@ export class AppComponent implements AfterViewInit {
 
   private readonly faConfig: FaConfig = inject(FaConfig);
   private readonly modalService: ModalService = inject(ModalService);
-  @ViewChild('modalContainer', {read: ViewContainerRef})
-  private readonly modalContainer!: ViewContainerRef;
+  private readonly modalContainer = viewChild.required('modalContainer', { read: ViewContainerRef });
 
   protected readonly routeEntries = routeEntries;
 
@@ -52,7 +51,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.modalService.setViewContainerRef(this.modalContainer);
+    this.modalService.setViewContainerRef(this.modalContainer());
   }
 
 }

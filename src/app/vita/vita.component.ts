@@ -6,7 +6,7 @@ import {
   OnDestroy,
   Renderer2,
   RendererStyleFlags2,
-  ViewChild
+  viewChild
 } from '@angular/core';
 import {
   faComputer,
@@ -36,8 +36,7 @@ export class VitaComponent implements AfterViewInit, OnDestroy {
 
   private readonly renderer: Renderer2 = inject(Renderer2);
   private markerIntersectionObserver: IntersectionObserver | undefined;
-  @ViewChild('vitaEntriesElement')
-  private readonly vitaEntriesElement!: ElementRef<HTMLDivElement>;
+  private readonly vitaEntriesElement = viewChild.required<ElementRef<HTMLDivElement>>('vitaEntriesElement');
 
   private readonly highlightColors = [
     TAILWIND_COLORS.vanilla.light,
@@ -115,7 +114,7 @@ export class VitaComponent implements AfterViewInit, OnDestroy {
       location: 'Gymnasium Petershagen',
       timePeriod: 'August 2009 - Juli 2017',
       description: `Schon während meiner Schulzeit entdeckte ich meine Leidenschaft für Informatik,
-                    die sich durch einen <mark><span>Informatik-Differenzierungskurs</span></mark> in der Mitteltufe entwickelte und
+                    die sich durch einen <mark><span>Informatik-Differenzierungskurs</span></mark> in der Mittelstufe entwickelte und
                     durch ein <mark><span>Praktikum im Bereich der Automatisierungstechnik</span></mark> weiter gefestigt wurde.
                     Zusätzlich war ich neben dem normalen Schulalltag als Administrator im Selbstlernzentrum des Gymnasiums tätig,
                     was mir bereits damals erste wertvolle praktische Erfahrungen einbrachte.
@@ -138,7 +137,7 @@ export class VitaComponent implements AfterViewInit, OnDestroy {
         this.renderer.setStyle(entry.target, '--vita-entry-mark-highlighted', (entry.isIntersecting ? 1 : 0), RendererStyleFlags2.DashCase);
       }
     }, {threshold: 1.0});
-    this.vitaEntriesElement.nativeElement.querySelectorAll('mark').forEach((markEntry: HTMLElement) =>
+    this.vitaEntriesElement().nativeElement.querySelectorAll('mark').forEach((markEntry: HTMLElement) =>
       this.markerIntersectionObserver?.observe(markEntry)
     );
   }

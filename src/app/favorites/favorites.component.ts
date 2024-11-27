@@ -5,8 +5,8 @@ import {
   ElementRef,
   inject,
   OnDestroy,
-  OnInit,
-  ViewChild
+  OnInit, signal,
+  viewChild
 } from '@angular/core';
 import {gsap, ScrollTrigger} from "../lib/misc/gsap/gsap";
 import {DOCUMENT, NgOptimizedImage, NgStyle} from "@angular/common";
@@ -44,14 +44,13 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   protected readonly selectedBackgroundImagePath: string =
     `${environment.imagesUrl}/favorites/bg/${gsap.utils.random(0, this.backgroundImagesCount - 1, 1)}`;
   protected readonly outlineOffset: number = 1;
-  protected outlineWidth: number = 0;
+  protected outlineWidth = signal<number>(0);
 
   private readonly showFavoritesOverlayThreshold: number = 0.6;
   private showFavoritesOverlayInitialisationDone: boolean = false;
-  protected showFavoritesOverlay: boolean = false;
+  protected showFavoritesOverlay = signal<boolean>(false);
 
-  @ViewChild('scrollImage')
-  private readonly scrollImage!: ElementRef<HTMLImageElement>;
+  private readonly scrollImage = viewChild.required<ElementRef<HTMLImageElement>>('scrollImage');
 
   private gsapTimeline: gsap.core.Timeline | undefined;
 
@@ -71,8 +70,8 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   protected afterForegroundImageLoad(): void {
     if (!this.gsapTimeline) {
       this.updateScrollImageSpacerWidth(
-        this.scrollImage.nativeElement.getBoundingClientRect().height,
-        this.scrollImage.nativeElement.getBoundingClientRect().width
+        this.scrollImage().nativeElement.getBoundingClientRect().height,
+        this.scrollImage().nativeElement.getBoundingClientRect().width
       );
 
       fromEvent(this.angularDocument.defaultView!, 'resize')
@@ -92,7 +91,7 @@ export class FavoritesComponent implements OnInit, OnDestroy {
           this.updateScrollImageSpacerWidth(height, width);
         }
       });
-      this.foregroundImageResizeObserver.observe(this.scrollImage.nativeElement);
+      this.foregroundImageResizeObserver.observe(this.scrollImage().nativeElement);
 
       this.gsapTimeline = gsap
         .timeline({
@@ -104,7 +103,7 @@ export class FavoritesComponent implements OnInit, OnDestroy {
             scrub: true,
             onUpdate: (self) => {
               if (typeof self?.progress === 'number') {
-                this.showFavoritesOverlay = self.progress >= this.showFavoritesOverlayThreshold;
+                this.showFavoritesOverlay.set(self.progress >= this.showFavoritesOverlayThreshold);
 
                 if (!this.showFavoritesOverlayInitialisationDone) {
                   self.update(true, false, false);
@@ -150,6 +149,6 @@ export class FavoritesComponent implements OnInit, OnDestroy {
     } else {
       ySpacerHeight += this.outlineOffset;
     }
-    this.outlineWidth = Math.round(Math.max(xSpacerWidth, ySpacerHeight) + 100);
+    this.outlineWidth.set(Math.round(Math.max(xSpacerWidth, ySpacerHeight) + 100));
   }
 }

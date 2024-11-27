@@ -9,7 +9,7 @@
       <span>{{ secondLine }}</span>
       <canvas #canvas
               [ngStyle]="{
-                '--header-second-line-top': showCanvas ? '0' : '200%'
+                '--header-second-line-top': showCanvas() ? '0' : '200%'
               }"
               class="absolute inset-0 size-full brightness-100 pointer-events-none
                      top-[--header-second-line-top] transition-[top] duration-1000"

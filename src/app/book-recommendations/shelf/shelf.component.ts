@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, input} from "@angular/core";
 import {NgStyle} from "@angular/common";
 import {BookRecommendationsBookComponent} from "../book/book.component";
 import {BookModel} from "../book/models/book.model";
@@ -13,10 +13,10 @@ import {BookModel} from "../book/models/book.model";
 })
 export class BookRecommendationsShelfComponent {
 
-  @Input({required: true}) public shelfMarginLeft!: number;
-  @Input({required: true}) public shelfMarginRight!: number;
-  @Input({required: true}) public bookWidth!: number;
-  @Input({required: true}) public bookGap!: number;
-  @Input({required: true}) public bookDetails!: BookModel[];
+  public readonly shelfMarginLeft = input.required<number>();
+  public readonly shelfMarginRight = input.required<number>();
+  public readonly bookWidth = input.required<number>();
+  public readonly bookGap = input.required<number>();
+  public readonly bookDetails = input.required<BookModel[]>();
 
 }

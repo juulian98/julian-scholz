@@ -1,15 +1,15 @@
 <div
   [ngStyle]="{
-    '--header-nav-i': navigationEntryIndex,
-    '--header-nav-active': opacity
+    '--header-nav-i': navigationEntryIndex(),
+    '--header-nav-active': opacity()
   }"
   class="h-full opacity-[--header-nav-expanded]
          transition-opacity duration-200 delay-[calc(750ms+(var(--header-nav-i)*50ms))]
          hover:*:opacity-100 focus-visible:*:opacity-100"
 >
-  <a [routerLink]="['/']" [fragment]="navigationEntry.path"
+  <a [routerLink]="['/']" [fragment]="navigationEntry().path"
      class="h-full grid place-items-center whitespace-nowrap text-snow
             opacity-[calc(0.5+(var(--header-nav-active)))] transition-opacity duration-200">
-    <span>{{ navigationEntry.title }}</span>
+    <span>{{ navigationEntry().title }}</span>
   </a>
 </div>

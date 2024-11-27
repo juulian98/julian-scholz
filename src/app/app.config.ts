@@ -1,4 +1,4 @@
-import {ApplicationConfig} from '@angular/core';
+import {ApplicationConfig, provideExperimentalZonelessChangeDetection} from '@angular/core';
 import {InMemoryScrollingFeature, provideRouter, withInMemoryScrolling} from '@angular/router';
 
 import {routes} from './app.routes';
@@ -9,5 +9,8 @@ const inMemoryScrollingFeature: InMemoryScrollingFeature =
     anchorScrolling: 'enabled',
   });
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes, inMemoryScrollingFeature)]
+  providers: [
+    provideRouter(routes, inMemoryScrollingFeature),
+    provideExperimentalZonelessChangeDetection()
+  ]
 };
