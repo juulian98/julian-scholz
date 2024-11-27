@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, DestroyRef, ElementRef, inject, ViewChild} from "@angular/core";
+import {AfterViewInit, ChangeDetectorRef, Component, DestroyRef, ElementRef, inject, viewChild} from "@angular/core";
 import {BookRecommendationsShelfComponent} from "./shelf/shelf.component";
 import {BookModel} from "./book/models/book.model";
 import {DOCUMENT} from "@angular/common";
@@ -20,8 +20,7 @@ export class BookRecommendationsComponent implements AfterViewInit {
   private readonly changeDetectorRef: ChangeDetectorRef = inject(ChangeDetectorRef);
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
-  @ViewChild('bookRecommendationsSection')
-  private readonly section!: ElementRef<HTMLElement>;
+  private readonly section = viewChild.required<ElementRef<HTMLElement>>('bookRecommendationsSection');
 
   private readonly shelfMinFreeSpace: number = 100;
   protected readonly shelfMarginLeft: number = 40;
@@ -109,8 +108,8 @@ export class BookRecommendationsComponent implements AfterViewInit {
   private recalculateShelves(shuffleBookOrder: boolean): void {
     const newShelveRows: BookModel[][] = [];
 
-    const sectionStyle = this.angularDocument.defaultView!.getComputedStyle(this.section.nativeElement);
-    const availableSectionWidth = this.section.nativeElement.clientWidth - (parseFloat(sectionStyle.paddingLeft) + parseFloat(sectionStyle.paddingRight));
+    const sectionStyle = this.angularDocument.defaultView!.getComputedStyle(this.section().nativeElement);
+    const availableSectionWidth = this.section().nativeElement.clientWidth - (parseFloat(sectionStyle.paddingLeft) + parseFloat(sectionStyle.paddingRight));
 
     const minNeededWidthForRow = this.shelfMarginLeft + this.shelfMarginRight;
 

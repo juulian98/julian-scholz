@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, inject, Renderer2, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, inject, Renderer2, viewChild} from '@angular/core';
 import {ThemeModeToggleService} from "./theme-mode-toggle.service";
 import {ThemeMode} from "./utils/theme-mode-toggle.enum";
 import {THEME_MODE_STORAGE_SERVICE, ThemeModeLocalStorageService} from "./theme-mode-storage.service";
@@ -22,12 +22,11 @@ export class ThemeModeToggleComponent implements AfterViewInit {
 
   private readonly themeModeToggleService: ThemeModeToggleService = inject(ThemeModeToggleService);
 
-  @ViewChild('themeModeCheckbox')
-  private readonly themeModeCheckbox!: ElementRef<HTMLInputElement>;
+  private readonly themeModeCheckbox = viewChild.required<ElementRef<HTMLInputElement>>('themeModeCheckbox');
 
   ngAfterViewInit(): void {
     this.themeModeToggleService.init(this.renderer, this.angularDocument)
-      .then((themeMode: ThemeMode) => this.renderer.setProperty(this.themeModeCheckbox.nativeElement, 'checked', themeMode === ThemeMode.DARK))
+      .then((themeMode: ThemeMode) => this.renderer.setProperty(this.themeModeCheckbox().nativeElement, 'checked', themeMode === ThemeMode.DARK))
       .catch(error => console.error(error));
   }
 

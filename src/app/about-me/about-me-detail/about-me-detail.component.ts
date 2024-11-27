@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnDestroy} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, input} from '@angular/core';
 import {NgClass, NgStyle} from "@angular/common";
 import {AboutMeDetailModel} from "./models/about-me-detail.model";
 import {ScrollTrigger} from "../../lib/misc/gsap/gsap";
@@ -13,9 +13,9 @@ import {ScrollTrigger} from "../../lib/misc/gsap/gsap";
 })
 export class AboutMeDetailComponent implements AfterViewInit, OnDestroy {
 
-  @Input({required: true}) public scrollTrigger!: HTMLElement;
-  @Input({required: true}) public detail!: AboutMeDetailModel;
-  @Input({required: true}) public ppc!: number;
+  public readonly scrollTrigger = input.required<HTMLElement>();
+  public readonly detail = input.required<AboutMeDetailModel>();
+  public readonly ppc = input.required<number>();
 
   protected active: number = 0;
 
@@ -23,9 +23,9 @@ export class AboutMeDetailComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.gsapScrollTrigger = ScrollTrigger.create({
-      trigger: this.scrollTrigger,
-      start: `top top-=${this.detail.start * this.ppc}`,
-      end: `top top-=${this.detail.end * this.ppc}`,
+      trigger: this.scrollTrigger(),
+      start: `top top-=${this.detail().start * this.ppc()}`,
+      end: `top top-=${this.detail().end * this.ppc()}`,
       scrub: true,
       onEnter: () => this.active = 1,
       onEnterBack: () => this.active = 0,

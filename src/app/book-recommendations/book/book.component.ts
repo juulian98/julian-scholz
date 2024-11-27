@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, input} from "@angular/core";
 import {NgClass, NgOptimizedImage, NgStyle} from "@angular/common";
 import {BookModel} from "./models/book.model";
 
@@ -13,9 +13,9 @@ import {BookModel} from "./models/book.model";
 })
 export class BookRecommendationsBookComponent {
 
-  @Input({required: true}) public bookIndex!: number;
-  @Input({required: true}) public bookWidth!: number;
-  @Input({required: true}) public bookDetails!: BookModel;
+  public readonly bookIndex = input.required<number>();
+  public readonly bookWidth = input.required<number>();
+  public readonly bookDetails = input.required<BookModel>();
 
   protected isBookCoverOpen: boolean = false;
 

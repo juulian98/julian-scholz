@@ -6,7 +6,7 @@ import {
   inject,
   OnDestroy,
   OnInit,
-  ViewChild
+  viewChild
 } from '@angular/core';
 import {gsap, ScrollTrigger} from "../lib/misc/gsap/gsap";
 import {DOCUMENT, NgOptimizedImage, NgStyle} from "@angular/common";
@@ -50,8 +50,7 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   private showFavoritesOverlayInitialisationDone: boolean = false;
   protected showFavoritesOverlay: boolean = false;
 
-  @ViewChild('scrollImage')
-  private readonly scrollImage!: ElementRef<HTMLImageElement>;
+  private readonly scrollImage = viewChild.required<ElementRef<HTMLImageElement>>('scrollImage');
 
   private gsapTimeline: gsap.core.Timeline | undefined;
 
@@ -71,8 +70,8 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   protected afterForegroundImageLoad(): void {
     if (!this.gsapTimeline) {
       this.updateScrollImageSpacerWidth(
-        this.scrollImage.nativeElement.getBoundingClientRect().height,
-        this.scrollImage.nativeElement.getBoundingClientRect().width
+        this.scrollImage().nativeElement.getBoundingClientRect().height,
+        this.scrollImage().nativeElement.getBoundingClientRect().width
       );
 
       fromEvent(this.angularDocument.defaultView!, 'resize')
@@ -92,7 +91,7 @@ export class FavoritesComponent implements OnInit, OnDestroy {
           this.updateScrollImageSpacerWidth(height, width);
         }
       });
-      this.foregroundImageResizeObserver.observe(this.scrollImage.nativeElement);
+      this.foregroundImageResizeObserver.observe(this.scrollImage().nativeElement);
 
       this.gsapTimeline = gsap
         .timeline({

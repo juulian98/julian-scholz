@@ -1,6 +1,6 @@
 <article [ngStyle]="{
-  '--book-index': bookIndex,
-  '--book-backface-color': bookDetails.backfaceColor,
+  '--book-index': bookIndex(),
+  '--book-backface-color': bookDetails().backfaceColor,
   '--book-page-padding': '1rem'
 }">
   <ul>
@@ -9,14 +9,14 @@
       class="group/item relative inline-block text-dark-void before:absolute before:block before:top-0 before:left-0.5 before:w-0.5 before:h-full before:bg-transparent
              before:shadow-[inset_0_0_1px_theme(colors.dark-void.dark/0.7)] before:transition-all before:ease-[ease] before:duration-500 before:z-[31]">
       <img
-        [ngSrc]="bookDetails.cover.imagePath" [width]="bookWidth" [height]="bookDetails.cover.height"
+        [ngSrc]="bookDetails().cover.imagePath" [width]="bookWidth()" [height]="bookDetails().cover.height"
         disableOptimizedSrcset
         [loaderParams]="{imageFormat: 'webp'}" priority
         [ngClass]="{'![transform:perspective(1500px)_rotateY(-150deg)] !shadow-[3px_1px_7px_theme(colors.dark-void.dark/0.5)]': isBookCoverOpen}"
         class="relative rounded-[2px_3px_3px_2px] origin-[0_70%] transition-all ease-[ease] duration-500
                shadow-[1px_1px_4px_theme(colors.dark-void.dark/0.5)] [backface-visibility:hidden] opacity-100 cursor-pointer z-[calc(21+var(--book-index))]
                group-hover/item:[transform:perspective(1500px)_rotateY(-22deg)] group-hover/item:shadow-[3px_1px_7px_theme(colors.dark-void.dark/0.5)]"
-        [alt]="bookDetails.details.title + ': ' + bookDetails.details.subtitle"
+        [alt]="bookDetails().details.title + ': ' + bookDetails().details.subtitle"
         (click)="toggleCoverOpen()"/>
       <div [ngClass]="{'![transform:perspective(1500px)_rotateY(-300deg)] sm:![transform:perspective(1500px)_rotateY(-330deg)] !ml-[1px]': isBookCoverOpen}"
            class="absolute top-0 -left-full w-full h-full [transform:perspective(1500px)_rotateY(-180deg)] origin-[100%_70%]
@@ -26,7 +26,7 @@
                   group-hover/item:[transform:perspective(1500px)_rotateY(-202deg)]" (click)="toggleCoverOpen()">
         <div class="flex h-full items-center justify-center p-[calc(2*var(--book-page-padding))] sm:p-[--book-page-padding] overflow-hidden text-center">
           <div class="book-cover">
-            <a [href]="bookDetails.url" target="_blank" (click)="$event.stopPropagation()">Zum Buch von {{ bookDetails.details.author }}</a>
+            <a [href]="bookDetails().url" target="_blank" (click)="$event.stopPropagation()">Zum Buch von {{ bookDetails().details.author }}</a>
           </div>
         </div>
       </div>
@@ -40,10 +40,10 @@
           <li class="top-0 left-0 z-[5] p-[--book-page-padding] overflow-hidden
                      !shadow-[1px_1px_1px_1px_theme(colors.dark-void.dark/0.2),inset_7px_0_10px_-5px_theme(colors.dark-void.dark/0.15),inset_0_0_60px_theme(colors.dark-void.dark/0.1)]">
             <div class="*:leading-none">
-              <h3 class="text-lg text-center">{{ bookDetails.details.title }}</h3>
-              <h4 class="text-sm text-center">{{ bookDetails.details.subtitle }}</h4>
+              <h3 class="text-lg text-center">{{ bookDetails().details.title }}</h3>
+              <h4 class="text-sm text-center">{{ bookDetails().details.subtitle }}</h4>
               <div class="divider mx-auto my-3 max-w-[50%]"></div>
-              <p class="text-sm">{{ bookDetails.details.summary }}</p>
+              <p class="text-sm">{{ bookDetails().details.summary }}</p>
             </div>
             <span class="absolute right-0 bottom-0 me-2 mb-2 text-xs">1</span>
           </li>
