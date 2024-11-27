@@ -6,7 +6,7 @@ export const onRequest: PagesFunction = async (context) => {
     let text = await response.text();
     text = text.replace(/nonce="DUMMY_NONCE_VALUE"/g, `nonce="${nonce}"`);
 
-    response.headers.set("Content-Security-Policy", `default-src 'self'; base-uri 'self'; style-src 'self' 'nonce-${nonce}'; script-src 'self' 'nonce-${nonce}'; img-src 'self' https://images.julian-scholz.dev;`);
+    response.headers.set("Content-Security-Policy", `default-src 'none'; base-uri 'self'; style-src 'self' 'nonce-${nonce}'; script-src 'nonce-${nonce}' 'unsafe-inline'; font-src 'self'; connect-src 'self'; img-src 'self' https://images.julian-scholz.dev;`);
 
     return new Response(text, response);
   }
