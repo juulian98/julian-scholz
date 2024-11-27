@@ -6,7 +6,7 @@
             [--header-nav-logo-gap:0.5rem]
             sm:[--header-nav-logo-gap:0.75rem]"
 >
-  <nav [ngStyle]="{'--header-nav-expanded': navbarExpanded}"
+  <nav [ngStyle]="{'--header-nav-expanded': navbarExpanded()}"
        class="h-12 pl-0 flex rounded-5xl overflow-hidden bg-dark-void dark:bg-dark-void-light text-sm"
   >
     <div [ngStyle]="{'--header-nav-item-count': sortedRouteEntries.length}"

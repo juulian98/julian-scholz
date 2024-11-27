@@ -114,7 +114,7 @@ export class VitaComponent implements AfterViewInit, OnDestroy {
       location: 'Gymnasium Petershagen',
       timePeriod: 'August 2009 - Juli 2017',
       description: `Schon während meiner Schulzeit entdeckte ich meine Leidenschaft für Informatik,
-                    die sich durch einen <mark><span>Informatik-Differenzierungskurs</span></mark> in der Mitteltufe entwickelte und
+                    die sich durch einen <mark><span>Informatik-Differenzierungskurs</span></mark> in der Mittelstufe entwickelte und
                     durch ein <mark><span>Praktikum im Bereich der Automatisierungstechnik</span></mark> weiter gefestigt wurde.
                     Zusätzlich war ich neben dem normalen Schulalltag als Administrator im Selbstlernzentrum des Gymnasiums tätig,
                     was mir bereits damals erste wertvolle praktische Erfahrungen einbrachte.

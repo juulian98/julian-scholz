@@ -6,7 +6,7 @@ import {
   ElementRef,
   inject,
   OnDestroy,
-  Renderer2,
+  Renderer2, signal,
   viewChild
 } from '@angular/core';
 import {CommonModule, DOCUMENT} from "@angular/common";
@@ -53,7 +53,7 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
 
   protected readonly firstLine: string = 'julian';
   protected readonly secondLine: string = 'scholz.';
-  protected showCanvas: boolean = false;
+  protected showCanvas = signal<boolean>(false);
 
   ngAfterViewInit(): void {
     this.themeModeToggleService.modeChanged$
@@ -83,7 +83,7 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
 
       this.startRingAnimations();
 
-      this.showCanvas = true;
+      this.showCanvas.set(true);
     }, 500);
 
   }

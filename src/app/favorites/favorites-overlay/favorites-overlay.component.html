@@ -1,6 +1,6 @@
 <div [ngStyle]="{
-  '--favorites-overlay-border-radius': borderRadius,
-  '--favorites-overlay-tag-list-cols': tagList.length,
+  '--favorites-overlay-border-radius': borderRadius(),
+  '--favorites-overlay-tag-list-cols': tagList().length,
   '--favorites-overlay-tag-list-item-py': '0.5rem',
   '--favorites-overlay-tag-list-item-line-height': '1.75rem'
 }"
@@ -13,7 +13,7 @@
      (click)="processOverlayChanges(true)">
   <div
     class="h-full flex flex-col gap-x-0 gap-y-[--favorites-overlay-items-gap-y] relative px-0 py-[--favorites-overlay-py]">
-    @for (tagListEntry of tagList; track tagListEntry; let i = $index) {
+    @for (tagListEntry of tagList(); track tagListEntry; let i = $index) {
       <div
         [ngStyle]="{
           '--favorites-overlay-entry-direction': i % 2 ? 'reverse': 'normal',

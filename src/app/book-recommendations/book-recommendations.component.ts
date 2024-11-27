@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, DestroyRef, ElementRef, inject, viewChild} from "@angular/core";
+import {AfterViewInit, Component, DestroyRef, ElementRef, inject, signal, viewChild} from "@angular/core";
 import {BookRecommendationsShelfComponent} from "./shelf/shelf.component";
 import {BookModel} from "./book/models/book.model";
 import {DOCUMENT} from "@angular/common";
@@ -17,7 +17,6 @@ import {environment} from "../../environment/environment";
 export class BookRecommendationsComponent implements AfterViewInit {
 
   private readonly angularDocument: Document = inject(DOCUMENT);
-  private readonly changeDetectorRef: ChangeDetectorRef = inject(ChangeDetectorRef);
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   private readonly section = viewChild.required<ElementRef<HTMLElement>>('bookRecommendationsSection');
@@ -91,7 +90,7 @@ export class BookRecommendationsComponent implements AfterViewInit {
       }
     }
   ];
-  protected shelveRows: BookModel[][] = [];
+  protected shelveRows = signal<BookModel[][]>([]);
 
   ngAfterViewInit(): void {
     fromEvent(this.angularDocument.defaultView!, 'resize')
@@ -138,9 +137,8 @@ export class BookRecommendationsComponent implements AfterViewInit {
       newShelveRows.push(currentBooksInRow);
     }
 
-    if (!this.isShelvesLengthEqual(this.shelveRows, newShelveRows)) {
-      this.shelveRows = newShelveRows;
-      this.changeDetectorRef.detectChanges();
+    if (!this.isShelvesLengthEqual(this.shelveRows(), newShelveRows)) {
+      this.shelveRows.set(newShelveRows);
     }
   }
 

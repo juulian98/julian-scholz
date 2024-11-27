@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, inject} from "@angular/core";
+import {ChangeDetectorRef, Component, inject, signal} from "@angular/core";
 import {NgStyle} from "@angular/common";
 import {FavoritesOverlayEntryModel} from "./models/favorites-overlay-entry.model";
 import tagListData from "../../../tag-list.json";
@@ -20,8 +20,20 @@ export class FavoritesOverlayComponent {
   private readonly minBorderRadiusValue: number = 18;
   private readonly maxBorderRadiusValue: number = 82;
   private readonly randomBorderRadius: () => number = gsap.utils.random(this.minBorderRadiusValue, this.maxBorderRadiusValue, 1, true);
-  protected borderRadius!: string;
-  protected readonly tagList: FavoritesOverlayEntryModel[] = tagListData;
+
+  protected borderRadius = signal<string>("");
+  protected readonly tagList = signal<FavoritesOverlayEntryModel[]>([...tagListData]);
+
+  constructor() {
+    this.tagList.update(list => {
+      list.forEach(entry => {
+        entry.duration = this.getRandomDuration();
+      });
+      return list;
+    });
+
+    this.processOverlayChanges(false);
+  }
 
   protected getRandomDuration(): string {
     const min = this.duration - this.durationSpread;
@@ -29,50 +41,50 @@ export class FavoritesOverlayComponent {
     return `${gsap.utils.random(min, max, 1)}ms`;
   }
 
-  constructor() {
-    this.processOverlayChanges(false);
-
-    Object.values(this.tagList).forEach(entry => {
-      entry.duration = this.getRandomDuration();
-    });
-  }
-
   protected processOverlayChanges(withAnimation: boolean): void {
-    if (withAnimation) {
-      this.generateNewBorderRadius();
-      gsap.to('.favorites-overlay-tag-list-item', {
-        opacity: 0,
-        duration: 0.5,
-        stagger: {
-          from: 'random',
-          each: 0.1
-        },
-        ease: "power1.in",
-        onComplete: () => {
-          gsap.utils.shuffle(this.tagList);
-          this.changeDetectorRef.detectChanges();
+    this.generateNewBorderRadius();
 
-          gsap.to('.favorites-overlay-tag-list-item', {
-            opacity: 1,
-            duration: 0.6,
-            stagger: {
-              from: 'random',
-              each: 0.1
-            },
-            ease: "power1.out"
-          });
-        }
-      });
+    if (withAnimation) {
+      this.animateOverlayChanges();
     } else {
-      this.generateNewBorderRadius();
-      gsap.utils.shuffle(this.tagList);
+      this.shuffleTagList();
     }
   }
 
   private generateNewBorderRadius(): void {
     const fourRandomNumbers = Array.from({length: 4}, () => this.randomBorderRadius());
-    this.borderRadius = `${fourRandomNumbers[0]}% ${100 - fourRandomNumbers[0]}% ${fourRandomNumbers[1]}% ${100 - fourRandomNumbers[1]}% /
-    ${fourRandomNumbers[2]}% ${fourRandomNumbers[3]}% ${100 - fourRandomNumbers[3]}% ${100 - fourRandomNumbers[2]}%`;
+    this.borderRadius.set(`${fourRandomNumbers[0]}% ${100 - fourRandomNumbers[0]}% ${fourRandomNumbers[1]}% ${100 - fourRandomNumbers[1]}% /
+    ${fourRandomNumbers[2]}% ${fourRandomNumbers[3]}% ${100 - fourRandomNumbers[3]}% ${100 - fourRandomNumbers[2]}%`);
+  }
+
+  private shuffleTagList(): void {
+    const shuffledList = gsap.utils.shuffle([...this.tagList()]);
+    this.tagList.set(shuffledList);
+  }
+
+  private animateOverlayChanges(): void {
+    gsap.to('.favorites-overlay-tag-list-item', {
+      opacity: 0,
+      duration: 0.5,
+      stagger: {
+        from: 'random',
+        each: 0.1
+      },
+      ease: "power1.in",
+      onComplete: () => {
+        this.shuffleTagList();
+
+        gsap.to('.favorites-overlay-tag-list-item', {
+          opacity: 1,
+          duration: 0.6,
+          stagger: {
+            from: 'random',
+            each: 0.1
+          },
+          ease: "power1.out"
+        });
+      }
+    });
   }
 
 }

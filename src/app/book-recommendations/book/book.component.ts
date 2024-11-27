@@ -1,4 +1,4 @@
-import {Component, input} from "@angular/core";
+import {Component, input, signal} from "@angular/core";
 import {NgClass, NgOptimizedImage, NgStyle} from "@angular/common";
 import {BookModel} from "./models/book.model";
 
@@ -17,9 +17,9 @@ export class BookRecommendationsBookComponent {
   public readonly bookWidth = input.required<number>();
   public readonly bookDetails = input.required<BookModel>();
 
-  protected isBookCoverOpen: boolean = false;
+  protected isBookCoverOpen = signal<boolean>(false);
 
   protected toggleCoverOpen(): void {
-    this.isBookCoverOpen = !this.isBookCoverOpen;
+    this.isBookCoverOpen.update(current => !current);
   }
 }

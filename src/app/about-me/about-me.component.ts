@@ -11,7 +11,7 @@ import {AboutMeDetailComponent} from "./about-me-detail/about-me-detail.componen
   ],
   templateUrl: './about-me.component.html'
 })
-export class AboutMeComponent implements AfterViewInit {
+export class AboutMeComponent {
 
   protected readonly buffer: number = 40;
   protected readonly ppc: number = 10;
@@ -26,9 +26,11 @@ export class AboutMeComponent implements AfterViewInit {
   protected readonly splitTexts: string[] = [this.firstSplitText, this.secondSplitText, this.thirdSplitText, this.fourthSplitText];
   protected readonly contentLength: number = this.splitTexts.reduce((sum, str) => sum + str.length, 0);
 
-  protected detailList: AboutMeDetailModel[] = [];
+  protected readonly detailList: AboutMeDetailModel[];
 
-  ngAfterViewInit(): void {
+  constructor() {
+    this.detailList = [];
+
     let wordSum = 10;
     this.splitTexts.forEach((splitText, splitTextIndex) => {
       const words = splitText.split(' ');

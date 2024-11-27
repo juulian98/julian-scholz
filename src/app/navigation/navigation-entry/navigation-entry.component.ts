@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnDestroy, input} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, input, signal} from '@angular/core';
 import {Route, RouterLink} from "@angular/router";
 import {NgStyle} from "@angular/common";
 import {ScrollTrigger} from "../../lib/misc/gsap/gsap";
@@ -17,7 +17,7 @@ export class NavigationEntryComponent implements AfterViewInit, OnDestroy {
   public readonly navigationEntryIndex = input.required<number>();
   public readonly navigationLastEntry = input.required<boolean>();
 
-  protected opacity: number = 0;
+  protected opacity = signal<number>(0);
 
   private gsapScrollTrigger: ScrollTrigger | undefined;
 
@@ -28,10 +28,10 @@ export class NavigationEntryComponent implements AfterViewInit, OnDestroy {
       endTrigger: `#${this.navigationEntry().path}`,
       end: 'bottom-=5 top',
       scrub: true,
-      onEnter: () => this.opacity = 1,
-      onEnterBack: () => this.opacity = 1,
-      onLeave: () => this.opacity = (this.navigationLastEntry() ? 1 : 0),
-      onLeaveBack: () => this.opacity = 0
+      onEnter: () => this.opacity.set(1),
+      onEnterBack: () => this.opacity.set(1),
+      onLeave: () => this.opacity.set(this.navigationLastEntry() ? 1 : 0),
+      onLeaveBack: () => this.opacity.set(0)
     });
   }
 
