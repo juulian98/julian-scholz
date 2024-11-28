@@ -3,7 +3,6 @@ import {HeaderComponent} from "./header/header.component";
 import {NavigationComponent} from "./navigation/navigation.component";
 import {BackToTopButtonComponent} from "./back-to-top-button/back-to-top-button.component";
 import {ModalService} from "./modals/modal.service";
-import {FaConfig} from '@fortawesome/angular-fontawesome';
 import {IMAGE_LOADER, ImageLoaderConfig} from "@angular/common";
 import {AboutMeComponent} from "./about-me/about-me.component";
 import {BookRecommendationsComponent} from "./book-recommendations/book-recommendations.component";
@@ -38,15 +37,10 @@ import {navigationEntries} from "./app.routes";
 })
 export class AppComponent implements AfterViewInit {
 
-  private readonly faConfig: FaConfig = inject(FaConfig);
   private readonly modalService: ModalService = inject(ModalService);
   private readonly modalContainer = viewChild.required('modalContainer', {read: ViewContainerRef});
 
   protected readonly navigationEntries = navigationEntries;
-
-  constructor() {
-    this.faConfig.autoAddCss = false;
-  }
 
   ngAfterViewInit(): void {
     this.modalService.setViewContainerRef(this.modalContainer());

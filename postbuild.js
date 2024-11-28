@@ -29,7 +29,6 @@ fs.readFile(indexPath, 'utf8', (err, data) => {
   }
 
   const indexResult = data
-    .replace('</style>', '.svg-inline--fa{display:none}</style>')
     .replace(
       'content="DUMMY_KEYWORDS_VALUE"',
       `content="${tagList.flatMap(item => item.tags).join(', ')}"`
