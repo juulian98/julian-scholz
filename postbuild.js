@@ -10,6 +10,17 @@ if (!tagList || !tagList.length || !(tagList.length > 0)) {
   process.exit(1);
 }
 
+const indexCsrPath = path.join(__dirname, 'dist', 'julian-scholz', 'browser', 'index.csr.html');
+if (fs.existsSync(indexCsrPath)) {
+  try {
+    fs.rmSync(indexCsrPath);
+    console.log(`${prefix} Deleted index.csr.html.`);
+  } catch (err) {
+    console.error(`${prefix}`, err);
+    process.exit(1);
+  }
+}
+
 const indexPath = path.join(__dirname, 'dist', 'julian-scholz', 'browser', 'index.html');
 fs.readFile(indexPath, 'utf8', (err, data) => {
   if (err) {

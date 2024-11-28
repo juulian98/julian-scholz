@@ -33,7 +33,10 @@
               "src/styles.scss",
               "node_modules/@fortawesome/fontawesome-svg-core/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "server": "src/main.server.ts",
+            "prerender": true,
+            "ssr": false
           },
           "configurations": {
             "production": {
