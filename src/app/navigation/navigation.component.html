@@ -13,13 +13,14 @@
          class="grid grid-cols-[auto_calc(var(--header-nav-expanded)*(var(--header-nav-item-count)*var(--header-nav-item-width)))_auto]
                 transition-[grid-template-columns] duration-1000 ease-header-nav-function"
     >
-      <a (click)="navigateToTop()" class="w-12 grid place-items-center pl-[--header-nav-logo-gap] cursor-pointer" aria-label="JS">
+      <button class="w-12 grid place-items-center pl-[--header-nav-logo-gap]" (click)="navigateToTop()"
+              aria-label="Zurück zum Seitenanfang">
         <fa-icon [icon]="faJs" size="xl"
                  class="text-vanilla
                         hover:[--header-nav-intent:1] focus-visible:[--header-nav-intent:1]
                         rotate-[calc(var(--header-nav-intent,0)*360deg)] transition-transform duration-500">
         </fa-icon>
-      </a>
+      </button>
       <ul class="flex items-center m-0 py-0 px-[--header-nav-ul-gap] list-none">
         @for (navigationEntry of sortedRouteEntries; track navigationEntry; let i = $index; let isLast = $last) {
           <li

@@ -7,9 +7,9 @@
          transition-opacity duration-200 delay-[calc(750ms+(var(--header-nav-i)*50ms))]
          hover:*:opacity-100 focus-visible:*:opacity-100"
 >
-  <a (click)="navigateTo(navigationEntry().id)"
-     class="h-full grid place-items-center whitespace-nowrap text-snow cursor-pointer
-            opacity-[calc(0.5+(var(--header-nav-active)))] transition-opacity duration-200">
+  <button class="size-full grid place-items-center whitespace-nowrap text-snow
+            opacity-[calc(0.5+(var(--header-nav-active)))] transition-opacity duration-200"
+          (click)="navigateTo(navigationEntry().id)">
     <span>{{ navigationEntry().title }}</span>
-  </a>
+  </button>
 </div>
