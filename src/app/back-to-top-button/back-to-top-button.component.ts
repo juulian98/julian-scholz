@@ -2,8 +2,7 @@ import {AfterViewInit, Component, computed, DestroyRef, inject, signal} from '@a
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {IconDefinition} from "@fortawesome/fontawesome-common-types";
 import {faCaretUp} from '@fortawesome/free-solid-svg-icons';
-import {Router} from "@angular/router";
-import {DOCUMENT, NgStyle} from "@angular/common";
+import {DOCUMENT, NgStyle, ViewportScroller} from "@angular/common";
 import {fromEvent} from "rxjs";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
@@ -17,8 +16,8 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 })
 export class BackToTopButtonComponent implements AfterViewInit {
 
-  private readonly router: Router = inject(Router);
   private readonly angularDocument: Document = inject(DOCUMENT);
+  private readonly viewportScroller: ViewportScroller = inject(ViewportScroller);
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   protected readonly faCaretUp: IconDefinition = faCaretUp;
@@ -40,7 +39,7 @@ export class BackToTopButtonComponent implements AfterViewInit {
   }
 
   protected navigateToTop(): void {
-    this.router.navigate(['/']);
+    this.viewportScroller.scrollToPosition([0, 0]);
   }
 
   private calculateStrokeDashoffset(scrollPercentage: number): number {

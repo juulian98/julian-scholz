@@ -1,28 +1,26 @@
-import {AfterViewInit, Component, inject, ViewContainerRef, viewChild} from '@angular/core';
+import {AfterViewInit, Component, inject, viewChild, ViewContainerRef} from '@angular/core';
 import {HeaderComponent} from "./header/header.component";
-import {RouterOutlet} from "@angular/router";
-import {FavoritesComponent} from "./favorites/favorites.component";
 import {NavigationComponent} from "./navigation/navigation.component";
-import {routeEntries} from "./app.routes";
-import {VitaComponent} from "./vita/vita.component";
-import {AboutMeComponent} from "./about-me/about-me.component";
 import {BackToTopButtonComponent} from "./back-to-top-button/back-to-top-button.component";
 import {ModalService} from "./modals/modal.service";
 import {FaConfig} from '@fortawesome/angular-fontawesome';
 import {IMAGE_LOADER, ImageLoaderConfig} from "@angular/common";
+import {AboutMeComponent} from "./about-me/about-me.component";
 import {BookRecommendationsComponent} from "./book-recommendations/book-recommendations.component";
+import {FavoritesComponent} from "./favorites/favorites.component";
+import {VitaComponent} from "./vita/vita.component";
+import {navigationEntries} from "./app.routes";
 
 @Component({
   selector: 'app-root',
   imports: [
-    RouterOutlet,
     HeaderComponent,
-    FavoritesComponent,
     NavigationComponent,
-    VitaComponent,
-    AboutMeComponent,
     BackToTopButtonComponent,
-    BookRecommendationsComponent
+    AboutMeComponent,
+    BookRecommendationsComponent,
+    FavoritesComponent,
+    VitaComponent
   ],
   providers: [
     {
@@ -42,9 +40,9 @@ export class AppComponent implements AfterViewInit {
 
   private readonly faConfig: FaConfig = inject(FaConfig);
   private readonly modalService: ModalService = inject(ModalService);
-  private readonly modalContainer = viewChild.required('modalContainer', { read: ViewContainerRef });
+  private readonly modalContainer = viewChild.required('modalContainer', {read: ViewContainerRef});
 
-  protected readonly routeEntries = routeEntries;
+  protected readonly navigationEntries = navigationEntries;
 
   constructor() {
     this.faConfig.autoAddCss = false;

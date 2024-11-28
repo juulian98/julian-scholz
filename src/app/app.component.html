@@ -8,20 +8,18 @@
   <app-about-me></app-about-me>
 
   <app-book-recommendations
-    [id]="routeEntries.bookRecommendations.path"
+    [id]="navigationEntries.bookRecommendations.id"
   ></app-book-recommendations>
 
   <app-vita
-    [id]="routeEntries.vita.path"
+    [id]="navigationEntries.vita.id"
   ></app-vita>
 
   <app-favorites
-    [id]="routeEntries.favorites.path"
+    [id]="navigationEntries.favorites.id"
   ></app-favorites>
 </main>
 
 <app-back-to-top-button></app-back-to-top-button>
 
 <ng-container #modalContainer></ng-container>
-
-<router-outlet></router-outlet>

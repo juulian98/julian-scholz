@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, inject, signal} from "@angular/core";
+import {Component, signal} from "@angular/core";
 import {NgStyle} from "@angular/common";
 import {FavoritesOverlayEntryModel} from "./models/favorites-overlay-entry.model";
 import tagListData from "../../../tag-list.json";
@@ -12,7 +12,6 @@ import {gsap} from "../../lib/misc/gsap/gsap";
   templateUrl: './favorites-overlay.component.html'
 })
 export class FavoritesOverlayComponent {
-  private readonly changeDetectorRef: ChangeDetectorRef = inject(ChangeDetectorRef);
 
   private readonly duration: number = 15000;
   private readonly durationSpread: number = 5000;

@@ -1,20 +1,23 @@
-import {Route, Routes} from '@angular/router';
-import {FavoritesComponent} from "./favorites/favorites.component";
-import {VitaComponent} from "./vita/vita.component";
-import {BookRecommendationsComponent} from "./book-recommendations/book-recommendations.component";
+import {NavigationEntryModel} from "./navigation/navigation-entry/models/navigation-entry.model";
 
 const routeIds = ["bookRecommendations", "vita", "favorites"] as const;
 type RouteId = typeof routeIds[number];
 
-export const routeEntries: Record<RouteId, Route> = {
-  "bookRecommendations": {
+export const navigationEntries: Record<RouteId, NavigationEntryModel> = {
+  bookRecommendations: {
+    id: 'book-recommendations',
     title: 'Buchtipps',
-    path: 'book-recommendations',
-    component: BookRecommendationsComponent,
-    data: {index: 0}
+    index: 0
   },
-  "vita": {title: 'Vita', path: 'vita', component: VitaComponent, data: {index: 1}},
-  "favorites": {title: 'Favoriten', path: 'favorites', component: FavoritesComponent, data: {index: 2}},
+  vita: {
+    id: 'vita',
+    title: 'Vita',
+    index: 1
+  },
+  favorites: {
+    id: 'favorites',
+    title: 'Favoriten',
+    index: 2
+  },
 } as const;
 
-export const routes: Routes = Object.values(routeEntries);
