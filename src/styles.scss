@@ -12,11 +12,11 @@
 
   /* Scrollbar */
   ::-webkit-scrollbar {
-    @apply bg-dark-void-dark w-[10px];
+    @apply bg-snow dark:bg-dark-void w-[10px];
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-dark-void-light rounded-5xl;
+    @apply bg-dark-void dark:bg-dark-void-light rounded-5xl;
   }
 
   /* Thememode-Toggler */
