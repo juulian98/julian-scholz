@@ -5,42 +5,47 @@ import {
   DestroyRef,
   ElementRef,
   inject,
-  OnDestroy, PLATFORM_ID,
-  Renderer2, signal,
-  viewChild
+  OnDestroy,
+  PLATFORM_ID,
+  Renderer2,
+  signal,
+  viewChild,
 } from '@angular/core';
-import {CommonModule, DOCUMENT, isPlatformBrowser} from "@angular/common";
-import {HeaderNavComponent} from "./nav/nav.component";
-import {ThemeMode} from "../lib/theme-mode-toggle/utils/theme-mode-toggle.enum";
-import {RingModel} from "./models/ring.model";
-import {ThemeModeToggleService} from "../lib/theme-mode-toggle/theme-mode-toggle.service";
-import {debounceTime, fromEvent} from "rxjs";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {TAILWIND_COLORS} from "../../../tailwind.colors";
-import {gsap} from "../lib/misc/gsap/gsap";
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { HeaderNavComponent } from './nav/nav.component';
+import { ThemeMode } from '../lib/theme-mode-toggle/utils/theme-mode-toggle.enum';
+import { RingModel } from './models/ring.model';
+import { ThemeModeToggleService } from '../lib/theme-mode-toggle/theme-mode-toggle.service';
+import { debounceTime, fromEvent } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TAILWIND_COLORS } from '../../../tailwind.colors';
+import { gsap } from '../lib/misc/gsap/gsap';
 
 @Component({
   selector: 'app-header',
   imports: [CommonModule, HeaderNavComponent],
-  templateUrl: './header.component.html'
+  templateUrl: './header.component.html',
 })
 export class HeaderComponent implements AfterViewInit, OnDestroy {
-
-  private readonly platformId: Object = inject(PLATFORM_ID);
+  private readonly platformId: object = inject(PLATFORM_ID);
   private readonly angularDocument: Document = inject(DOCUMENT);
   private readonly renderer: Renderer2 = inject(Renderer2);
-  private readonly changeDetectorRef: ChangeDetectorRef = inject(ChangeDetectorRef);
+  private readonly changeDetectorRef: ChangeDetectorRef =
+    inject(ChangeDetectorRef);
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
-  private readonly themeModeToggleService: ThemeModeToggleService = inject(ThemeModeToggleService);
+  private readonly themeModeToggleService: ThemeModeToggleService = inject(
+    ThemeModeToggleService,
+  );
 
   private themeMode: ThemeMode | undefined;
   private windowWidth: number | undefined;
 
-  private readonly canvas = viewChild.required<ElementRef<HTMLCanvasElement>>('canvas');
+  private readonly canvas =
+    viewChild.required<ElementRef<HTMLCanvasElement>>('canvas');
   private context!: CanvasRenderingContext2D;
   private rings!: RingModel[];
   private dpi!: number;
-  private origin!: { x: number, y: number };
+  private origin!: { x: number; y: number };
   private textCanvas!: HTMLCanvasElement;
   private textContext!: CanvasRenderingContext2D;
   private ringCanvas!: HTMLCanvasElement;
@@ -67,18 +72,19 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
               this.initComponent();
             }
           },
-          error: (error) => console.error(error)
+          error: (error) => console.error(error),
         });
 
       fromEvent(this.angularDocument.defaultView!, 'resize')
-        .pipe(
-          debounceTime(250),
-          takeUntilDestroyed(this.destroyRef),
-        ).subscribe(() => {
-        if (typeof this.windowWidth === 'number' && this.angularDocument.defaultView!.innerWidth !== this.windowWidth) {
-          this.initComponent();
-        }
-      });
+        .pipe(debounceTime(250), takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => {
+          if (
+            typeof this.windowWidth === 'number' &&
+            this.angularDocument.defaultView!.innerWidth !== this.windowWidth
+          ) {
+            this.initComponent();
+          }
+        });
 
       setTimeout(() => {
         this.initComponent();
@@ -98,7 +104,7 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
   }
 
   private resetGsapAnimations() {
-    this.gsapAnimations.forEach(animation => animation.kill());
+    this.gsapAnimations.forEach((animation) => animation.kill());
     this.gsapAnimations = [];
   }
 
@@ -114,9 +120,10 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
       const vw = this.angularDocument.defaultView!.innerWidth / 100;
       const px = gsap.utils.clamp(2 * rem, 12 * rem, 6 * vw + 5 * rem);
       return Math.round(px);
-    }
+    };
 
-    this.context = this.context || this.canvas().nativeElement.getContext('2d')!;
+    this.context =
+      this.context || this.canvas().nativeElement.getContext('2d')!;
 
     this.textCanvas = this.textCanvas || this.renderer.createElement('canvas');
     this.textContext = this.textContext || this.textCanvas.getContext('2d')!;
@@ -126,21 +133,38 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
 
     this.dpi = this.angularDocument.defaultView!.devicePixelRatio || 1;
 
-    this.ringCanvas.height = this.textCanvas.height = this.canvas().nativeElement.height = this.canvas().nativeElement.offsetHeight * this.dpi;
-    this.ringCanvas.width = this.textCanvas.width = this.canvas().nativeElement.width = this.canvas().nativeElement.offsetWidth * this.dpi;
+    this.ringCanvas.height =
+      this.textCanvas.height =
+      this.canvas().nativeElement.height =
+        this.canvas().nativeElement.offsetHeight * this.dpi;
+    this.ringCanvas.width =
+      this.textCanvas.width =
+      this.canvas().nativeElement.width =
+        this.canvas().nativeElement.offsetWidth * this.dpi;
 
-    this.textContext.fillStyle = (this.themeMode !== ThemeMode.DARK ? TAILWIND_COLORS.snow : TAILWIND_COLORS["dark-void"].DEFAULT);
+    this.textContext.fillStyle =
+      this.themeMode !== ThemeMode.DARK
+        ? TAILWIND_COLORS.snow
+        : TAILWIND_COLORS['dark-void'].DEFAULT;
     this.textContext.textAlign = 'center';
     this.textContext.textBaseline = 'middle';
     this.textContext.font = `${this.fontWeight} ${getFontSize() * this.dpi}px ${this.font}`;
-    this.textContext.fillText(this.secondLine, this.textCanvas.width / 2, this.textCanvas.height / 2);
+    this.textContext.fillText(
+      this.secondLine,
+      this.textCanvas.width / 2,
+      this.textCanvas.height / 2,
+    );
 
     this.rings = [];
     for (let i = 0; i < 150; i++) {
       this.rings.push({
         id: i,
         saturation: gsap.utils.random(0, 100, 1),
-        lightness: gsap.utils.random(0, (this.themeMode !== ThemeMode.DARK ? 100 : 70), 1),
+        lightness: gsap.utils.random(
+          0,
+          this.themeMode !== ThemeMode.DARK ? 100 : 70,
+          1,
+        ),
         spread: gsap.utils.random(75, 359, 1),
         angle: 0,
       });
@@ -149,37 +173,61 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
     this.origin = {
       x: this.canvas().nativeElement.width * 0.25,
       y: this.canvas().nativeElement.height * 0.525,
-    }
+    };
 
     this.context.globalCompositeOperation = 'source-over';
-    this.context.clearRect(0, 0, this.canvas().nativeElement.width, this.canvas().nativeElement.height);
+    this.context.clearRect(
+      0,
+      0,
+      this.canvas().nativeElement.width,
+      this.canvas().nativeElement.height,
+    );
     this.context.drawImage(this.textCanvas, 0, 0);
     this.context.globalCompositeOperation = 'source-in';
 
     this.resetGsapAnimations();
-    this.gsapAnimations = this.rings.map(ring => gsap.to(ring, {
-      angle: 360,
-      repeat: -1,
-      ease: 'none',
-      duration: () => gsap.utils.random(5, 20, 0.2),
-      delay: () => gsap.utils.random(-5, -1, 0.1),
-    }));
+    this.gsapAnimations = this.rings.map((ring) =>
+      gsap.to(ring, {
+        angle: 360,
+        repeat: -1,
+        ease: 'none',
+        duration: () => gsap.utils.random(5, 20, 0.2),
+        delay: () => gsap.utils.random(-5, -1, 0.1),
+      }),
+    );
   }
 
   private initRingAnimations() {
-    this.ringContext.clearRect(0, 0, this.ringCanvas.width, this.ringCanvas.height);
+    this.ringContext.clearRect(
+      0,
+      0,
+      this.ringCanvas.width,
+      this.ringCanvas.height,
+    );
 
-    const gradient = this.ringContext.createRadialGradient(this.origin.x, this.origin.y, 50, this.origin.x, this.origin.y, this.ringCanvas.width / 2);
+    const gradient = this.ringContext.createRadialGradient(
+      this.origin.x,
+      this.origin.y,
+      50,
+      this.origin.x,
+      this.origin.y,
+      this.ringCanvas.width / 2,
+    );
     if (this.themeMode !== ThemeMode.DARK) {
-      gradient.addColorStop(0, TAILWIND_COLORS.vanilla["extra-dark"]);
-      gradient.addColorStop(0.5, TAILWIND_COLORS["dark-void"].dark);
+      gradient.addColorStop(0, TAILWIND_COLORS.vanilla['extra-dark']);
+      gradient.addColorStop(0.5, TAILWIND_COLORS['dark-void'].dark);
     } else {
-      gradient.addColorStop(0, TAILWIND_COLORS["dark-void"].light);
+      gradient.addColorStop(0, TAILWIND_COLORS['dark-void'].light);
       gradient.addColorStop(0.5, TAILWIND_COLORS.vanilla.light);
     }
     this.ringContext.fillStyle = gradient;
 
-    this.ringContext.fillRect(0, 0, this.canvas().nativeElement.width, this.canvas().nativeElement.height);
+    this.ringContext.fillRect(
+      0,
+      0,
+      this.canvas().nativeElement.width,
+      this.canvas().nativeElement.height,
+    );
     this.ringContext.lineWidth = this.dpi;
     this.ringContext.lineCap = 'round';
 
@@ -195,7 +243,7 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
         this.origin.y,
         ring.id * (4 * this.dpi),
         0,
-        (ring.spread * Math.PI) / 180
+        (ring.spread * Math.PI) / 180,
       );
       this.ringContext.stroke();
       this.ringContext.restore();
@@ -213,5 +261,4 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
 
     this.changeDetectorRef.detectChanges();
   }
-
 }

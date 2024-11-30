@@ -1,19 +1,25 @@
-import {AfterViewInit, Component, OnDestroy, input, signal, inject, PLATFORM_ID} from '@angular/core';
-import {isPlatformBrowser, NgStyle, ViewportScroller} from "@angular/common";
-import {ScrollTrigger} from "../../lib/misc/gsap/gsap";
-import {NavigationEntryModel} from "./models/navigation-entry.model";
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  input,
+  signal,
+  inject,
+  PLATFORM_ID,
+} from '@angular/core';
+import { isPlatformBrowser, NgStyle, ViewportScroller } from '@angular/common';
+import { ScrollTrigger } from '../../lib/misc/gsap/gsap';
+import { NavigationEntryModel } from './models/navigation-entry.model';
 
 @Component({
   selector: 'app-navigation-entry',
-  imports: [
-    NgStyle,
-  ],
-  templateUrl: './navigation-entry.component.html'
+  imports: [NgStyle],
+  templateUrl: './navigation-entry.component.html',
 })
 export class NavigationEntryComponent implements AfterViewInit, OnDestroy {
-
-  private readonly platformId: Object = inject(PLATFORM_ID);
-  private readonly viewportScroller: ViewportScroller = inject(ViewportScroller);
+  private readonly platformId: object = inject(PLATFORM_ID);
+  private readonly viewportScroller: ViewportScroller =
+    inject(ViewportScroller);
 
   public readonly navigationEntry = input.required<NavigationEntryModel>();
   public readonly navigationEntryIndex = input.required<number>();
@@ -34,7 +40,7 @@ export class NavigationEntryComponent implements AfterViewInit, OnDestroy {
         onEnter: () => this.opacity.set(1),
         onEnterBack: () => this.opacity.set(1),
         onLeave: () => this.opacity.set(this.navigationLastEntry() ? 1 : 0),
-        onLeaveBack: () => this.opacity.set(0)
+        onLeaveBack: () => this.opacity.set(0),
       });
     }
   }
@@ -46,5 +52,4 @@ export class NavigationEntryComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.gsapScrollTrigger?.kill();
   }
-
 }

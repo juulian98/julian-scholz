@@ -1,13 +1,13 @@
-import {inject, Injectable, InjectionToken, PLATFORM_ID} from "@angular/core";
-import {ThemeMode} from "./utils/theme-mode-toggle.enum";
-import {DOCUMENT, isPlatformBrowser} from "@angular/common";
+import { inject, Injectable, InjectionToken, PLATFORM_ID } from '@angular/core';
+import { ThemeMode } from './utils/theme-mode-toggle.enum';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 
 export const THEME_MODE_STORAGE_SERVICE = new InjectionToken<ThemeModeStorage>(
-  "THEME_MODE_STORAGE",
+  'THEME_MODE_STORAGE',
   {
     providedIn: 'root',
-    factory: () => new ThemeModeLocalStorageService()
-  }
+    factory: () => new ThemeModeLocalStorageService(),
+  },
 );
 
 export interface ThemeModeStorage {
@@ -18,21 +18,25 @@ export interface ThemeModeStorage {
 
 @Injectable()
 export class ThemeModeLocalStorageService implements ThemeModeStorage {
-
-  private readonly platformId: Object = inject(PLATFORM_ID);
+  private readonly platformId: object = inject(PLATFORM_ID);
   private readonly angularDocument: Document = inject(DOCUMENT);
 
-  LOCAL_STORAGE_KEY = "themeMode";
+  LOCAL_STORAGE_KEY = 'themeMode';
 
   save(mode: ThemeMode): void {
     if (isPlatformBrowser(this.platformId)) {
-      this.angularDocument.defaultView!.localStorage.setItem(this.LOCAL_STORAGE_KEY, mode.toString());
+      this.angularDocument.defaultView!.localStorage.setItem(
+        this.LOCAL_STORAGE_KEY,
+        mode.toString(),
+      );
     }
   }
 
   get(): ThemeMode | null {
     if (isPlatformBrowser(this.platformId)) {
-      return <ThemeMode>this.angularDocument.defaultView!.localStorage.getItem(this.LOCAL_STORAGE_KEY);
+      return this.angularDocument.defaultView!.localStorage.getItem(
+        this.LOCAL_STORAGE_KEY,
+      ) as ThemeMode;
     }
     return null;
   }

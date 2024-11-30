@@ -1,14 +1,20 @@
-import {AfterViewInit, Component, inject, OnDestroy, PLATFORM_ID, signal} from '@angular/core';
-import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-import {faJs} from '@fortawesome/free-brands-svg-icons'
-import {isPlatformBrowser, NgStyle, ViewportScroller} from "@angular/common";
-import {ThemeModeToggleComponent} from "../lib/theme-mode-toggle/theme-mode-toggle.component";
-import {navigationEntries} from "../app.routes";
-import {IconDefinition} from "@fortawesome/fontawesome-common-types";
-import {NavigationEntryComponent} from "./navigation-entry/navigation-entry.component";
-import {ScrollTrigger} from "../lib/misc/gsap/gsap";
-import {NavigationEntryModel} from "./navigation-entry/models/navigation-entry.model";
-
+import {
+  AfterViewInit,
+  Component,
+  inject,
+  OnDestroy,
+  PLATFORM_ID,
+  signal,
+} from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faJs } from '@fortawesome/free-brands-svg-icons';
+import { isPlatformBrowser, NgStyle, ViewportScroller } from '@angular/common';
+import { ThemeModeToggleComponent } from '../lib/theme-mode-toggle/theme-mode-toggle.component';
+import { navigationEntries } from '../app.routes';
+import { IconDefinition } from '@fortawesome/fontawesome-common-types';
+import { NavigationEntryComponent } from './navigation-entry/navigation-entry.component';
+import { ScrollTrigger } from '../lib/misc/gsap/gsap';
+import { NavigationEntryModel } from './navigation-entry/models/navigation-entry.model';
 
 @Component({
   selector: 'app-navigation',
@@ -16,14 +22,14 @@ import {NavigationEntryModel} from "./navigation-entry/models/navigation-entry.m
     FontAwesomeModule,
     NgStyle,
     ThemeModeToggleComponent,
-    NavigationEntryComponent
+    NavigationEntryComponent,
   ],
-  templateUrl: './navigation.component.html'
+  templateUrl: './navigation.component.html',
 })
 export class NavigationComponent implements AfterViewInit, OnDestroy {
-
-  private readonly platformId: Object = inject(PLATFORM_ID);
-  private readonly viewportScroller: ViewportScroller = inject(ViewportScroller);
+  private readonly platformId: object = inject(PLATFORM_ID);
+  private readonly viewportScroller: ViewportScroller =
+    inject(ViewportScroller);
 
   protected readonly faJs: IconDefinition = faJs;
   protected readonly navigationEntries = navigationEntries;
@@ -35,7 +41,7 @@ export class NavigationComponent implements AfterViewInit, OnDestroy {
   get sortedRouteEntries(): NavigationEntryModel[] {
     return Object.entries(this.navigationEntries)
       .sort((a, b) => a[1].index - b[1].index)
-      .map(([_, route]) => route);
+      .map(([, route]) => route);
   }
 
   ngAfterViewInit(): void {
@@ -46,7 +52,7 @@ export class NavigationComponent implements AfterViewInit, OnDestroy {
         onEnter: () => this.navbarExpanded.set(0),
         onEnterBack: () => this.navbarExpanded.set(0),
         onLeave: () => this.navbarExpanded.set(1),
-        onLeaveBack: () => this.navbarExpanded.set(1)
+        onLeaveBack: () => this.navbarExpanded.set(1),
       });
     }
   }
@@ -58,5 +64,4 @@ export class NavigationComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.gsapScrollTrigger?.kill();
   }
-
 }

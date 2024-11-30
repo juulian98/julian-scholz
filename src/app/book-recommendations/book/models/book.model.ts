@@ -10,5 +10,5 @@ export interface BookModel {
     title: string;
     subtitle: string;
     summary: string;
-  }
+  };
 }

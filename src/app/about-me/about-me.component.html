@@ -9,12 +9,12 @@
        class="h-[calc(((var(--about-me-ppc)*var(--about-me-content-length)+(var(--about-me-pad)*var(--about-me-buffer)))*1px)+100vh)]"
   >
     <div
-      class="sticky top-0 min-h-lvh grid place-items-center
-             my-0 mx-auto [font-size:40px] leading-none lg:text-7xl font-bold"
+      class="sticky top-0 mx-auto my-0 grid
+             min-h-lvh place-items-center font-bold leading-none [font-size:40px] lg:text-7xl"
     >
       <h2 class="hidden">{{ secondSplitText }} {{ thirdSplitText }} {{ fourthSplitText }}</h2>
-      <div class="text-center bg-gradient-to-br from-vanilla-extra-dark dark:from-vanilla-light
-                  to-dark-void-dark dark:to-snow bg-clip-text">
+      <div class="bg-gradient-to-br from-vanilla-extra-dark to-dark-void-dark bg-clip-text
+                  text-center dark:from-vanilla-light dark:to-snow">
         @for (detailListEntry of detailList; track detailListEntry) {
           <app-about-me-detail
             [scrollTrigger]="scrollTrigger"

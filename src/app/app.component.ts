@@ -1,14 +1,20 @@
-import {AfterViewInit, Component, inject, viewChild, ViewContainerRef} from '@angular/core';
-import {HeaderComponent} from "./header/header.component";
-import {NavigationComponent} from "./navigation/navigation.component";
-import {BackToTopButtonComponent} from "./back-to-top-button/back-to-top-button.component";
-import {ModalService} from "./modals/modal.service";
-import {IMAGE_LOADER, ImageLoaderConfig} from "@angular/common";
-import {AboutMeComponent} from "./about-me/about-me.component";
-import {BookRecommendationsComponent} from "./book-recommendations/book-recommendations.component";
-import {FavoritesComponent} from "./favorites/favorites.component";
-import {VitaComponent} from "./vita/vita.component";
-import {navigationEntries} from "./app.routes";
+import {
+  AfterViewInit,
+  Component,
+  inject,
+  viewChild,
+  ViewContainerRef,
+} from '@angular/core';
+import { HeaderComponent } from './header/header.component';
+import { NavigationComponent } from './navigation/navigation.component';
+import { BackToTopButtonComponent } from './back-to-top-button/back-to-top-button.component';
+import { ModalService } from './modals/modal.service';
+import { IMAGE_LOADER, ImageLoaderConfig } from '@angular/common';
+import { AboutMeComponent } from './about-me/about-me.component';
+import { BookRecommendationsComponent } from './book-recommendations/book-recommendations.component';
+import { FavoritesComponent } from './favorites/favorites.component';
+import { VitaComponent } from './vita/vita.component';
+import { navigationEntries } from './app.routes';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +25,7 @@ import {navigationEntries} from "./app.routes";
     AboutMeComponent,
     BookRecommendationsComponent,
     FavoritesComponent,
-    VitaComponent
+    VitaComponent,
   ],
   providers: [
     {
@@ -30,20 +36,20 @@ import {navigationEntries} from "./app.routes";
         } else {
           return `${config.src}.${config.loaderParams?.['imageFormat']}`;
         }
-      }
-    }
+      },
+    },
   ],
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
 })
 export class AppComponent implements AfterViewInit {
-
   private readonly modalService: ModalService = inject(ModalService);
-  private readonly modalContainer = viewChild.required('modalContainer', {read: ViewContainerRef});
+  private readonly modalContainer = viewChild.required('modalContainer', {
+    read: ViewContainerRef,
+  });
 
   protected readonly navigationEntries = navigationEntries;
 
   ngAfterViewInit(): void {
     this.modalService.setViewContainerRef(this.modalContainer());
   }
-
 }

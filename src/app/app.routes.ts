@@ -1,23 +1,21 @@
-import {NavigationEntryModel} from "./navigation/navigation-entry/models/navigation-entry.model";
+import { NavigationEntryModel } from './navigation/navigation-entry/models/navigation-entry.model';
 
-const routeIds = ["bookRecommendations", "vita", "favorites"] as const;
-type RouteId = typeof routeIds[number];
+type RouteId = 'bookRecommendations' | 'vita' | 'favorites';
 
 export const navigationEntries: Record<RouteId, NavigationEntryModel> = {
   bookRecommendations: {
     id: 'book-recommendations',
     title: 'Buchtipps',
-    index: 0
+    index: 0,
   },
   vita: {
     id: 'vita',
     title: 'Vita',
-    index: 1
+    index: 1,
   },
   favorites: {
     id: 'favorites',
     title: 'Favoriten',
-    index: 2
+    index: 2,
   },
 } as const;
-

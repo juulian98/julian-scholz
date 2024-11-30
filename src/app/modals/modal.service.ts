@@ -1,10 +1,9 @@
-import {Injectable, ViewContainerRef} from '@angular/core';
-import {ModalContainerComponent} from "./utils/modal-container/modal-container.component";
-import {ModalTemplate} from "./utils/modal-container/utils/modal-template.enum";
+import { Injectable, ViewContainerRef } from '@angular/core';
+import { ModalContainerComponent } from './utils/modal-container/modal-container.component';
+import { ModalTemplate } from './utils/modal-container/utils/modal-template.enum';
 
-@Injectable({providedIn: "root"})
+@Injectable({ providedIn: 'root' })
 export class ModalService {
-
   private viewContainerRef: ViewContainerRef | undefined;
 
   public setViewContainerRef(viewContainerRef: ViewContainerRef): void {
@@ -18,9 +17,10 @@ export class ModalService {
 
     this.viewContainerRef.clear();
 
-    const modalContainerRef = this.viewContainerRef.createComponent(ModalContainerComponent);
+    const modalContainerRef = this.viewContainerRef.createComponent(
+      ModalContainerComponent,
+    );
     modalContainerRef.instance.setParentViewContainerRef(this.viewContainerRef);
     modalContainerRef.instance.setTemplate(template);
   }
-
 }

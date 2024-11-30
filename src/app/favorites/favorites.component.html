@@ -7,31 +7,33 @@
     <section [ngStyle]="{
       '--favorites-grid-wrapper-z-index': showFavoritesOverlay() ? '30' : '10',
     }"
-             class="absolute h-svh landscape:h-lvh inset-x-0 px-5 z-[--favorites-grid-wrapper-z-index]">
+             class="absolute inset-x-0 z-[--favorites-grid-wrapper-z-index] h-svh px-5 landscape:h-lvh">
       <div [ngStyle]="{
       '--favorites-child-opacity': showFavoritesOverlay() ? '1' : '0',
       '--favorites-child-top': showFavoritesOverlay() ? '0' : '100%'
     }"
-           class="h-full flex flex-col gap-5 items-center *:flex *:flex-auto *:items-center *:relative *:max-w-full *:overflow-hidden">
+           class="flex h-full flex-col items-center gap-5 *:relative *:flex *:max-w-full *:flex-auto *:items-center *:overflow-hidden">
         <div></div>
         <app-favorites-overlay
-          class="w-96 2xl:w-[35rem] opacity-[--favorites-child-opacity] top-[--favorites-child-top] transition-[opacity,top] duration-[1500ms]"></app-favorites-overlay>
+          class="top-[--favorites-child-top] w-96 opacity-[--favorites-child-opacity] transition-[opacity,top] duration-[1500ms] 2xl:w-[35rem]"></app-favorites-overlay>
         <app-footer
-          class="!shrink-0 opacity-[--favorites-child-opacity] top-[--favorites-child-top] transition-[opacity,top] delay-500 duration-[1500ms]"></app-footer>
+          class="top-[--favorites-child-top] !shrink-0 opacity-[--favorites-child-opacity] transition-[opacity,top] delay-500 duration-[1500ms]"></app-footer>
       </div>
     </section>
     <div id="favorites-image-section" class="relative h-lvh">
-      <img [ngSrc]="selectedBackgroundImagePath"
-           ngSrcset="2560w, 1920w" sizes="100vw" fill
-           [loaderParams]="{dynamicWidth: true, imageFormat: 'webp'}" priority
-           class="object-cover" alt="Landschaft mit weitem Blick in die Ferne.">
+      @if (selectedBackgroundImagePath) {
+        <img [ngSrc]="selectedBackgroundImagePath"
+             ngSrcset="2560w, 1920w" sizes="100vw" fill
+             [loaderParams]="{dynamicWidth: true, imageFormat: 'webp'}" priority
+             class="object-cover" alt="Landschaft mit weitem Blick in die Ferne.">
+      }
     </div>
     <div [ngStyle]="{
       '--favorites-wrapper-z-index': showFavoritesOverlay() ? '10' : '20',
       '--favorites-outline-width': outlineWidth(),
       '--favorites-outline-offset': outlineOffset
     }"
-         class="absolute h-lvh flex flex-col top-0 z-[--favorites-wrapper-z-index]">
+         class="absolute top-0 z-[--favorites-wrapper-z-index] flex h-lvh flex-col">
       <div class="relative size-full max-h-full max-w-full [perspective:500px]">
         @if (selectedForegroundImage) {
           <img #scrollImage
@@ -42,9 +44,9 @@
                [ngStyle]="{
                 '--favorites-img-z-index': showFavoritesOverlay() ? '20': '30'
              }"
-               class="!size-auto max-h-full max-w-full m-auto object-contain z-[--favorites-img-z-index]
-                    outline outline-snow dark:outline-dark-void outline-[calc(var(--favorites-outline-width)*1px)]
-                    outline-offset-[calc(var(--favorites-outline-offset)*-1px)] will-change-transform"
+               class="z-[--favorites-img-z-index] m-auto !size-auto max-h-full max-w-full object-contain
+                    outline outline-[calc(var(--favorites-outline-width)*1px)] outline-offset-[calc(var(--favorites-outline-offset)*-1px)] outline-snow
+                    will-change-transform dark:outline-dark-void"
                alt="Retro-Fernseher mit ausgeschnittenem Bildschirm."
                (load)="afterForegroundImageLoad()">
         }
@@ -52,7 +54,7 @@
           <img [ngSrc]="notSelectedForegroundImage"
                ngSrcset="2560w, 1920w" sizes="100vw" fill
                [loaderParams]="{dynamicWidth: true, imageFormat: 'webp'}"
-               class="absolute !size-auto invisible"
+               class="invisible absolute !size-auto"
                alt="Retro-Fernseher mit ausgeschnittenem Bildschirm." aria-hidden="true">
         }
       </div>

@@ -1,16 +1,20 @@
-import {inject, Injectable, PLATFORM_ID, Renderer2} from "@angular/core";
-import {ThemeMode} from "./utils/theme-mode-toggle.enum";
-import {Observable, ReplaySubject} from "rxjs";
-import {THEME_MODE_STORAGE_SERVICE, ThemeModeStorage} from "./theme-mode-storage.service";
-import {isPlatformBrowser} from "@angular/common";
+import { inject, Injectable, PLATFORM_ID, Renderer2 } from '@angular/core';
+import { ThemeMode } from './utils/theme-mode-toggle.enum';
+import { Observable, ReplaySubject } from 'rxjs';
+import {
+  THEME_MODE_STORAGE_SERVICE,
+  ThemeModeStorage,
+} from './theme-mode-storage.service';
+import { isPlatformBrowser } from '@angular/common';
 
-@Injectable({providedIn: "root"})
+@Injectable({ providedIn: 'root' })
 export class ThemeModeToggleService {
-
-  private readonly platformId: Object = inject(PLATFORM_ID);
+  private readonly platformId: object = inject(PLATFORM_ID);
   private currentMode: ThemeMode | undefined;
-  private readonly modeChangedSubject: ReplaySubject<ThemeMode> = new ReplaySubject(1);
-  private readonly modeStorage: ThemeModeStorage = inject(THEME_MODE_STORAGE_SERVICE);
+  private readonly modeChangedSubject = new ReplaySubject<ThemeMode>(1);
+  private readonly modeStorage: ThemeModeStorage = inject(
+    THEME_MODE_STORAGE_SERVICE,
+  );
 
   public modeChanged$: Observable<ThemeMode>;
 
@@ -24,11 +28,16 @@ export class ThemeModeToggleService {
     this.modeStorage.save(mode);
   }
 
-  public init(renderer: Renderer2, angularDocument: Document): Promise<ThemeMode> {
+  public init(
+    renderer: Renderer2,
+    angularDocument: Document,
+  ): Promise<ThemeMode> {
     let initMode: ThemeMode | null = this.modeStorage.get();
     if (!initMode) {
       if (isPlatformBrowser(this.platformId)) {
-        const prefersDarkMode = angularDocument.defaultView!.matchMedia('(prefers-color-scheme: dark)').matches;
+        const prefersDarkMode = angularDocument.defaultView!.matchMedia(
+          '(prefers-color-scheme: dark)',
+        ).matches;
         initMode = prefersDarkMode ? ThemeMode.DARK : ThemeMode.LIGHT;
       } else {
         initMode = ThemeMode.LIGHT;
@@ -40,7 +49,10 @@ export class ThemeModeToggleService {
     return Promise.resolve(initMode);
   }
 
-  private toggleThemeMode(renderer: Renderer2, documentElement: HTMLElement): void {
+  private toggleThemeMode(
+    renderer: Renderer2,
+    documentElement: HTMLElement,
+  ): void {
     this.toggleElementClass(renderer, documentElement, ThemeMode.LIGHT);
     this.toggleElementClass(renderer, documentElement, ThemeMode.DARK);
     if (this.currentMode) {
@@ -54,7 +66,11 @@ export class ThemeModeToggleService {
     }
   }
 
-  private toggleElementClass(renderer: Renderer2, element: HTMLElement, className: string): void {
+  private toggleElementClass(
+    renderer: Renderer2,
+    element: HTMLElement,
+    className: string,
+  ): void {
     if (element.classList.contains(className)) {
       renderer.removeClass(element, className);
     } else {
@@ -62,16 +78,18 @@ export class ThemeModeToggleService {
     }
   }
 
-  public initToggleThemeMode(renderer: Renderer2, angularDocument: Document): void {
-    // @ts-ignore
+  public initToggleThemeMode(
+    renderer: Renderer2,
+    angularDocument: Document,
+  ): void {
     if (angularDocument.startViewTransition !== undefined) {
       setTimeout(() => {
-        // @ts-ignore
-        angularDocument.startViewTransition(() => this.toggleThemeMode(renderer, angularDocument.documentElement));
+        angularDocument.startViewTransition(() =>
+          this.toggleThemeMode(renderer, angularDocument.documentElement),
+        );
       }, 700);
     } else {
-      this.toggleThemeMode(renderer, angularDocument.documentElement)
+      this.toggleThemeMode(renderer, angularDocument.documentElement);
     }
   }
-
 }

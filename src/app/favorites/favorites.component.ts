@@ -5,18 +5,25 @@ import {
   ElementRef,
   inject,
   OnDestroy,
-  OnInit, signal,
-  viewChild
+  OnInit,
+  PLATFORM_ID,
+  signal,
+  viewChild,
 } from '@angular/core';
-import {gsap, ScrollTrigger} from "../lib/misc/gsap/gsap";
-import {DOCUMENT, NgOptimizedImage, NgStyle} from "@angular/common";
-import {FavoritesOverlayComponent} from "./favorites-overlay/favorites-overlay.component";
-import {FooterComponent} from "../footer/footer.component";
-import {ThemeModeToggleService} from "../lib/theme-mode-toggle/theme-mode-toggle.service";
-import {ThemeMode} from "../lib/theme-mode-toggle/utils/theme-mode-toggle.enum";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {debounceTime, fromEvent} from "rxjs";
-import {environment} from "../../environment/environment";
+import { gsap, ScrollTrigger } from '../lib/misc/gsap/gsap';
+import {
+  DOCUMENT,
+  isPlatformBrowser,
+  NgOptimizedImage,
+  NgStyle,
+} from '@angular/common';
+import { FavoritesOverlayComponent } from './favorites-overlay/favorites-overlay.component';
+import { FooterComponent } from '../footer/footer.component';
+import { ThemeModeToggleService } from '../lib/theme-mode-toggle/theme-mode-toggle.service';
+import { ThemeMode } from '../lib/theme-mode-toggle/utils/theme-mode-toggle.enum';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { debounceTime, fromEvent } from 'rxjs';
+import { environment } from '../../environment/environment';
 
 @Component({
   selector: 'app-favorites',
@@ -24,15 +31,18 @@ import {environment} from "../../environment/environment";
     NgOptimizedImage,
     NgStyle,
     FavoritesOverlayComponent,
-    FooterComponent
+    FooterComponent,
   ],
-  templateUrl: './favorites.component.html'
+  templateUrl: './favorites.component.html',
 })
 export class FavoritesComponent implements OnInit, OnDestroy {
-
+  private readonly platformId: object = inject(PLATFORM_ID);
   private readonly angularDocument: Document = inject(DOCUMENT);
-  private readonly themeModeToggleService: ThemeModeToggleService = inject(ThemeModeToggleService);
-  private readonly changeDetectorRef: ChangeDetectorRef = inject(ChangeDetectorRef);
+  private readonly themeModeToggleService: ThemeModeToggleService = inject(
+    ThemeModeToggleService,
+  );
+  private readonly changeDetectorRef: ChangeDetectorRef =
+    inject(ChangeDetectorRef);
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   private readonly lightForegroundImagePath: string = `${environment.imagesUrl}/favorites/tv/tv_light`;
@@ -41,29 +51,40 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   protected selectedForegroundImage: string | undefined;
   protected notSelectedForegroundImage: string | undefined;
   private foregroundImageResizeObserver: ResizeObserver | undefined;
-  protected readonly selectedBackgroundImagePath: string =
-    `${environment.imagesUrl}/favorites/bg/${gsap.utils.random(0, this.backgroundImagesCount - 1, 1)}`;
+  protected selectedBackgroundImagePath: string | undefined;
   protected readonly outlineOffset: number = 1;
   protected outlineWidth = signal<number>(0);
 
   private readonly showFavoritesOverlayThreshold: number = 0.6;
-  private showFavoritesOverlayInitialisationDone: boolean = false;
+  private showFavoritesOverlayInitialisationDone = false;
   protected showFavoritesOverlay = signal<boolean>(false);
 
-  private readonly scrollImage = viewChild.required<ElementRef<HTMLImageElement>>('scrollImage');
+  private readonly scrollImage =
+    viewChild.required<ElementRef<HTMLImageElement>>('scrollImage');
 
   private gsapTimeline: gsap.core.Timeline | undefined;
 
   ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.selectedBackgroundImagePath = `${environment.imagesUrl}/favorites/bg/${gsap.utils.random(0, this.backgroundImagesCount - 1, 1)}`;
+    }
+
     this.themeModeToggleService.modeChanged$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (themeMode) => {
-          this.selectedForegroundImage = (themeMode !== ThemeMode.DARK ? this.lightForegroundImagePath : this.darkForegroundImagePath);
-          this.notSelectedForegroundImage = (themeMode !== ThemeMode.DARK ? this.darkForegroundImagePath : this.lightForegroundImagePath);
+          this.selectedForegroundImage =
+            themeMode !== ThemeMode.DARK
+              ? this.lightForegroundImagePath
+              : this.darkForegroundImagePath;
+          this.notSelectedForegroundImage =
+            themeMode !== ThemeMode.DARK
+              ? this.darkForegroundImagePath
+              : this.lightForegroundImagePath;
 
           this.changeDetectorRef.detectChanges();
-        }, error: (error) => console.error(error)
+        },
+        error: (error) => console.error(error),
       });
   }
 
@@ -71,39 +92,40 @@ export class FavoritesComponent implements OnInit, OnDestroy {
     if (!this.gsapTimeline) {
       this.updateScrollImageSpacerWidth(
         this.scrollImage().nativeElement.getBoundingClientRect().height,
-        this.scrollImage().nativeElement.getBoundingClientRect().width
+        this.scrollImage().nativeElement.getBoundingClientRect().width,
       );
 
       fromEvent(this.angularDocument.defaultView!, 'resize')
-        .pipe(
-          debounceTime(250),
-          takeUntilDestroyed(this.destroyRef),
-        ).subscribe(() => ScrollTrigger.refresh(true));
+        .pipe(debounceTime(250), takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => ScrollTrigger.refresh(true));
 
       fromEvent(this.angularDocument.defaultView!, 'orientationchange')
-        .pipe(
-          takeUntilDestroyed(this.destroyRef),
-        ).subscribe(() => ScrollTrigger.refresh(true));
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => ScrollTrigger.refresh(true));
 
-      this.foregroundImageResizeObserver = new ResizeObserver(entries => {
-        for (let entry of entries) {
-          const {height, width} = entry.contentRect;
+      this.foregroundImageResizeObserver = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          const { height, width } = entry.contentRect;
           this.updateScrollImageSpacerWidth(height, width);
         }
       });
-      this.foregroundImageResizeObserver.observe(this.scrollImage().nativeElement);
+      this.foregroundImageResizeObserver.observe(
+        this.scrollImage().nativeElement,
+      );
 
       this.gsapTimeline = gsap
         .timeline({
           scrollTrigger: {
-            trigger: "#favorites-scroll-trigger",
-            start: "top top",
-            end: "+=200%",
+            trigger: '#favorites-scroll-trigger',
+            start: 'top top',
+            end: '+=200%',
             pin: true,
             scrub: true,
             onUpdate: (self) => {
               if (typeof self?.progress === 'number') {
-                this.showFavoritesOverlay.set(self.progress >= this.showFavoritesOverlayThreshold);
+                this.showFavoritesOverlay.set(
+                  self.progress >= this.showFavoritesOverlayThreshold,
+                );
 
                 if (!this.showFavoritesOverlayInitialisationDone) {
                   self.update(true, false, false);
@@ -111,21 +133,23 @@ export class FavoritesComponent implements OnInit, OnDestroy {
                   this.changeDetectorRef.detectChanges();
                 }
               }
-            }
-          }
+            },
+          },
         })
-        .to("#favorites-image-overlay", {
+        .to('#favorites-image-overlay', {
           scale: 2.7,
           z: 250,
-          transformOrigin: "center center",
-          ease: "power1.inOut"
+          transformOrigin: 'center center',
+          ease: 'power1.inOut',
         })
-        .to("#favorites-image-section", {
+        .to(
+          '#favorites-image-section',
+          {
             scale: 1.4,
-            transformOrigin: "center center",
-            ease: "power1.inOut",
+            transformOrigin: 'center center',
+            ease: 'power1.inOut',
           },
-          "<",
+          '<',
         );
     }
   }
@@ -136,19 +160,26 @@ export class FavoritesComponent implements OnInit, OnDestroy {
     this.foregroundImageResizeObserver?.disconnect();
   }
 
-  protected updateScrollImageSpacerWidth(scrollImageHeight: number, scrollImageWidth: number): void {
-    let xSpacerWidth = (this.angularDocument.defaultView!.innerWidth - scrollImageWidth) / 2;
+  protected updateScrollImageSpacerWidth(
+    scrollImageHeight: number,
+    scrollImageWidth: number,
+  ): void {
+    let xSpacerWidth =
+      (this.angularDocument.defaultView!.innerWidth - scrollImageWidth) / 2;
     if (xSpacerWidth <= 0) {
       xSpacerWidth = 0;
     } else {
       xSpacerWidth += this.outlineOffset;
     }
-    let ySpacerHeight = (this.angularDocument.defaultView!.innerHeight - scrollImageHeight) / 2;
+    let ySpacerHeight =
+      (this.angularDocument.defaultView!.innerHeight - scrollImageHeight) / 2;
     if (ySpacerHeight <= 0) {
       ySpacerHeight = 0;
     } else {
       ySpacerHeight += this.outlineOffset;
     }
-    this.outlineWidth.set(Math.round(Math.max(xSpacerWidth, ySpacerHeight) + 100));
+    this.outlineWidth.set(
+      Math.round(Math.max(xSpacerWidth, ySpacerHeight) + 100),
+    );
   }
 }

@@ -3,10 +3,11 @@ import {
   Component,
   ElementRef,
   inject,
-  OnDestroy, PLATFORM_ID,
+  OnDestroy,
+  PLATFORM_ID,
   Renderer2,
   RendererStyleFlags2,
-  viewChild
+  viewChild,
 } from '@angular/core';
 import {
   faComputer,
@@ -14,39 +15,40 @@ import {
   faLocationDot,
   faSchool,
   faShield,
-  faTerminal
-} from "@fortawesome/free-solid-svg-icons";
-import {VitaEntryModel} from "./models/vita-entry.model";
-import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {isPlatformBrowser, NgStyle, UpperCasePipe} from "@angular/common";
-import {IconDefinition} from "@fortawesome/fontawesome-common-types";
-import {gsap} from "../lib/misc/gsap/gsap";
-import {TAILWIND_COLORS} from "../../../tailwind.colors";
+  faTerminal,
+} from '@fortawesome/free-solid-svg-icons';
+import { VitaEntryModel } from './models/vita-entry.model';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { isPlatformBrowser, NgStyle, UpperCasePipe } from '@angular/common';
+import { IconDefinition } from '@fortawesome/fontawesome-common-types';
+import { gsap } from '../lib/misc/gsap/gsap';
+import { TAILWIND_COLORS } from '../../../tailwind.colors';
 
 @Component({
   selector: 'app-vita',
-  imports: [
-    FaIconComponent,
-    UpperCasePipe,
-    NgStyle
-  ],
-  templateUrl: './vita.component.html'
+  imports: [FaIconComponent, UpperCasePipe, NgStyle],
+  templateUrl: './vita.component.html',
 })
 export class VitaComponent implements AfterViewInit, OnDestroy {
-
-  private readonly platformId: Object = inject(PLATFORM_ID);
+  private readonly platformId: object = inject(PLATFORM_ID);
   private readonly renderer: Renderer2 = inject(Renderer2);
   private markerIntersectionObserver: IntersectionObserver | undefined;
-  private readonly vitaEntriesElement = viewChild.required<ElementRef<HTMLDivElement>>('vitaEntriesElement');
+  private readonly vitaEntriesElement =
+    viewChild.required<ElementRef<HTMLDivElement>>('vitaEntriesElement');
 
   private readonly highlightColors = [
     TAILWIND_COLORS.vanilla.light,
     TAILWIND_COLORS.vanilla.DEFAULT,
     TAILWIND_COLORS.vanilla.dark,
     TAILWIND_COLORS.vanilla.darker,
-    TAILWIND_COLORS.vanilla["extra-dark"]
+    TAILWIND_COLORS.vanilla['extra-dark'],
   ];
-  private readonly randomHighlightColorIndex: () => number = gsap.utils.random(0, this.highlightColors.length - 1, 1, true);
+  private readonly randomHighlightColorIndex: () => number = gsap.utils.random(
+    0,
+    this.highlightColors.length - 1,
+    1,
+    true,
+  );
 
   protected readonly faLocationDot: IconDefinition = faLocationDot;
   protected readonly vitaEntries: VitaEntryModel[] = [
@@ -63,7 +65,7 @@ export class VitaComponent implements AfterViewInit, OnDestroy {
                     Inhaltlich konzentriert sich die Arbeit der Taskforce unter anderem auf die Begleitung von
                     <mark><span>Penetrationstests</span></mark>, die Evaluierung der Sicherheit verschiedenster
                     <mark><span>System- und Softwarearchitekturen</span></mark> sowie die Ausgestaltung von
-                    <mark><span>sicheren Programmierpraktiken</span></mark>.`
+                    <mark><span>sicheren Programmierpraktiken</span></mark>.`,
     },
     {
       iconDefinition: faTerminal,
@@ -78,7 +80,7 @@ export class VitaComponent implements AfterViewInit, OnDestroy {
                     Im Rahmen meiner Arbeit mit den beiden Systemen betreue ich eine Vielzahl von zentralen
                     Webseiten und -Anwendungen der MERKUR GROUP (früher Gauselmann Gruppe).
                     Zudem entwickelte ich unter Verwendung moderner Webtechnologien wie <mark><span>Angular</span></mark> eine
-                    <mark><span>Plattform zur Steuerung, Planung und Durchführung von Rollout-Prozessen</span></mark>.`
+                    <mark><span>Plattform zur Steuerung, Planung und Durchführung von Rollout-Prozessen</span></mark>.`,
     },
     {
       iconDefinition: faGraduationCap,
@@ -93,7 +95,7 @@ export class VitaComponent implements AfterViewInit, OnDestroy {
                     mein theoretisch erlerntes Wissen anzuwenden und oftmals im Rahmen von Gruppenarbeiten innovative
                     Lösungen zu entwickeln. In den späteren Semestern wählte ich den <mark><span>Schwerpunkt E-Business</span></mark>.<br>
                     Meine Bachelorarbeit umfasste die Konzeption, den Entwurf und die
-                    Java-Implementierung einer <mark><span>Erweiterung für ein Content-Management-System</span></mark>.`
+                    Java-Implementierung einer <mark><span>Erweiterung für ein Content-Management-System</span></mark>.`,
     },
     {
       iconDefinition: faComputer,
@@ -107,7 +109,7 @@ export class VitaComponent implements AfterViewInit, OnDestroy {
                     <mark><span>Datenbanken</span></mark>, <mark><span>Virtualisierungstechnologien</span></mark> und
                     der <mark><span>Individualentwicklung</span></mark>.<br>
                     In meinem Abschlussprojekt beschäftigte ich mich mit der Konzeption und Implementierung einer Lösung für ein
-                    <mark><span>Ende-zu-Ende-Monitoring von E-Mail-Infrastrukturen</span></mark>.`
+                    <mark><span>Ende-zu-Ende-Monitoring von E-Mail-Infrastrukturen</span></mark>.`,
     },
     {
       iconDefinition: faSchool,
@@ -122,31 +124,51 @@ export class VitaComponent implements AfterViewInit, OnDestroy {
                     In der Oberstufe belegte ich die beiden <mark><span>Leistungskurse Mathematik und Sozialwissenschaften</span></mark>.
                     Insbesondere die Kombination aus meinem Interesse an Zahlen und Logik sowie
                     meinem Verständnis von wirtschaftlichen Zusammenhängen führte dazu, dass ich mich schon während des Abiturs für
-                    ein Studium der Wirtschaftsinformatik entschied.`
+                    ein Studium der Wirtschaftsinformatik entschied.`,
     },
   ];
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      this.markerIntersectionObserver = new IntersectionObserver(entries => {
-        for (let entry of entries) {
-          if (entry.isIntersecting) {
-            const newHighlightColor = this.highlightColors[this.randomHighlightColorIndex()];
-            this.renderer.setStyle(entry.target, '--vita-entry-mark-highlight-color-light', `${newHighlightColor}80`, RendererStyleFlags2.DashCase);
-            this.renderer.setStyle(entry.target, '--vita-entry-mark-highlight-color-dark', `${newHighlightColor}59`, RendererStyleFlags2.DashCase);
-          }
+      this.markerIntersectionObserver = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              const newHighlightColor =
+                this.highlightColors[this.randomHighlightColorIndex()];
+              this.renderer.setStyle(
+                entry.target,
+                '--vita-entry-mark-highlight-color-light',
+                `${newHighlightColor}80`,
+                RendererStyleFlags2.DashCase,
+              );
+              this.renderer.setStyle(
+                entry.target,
+                '--vita-entry-mark-highlight-color-dark',
+                `${newHighlightColor}59`,
+                RendererStyleFlags2.DashCase,
+              );
+            }
 
-          this.renderer.setStyle(entry.target, '--vita-entry-mark-highlighted', (entry.isIntersecting ? 1 : 0), RendererStyleFlags2.DashCase);
-        }
-      }, {threshold: 1.0});
-      this.vitaEntriesElement().nativeElement.querySelectorAll('mark').forEach((markEntry: HTMLElement) =>
-        this.markerIntersectionObserver?.observe(markEntry)
+            this.renderer.setStyle(
+              entry.target,
+              '--vita-entry-mark-highlighted',
+              entry.isIntersecting ? 1 : 0,
+              RendererStyleFlags2.DashCase,
+            );
+          }
+        },
+        { threshold: 1.0 },
       );
+      this.vitaEntriesElement()
+        .nativeElement.querySelectorAll('mark')
+        .forEach((markEntry: HTMLElement) =>
+          this.markerIntersectionObserver?.observe(markEntry),
+        );
     }
   }
 
   ngOnDestroy(): void {
     this.markerIntersectionObserver?.disconnect();
   }
-
 }
