@@ -23,10 +23,10 @@ export class ThemeModeToggleService {
   }
 
   public init(renderer: Renderer2, angularDocument: Document): Promise<ThemeMode> {
-    const deviceMode: MediaQueryList = angularDocument.defaultView!.matchMedia('(prefers-color-scheme: dark)');
     let initMode: ThemeMode = this.modeStorage.get();
     if (!initMode) {
-      deviceMode.matches ? (initMode = ThemeMode.DARK) : (initMode = ThemeMode.LIGHT);
+      const prefersDarkMode = angularDocument.defaultView!.matchMedia('(prefers-color-scheme: dark)').matches;
+      initMode = prefersDarkMode ? ThemeMode.DARK : ThemeMode.LIGHT;
     }
     this.updateCurrentMode(initMode);
     renderer.addClass(angularDocument.documentElement, initMode);
