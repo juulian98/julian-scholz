@@ -1,11 +1,13 @@
-import {inject, Injectable, Renderer2} from "@angular/core";
+import {inject, Injectable, PLATFORM_ID, Renderer2} from "@angular/core";
 import {ThemeMode} from "./utils/theme-mode-toggle.enum";
 import {Observable, ReplaySubject} from "rxjs";
 import {THEME_MODE_STORAGE_SERVICE, ThemeModeStorage} from "./theme-mode-storage.service";
+import {isPlatformBrowser} from "@angular/common";
 
 @Injectable({providedIn: "root"})
 export class ThemeModeToggleService {
 
+  private readonly platformId: Object = inject(PLATFORM_ID);
   private currentMode: ThemeMode | undefined;
   private readonly modeChangedSubject: ReplaySubject<ThemeMode> = new ReplaySubject(1);
   private readonly modeStorage: ThemeModeStorage = inject(THEME_MODE_STORAGE_SERVICE);
@@ -23,10 +25,14 @@ export class ThemeModeToggleService {
   }
 
   public init(renderer: Renderer2, angularDocument: Document): Promise<ThemeMode> {
-    let initMode: ThemeMode = this.modeStorage.get();
+    let initMode: ThemeMode | null = this.modeStorage.get();
     if (!initMode) {
-      const prefersDarkMode = angularDocument.defaultView!.matchMedia('(prefers-color-scheme: dark)').matches;
-      initMode = prefersDarkMode ? ThemeMode.DARK : ThemeMode.LIGHT;
+      if (isPlatformBrowser(this.platformId)) {
+        const prefersDarkMode = angularDocument.defaultView!.matchMedia('(prefers-color-scheme: dark)').matches;
+        initMode = prefersDarkMode ? ThemeMode.DARK : ThemeMode.LIGHT;
+      } else {
+        initMode = ThemeMode.LIGHT;
+      }
     }
     this.updateCurrentMode(initMode);
     renderer.addClass(angularDocument.documentElement, initMode);

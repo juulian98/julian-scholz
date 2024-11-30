@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, OnDestroy, input, signal, inject} from '@angular/core';
-import {NgStyle, ViewportScroller} from "@angular/common";
+import {AfterViewInit, Component, OnDestroy, input, signal, inject, PLATFORM_ID} from '@angular/core';
+import {isPlatformBrowser, NgStyle, ViewportScroller} from "@angular/common";
 import {ScrollTrigger} from "../../lib/misc/gsap/gsap";
 import {NavigationEntryModel} from "./models/navigation-entry.model";
 
@@ -12,6 +12,7 @@ import {NavigationEntryModel} from "./models/navigation-entry.model";
 })
 export class NavigationEntryComponent implements AfterViewInit, OnDestroy {
 
+  private readonly platformId: Object = inject(PLATFORM_ID);
   private readonly viewportScroller: ViewportScroller = inject(ViewportScroller);
 
   public readonly navigationEntry = input.required<NavigationEntryModel>();
@@ -23,17 +24,19 @@ export class NavigationEntryComponent implements AfterViewInit, OnDestroy {
   private gsapScrollTrigger: ScrollTrigger | undefined;
 
   ngAfterViewInit(): void {
-    this.gsapScrollTrigger = ScrollTrigger.create({
-      trigger: `#${this.navigationEntry().id}`,
-      start: 'top-=5 top',
-      endTrigger: `#${this.navigationEntry().id}`,
-      end: 'bottom-=5 top',
-      scrub: true,
-      onEnter: () => this.opacity.set(1),
-      onEnterBack: () => this.opacity.set(1),
-      onLeave: () => this.opacity.set(this.navigationLastEntry() ? 1 : 0),
-      onLeaveBack: () => this.opacity.set(0)
-    });
+    if (isPlatformBrowser(this.platformId)) {
+      this.gsapScrollTrigger = ScrollTrigger.create({
+        trigger: `#${this.navigationEntry().id}`,
+        start: 'top-=5 top',
+        endTrigger: `#${this.navigationEntry().id}`,
+        end: 'bottom-=5 top',
+        scrub: true,
+        onEnter: () => this.opacity.set(1),
+        onEnterBack: () => this.opacity.set(1),
+        onLeave: () => this.opacity.set(this.navigationLastEntry() ? 1 : 0),
+        onLeaveBack: () => this.opacity.set(0)
+      });
+    }
   }
 
   protected navigateTo(elementId: string) {

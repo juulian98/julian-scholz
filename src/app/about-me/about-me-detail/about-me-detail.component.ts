@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, OnDestroy, input, signal} from '@angular/core';
-import {NgClass, NgStyle} from "@angular/common";
+import {AfterViewInit, Component, OnDestroy, input, signal, inject, PLATFORM_ID} from '@angular/core';
+import {isPlatformBrowser, NgClass, NgStyle} from "@angular/common";
 import {AboutMeDetailModel} from "./models/about-me-detail.model";
 import {ScrollTrigger} from "../../lib/misc/gsap/gsap";
 
@@ -13,6 +13,8 @@ import {ScrollTrigger} from "../../lib/misc/gsap/gsap";
 })
 export class AboutMeDetailComponent implements AfterViewInit, OnDestroy {
 
+  private readonly platformId: Object = inject(PLATFORM_ID);
+
   public readonly scrollTrigger = input.required<HTMLElement>();
   public readonly detail = input.required<AboutMeDetailModel>();
   public readonly ppc = input.required<number>();
@@ -22,16 +24,18 @@ export class AboutMeDetailComponent implements AfterViewInit, OnDestroy {
   private gsapScrollTrigger: ScrollTrigger | undefined;
 
   ngAfterViewInit(): void {
-    this.gsapScrollTrigger = ScrollTrigger.create({
-      trigger: this.scrollTrigger(),
-      start: `top top-=${this.detail().start * this.ppc()}`,
-      end: `top top-=${this.detail().end * this.ppc()}`,
-      scrub: true,
-      onEnter: () => this.active.set(1),
-      onEnterBack: () => this.active.set(0),
-      onLeave: () => this.active.set(1),
-      onLeaveBack: () => this.active.set(0)
-    });
+    if (isPlatformBrowser(this.platformId)) {
+      this.gsapScrollTrigger = ScrollTrigger.create({
+        trigger: this.scrollTrigger(),
+        start: `top top-=${this.detail().start * this.ppc()}`,
+        end: `top top-=${this.detail().end * this.ppc()}`,
+        scrub: true,
+        onEnter: () => this.active.set(1),
+        onEnterBack: () => this.active.set(0),
+        onLeave: () => this.active.set(1),
+        onLeaveBack: () => this.active.set(0)
+      });
+    }
   }
 
   ngOnDestroy(): void {

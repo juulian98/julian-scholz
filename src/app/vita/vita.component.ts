@@ -3,7 +3,7 @@ import {
   Component,
   ElementRef,
   inject,
-  OnDestroy,
+  OnDestroy, PLATFORM_ID,
   Renderer2,
   RendererStyleFlags2,
   viewChild
@@ -18,7 +18,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {VitaEntryModel} from "./models/vita-entry.model";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {NgStyle, UpperCasePipe} from "@angular/common";
+import {isPlatformBrowser, NgStyle, UpperCasePipe} from "@angular/common";
 import {IconDefinition} from "@fortawesome/fontawesome-common-types";
 import {gsap} from "../lib/misc/gsap/gsap";
 import {TAILWIND_COLORS} from "../../../tailwind.colors";
@@ -34,6 +34,7 @@ import {TAILWIND_COLORS} from "../../../tailwind.colors";
 })
 export class VitaComponent implements AfterViewInit, OnDestroy {
 
+  private readonly platformId: Object = inject(PLATFORM_ID);
   private readonly renderer: Renderer2 = inject(Renderer2);
   private markerIntersectionObserver: IntersectionObserver | undefined;
   private readonly vitaEntriesElement = viewChild.required<ElementRef<HTMLDivElement>>('vitaEntriesElement');
@@ -126,20 +127,22 @@ export class VitaComponent implements AfterViewInit, OnDestroy {
   ];
 
   ngAfterViewInit(): void {
-    this.markerIntersectionObserver = new IntersectionObserver(entries => {
-      for (let entry of entries) {
-        if (entry.isIntersecting) {
-          const newHighlightColor = this.highlightColors[this.randomHighlightColorIndex()];
-          this.renderer.setStyle(entry.target, '--vita-entry-mark-highlight-color-light', `${newHighlightColor}80`, RendererStyleFlags2.DashCase);
-          this.renderer.setStyle(entry.target, '--vita-entry-mark-highlight-color-dark', `${newHighlightColor}59`, RendererStyleFlags2.DashCase);
-        }
+    if (isPlatformBrowser(this.platformId)) {
+      this.markerIntersectionObserver = new IntersectionObserver(entries => {
+        for (let entry of entries) {
+          if (entry.isIntersecting) {
+            const newHighlightColor = this.highlightColors[this.randomHighlightColorIndex()];
+            this.renderer.setStyle(entry.target, '--vita-entry-mark-highlight-color-light', `${newHighlightColor}80`, RendererStyleFlags2.DashCase);
+            this.renderer.setStyle(entry.target, '--vita-entry-mark-highlight-color-dark', `${newHighlightColor}59`, RendererStyleFlags2.DashCase);
+          }
 
-        this.renderer.setStyle(entry.target, '--vita-entry-mark-highlighted', (entry.isIntersecting ? 1 : 0), RendererStyleFlags2.DashCase);
-      }
-    }, {threshold: 1.0});
-    this.vitaEntriesElement().nativeElement.querySelectorAll('mark').forEach((markEntry: HTMLElement) =>
-      this.markerIntersectionObserver?.observe(markEntry)
-    );
+          this.renderer.setStyle(entry.target, '--vita-entry-mark-highlighted', (entry.isIntersecting ? 1 : 0), RendererStyleFlags2.DashCase);
+        }
+      }, {threshold: 1.0});
+      this.vitaEntriesElement().nativeElement.querySelectorAll('mark').forEach((markEntry: HTMLElement) =>
+        this.markerIntersectionObserver?.observe(markEntry)
+      );
+    }
   }
 
   ngOnDestroy(): void {

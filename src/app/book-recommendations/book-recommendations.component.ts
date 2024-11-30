@@ -1,7 +1,7 @@
-import {AfterViewInit, Component, DestroyRef, ElementRef, inject, signal, viewChild} from "@angular/core";
+import {AfterViewInit, Component, DestroyRef, ElementRef, inject, PLATFORM_ID, signal, viewChild} from "@angular/core";
 import {BookRecommendationsShelfComponent} from "./shelf/shelf.component";
 import {BookModel} from "./book/models/book.model";
-import {DOCUMENT} from "@angular/common";
+import {DOCUMENT, isPlatformBrowser} from "@angular/common";
 import {debounceTime, fromEvent} from "rxjs";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {gsap} from "../lib/misc/gsap/gsap";
@@ -16,6 +16,7 @@ import {environment} from "../../environment/environment";
 })
 export class BookRecommendationsComponent implements AfterViewInit {
 
+  private readonly platformId: Object = inject(PLATFORM_ID);
   private readonly angularDocument: Document = inject(DOCUMENT);
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
@@ -93,15 +94,17 @@ export class BookRecommendationsComponent implements AfterViewInit {
   protected shelveRows = signal<BookModel[][]>([]);
 
   ngAfterViewInit(): void {
-    fromEvent(this.angularDocument.defaultView!, 'resize')
-      .pipe(
-        debounceTime(250),
-        takeUntilDestroyed(this.destroyRef),
-      ).subscribe(() => {
-      this.recalculateShelves(false);
-    });
+    if (isPlatformBrowser(this.platformId)) {
+      fromEvent(this.angularDocument.defaultView!, 'resize')
+        .pipe(
+          debounceTime(250),
+          takeUntilDestroyed(this.destroyRef),
+        ).subscribe(() => {
+        this.recalculateShelves(false);
+      });
 
-    this.recalculateShelves(true);
+      this.recalculateShelves(true);
+    }
   }
 
   private recalculateShelves(shuffleBookOrder: boolean): void {

@@ -1,7 +1,7 @@
-import {AfterViewInit, Component, inject, OnDestroy, signal} from '@angular/core';
+import {AfterViewInit, Component, inject, OnDestroy, PLATFORM_ID, signal} from '@angular/core';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {faJs} from '@fortawesome/free-brands-svg-icons'
-import {NgStyle, ViewportScroller} from "@angular/common";
+import {isPlatformBrowser, NgStyle, ViewportScroller} from "@angular/common";
 import {ThemeModeToggleComponent} from "../lib/theme-mode-toggle/theme-mode-toggle.component";
 import {navigationEntries} from "../app.routes";
 import {IconDefinition} from "@fortawesome/fontawesome-common-types";
@@ -22,6 +22,7 @@ import {NavigationEntryModel} from "./navigation-entry/models/navigation-entry.m
 })
 export class NavigationComponent implements AfterViewInit, OnDestroy {
 
+  private readonly platformId: Object = inject(PLATFORM_ID);
   private readonly viewportScroller: ViewportScroller = inject(ViewportScroller);
 
   protected readonly faJs: IconDefinition = faJs;
@@ -38,14 +39,16 @@ export class NavigationComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.gsapScrollTrigger = ScrollTrigger.create({
-      trigger: 'header',
-      scrub: true,
-      onEnter: () => this.navbarExpanded.set(0),
-      onEnterBack: () => this.navbarExpanded.set(0),
-      onLeave: () => this.navbarExpanded.set(1),
-      onLeaveBack: () => this.navbarExpanded.set(1)
-    });
+    if (isPlatformBrowser(this.platformId)) {
+      this.gsapScrollTrigger = ScrollTrigger.create({
+        trigger: 'header',
+        scrub: true,
+        onEnter: () => this.navbarExpanded.set(0),
+        onEnterBack: () => this.navbarExpanded.set(0),
+        onLeave: () => this.navbarExpanded.set(1),
+        onLeaveBack: () => this.navbarExpanded.set(1)
+      });
+    }
   }
 
   protected navigateToTop(): void {

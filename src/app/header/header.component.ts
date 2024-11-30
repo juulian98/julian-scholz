@@ -5,11 +5,11 @@ import {
   DestroyRef,
   ElementRef,
   inject,
-  OnDestroy,
+  OnDestroy, PLATFORM_ID,
   Renderer2, signal,
   viewChild
 } from '@angular/core';
-import {CommonModule, DOCUMENT} from "@angular/common";
+import {CommonModule, DOCUMENT, isPlatformBrowser} from "@angular/common";
 import {HeaderNavComponent} from "./nav/nav.component";
 import {ThemeMode} from "../lib/theme-mode-toggle/utils/theme-mode-toggle.enum";
 import {RingModel} from "./models/ring.model";
@@ -26,6 +26,7 @@ import {gsap} from "../lib/misc/gsap/gsap";
 })
 export class HeaderComponent implements AfterViewInit, OnDestroy {
 
+  private readonly platformId: Object = inject(PLATFORM_ID);
   private readonly angularDocument: Document = inject(DOCUMENT);
   private readonly renderer: Renderer2 = inject(Renderer2);
   private readonly changeDetectorRef: ChangeDetectorRef = inject(ChangeDetectorRef);
@@ -56,36 +57,37 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
   protected showCanvas = signal<boolean>(false);
 
   ngAfterViewInit(): void {
-    this.themeModeToggleService.modeChanged$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (themeMode) => {
-          this.themeMode = themeMode;
-          if (this.gsapAnimations.length > 0) {
-            this.initComponent();
-          }
-        },
-        error: (error) => console.error(error)
+    if (isPlatformBrowser(this.platformId)) {
+      this.themeModeToggleService.modeChanged$
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe({
+          next: (themeMode) => {
+            this.themeMode = themeMode;
+            if (this.gsapAnimations.length > 0) {
+              this.initComponent();
+            }
+          },
+          error: (error) => console.error(error)
+        });
+
+      fromEvent(this.angularDocument.defaultView!, 'resize')
+        .pipe(
+          debounceTime(250),
+          takeUntilDestroyed(this.destroyRef),
+        ).subscribe(() => {
+        if (typeof this.windowWidth === 'number' && this.angularDocument.defaultView!.innerWidth !== this.windowWidth) {
+          this.initComponent();
+        }
       });
 
-    fromEvent(this.angularDocument.defaultView!, 'resize')
-      .pipe(
-        debounceTime(250),
-        takeUntilDestroyed(this.destroyRef),
-      ).subscribe(() => {
-      if (typeof this.windowWidth === 'number' && this.angularDocument.defaultView!.innerWidth !== this.windowWidth) {
+      setTimeout(() => {
         this.initComponent();
-      }
-    });
 
-    setTimeout(() => {
-      this.initComponent();
+        this.startRingAnimations();
 
-      this.startRingAnimations();
-
-      this.showCanvas.set(true);
-    }, 500);
-
+        this.showCanvas.set(true);
+      }, 500);
+    }
   }
 
   ngOnDestroy() {

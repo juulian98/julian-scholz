@@ -1,8 +1,8 @@
-import {AfterViewInit, Component, computed, DestroyRef, inject, signal} from '@angular/core';
+import {AfterViewInit, Component, computed, DestroyRef, inject, PLATFORM_ID, signal} from '@angular/core';
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {IconDefinition} from "@fortawesome/fontawesome-common-types";
 import {faCaretUp} from '@fortawesome/free-solid-svg-icons';
-import {DOCUMENT, NgStyle, ViewportScroller} from "@angular/common";
+import {DOCUMENT, isPlatformBrowser, NgStyle, ViewportScroller} from "@angular/common";
 import {fromEvent} from "rxjs";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
@@ -16,6 +16,7 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 })
 export class BackToTopButtonComponent implements AfterViewInit {
 
+  private readonly platformId: Object = inject(PLATFORM_ID);
   private readonly angularDocument: Document = inject(DOCUMENT);
   private readonly viewportScroller: ViewportScroller = inject(ViewportScroller);
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
@@ -32,10 +33,12 @@ export class BackToTopButtonComponent implements AfterViewInit {
   protected isVisible = computed(() => this.scrollPercentage() >= 5);
 
   ngAfterViewInit(): void {
-    fromEvent(this.angularDocument.defaultView!, 'scroll')
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-      ).subscribe(() => this.calculateStrokeDashoffsetWithScrollPosition());
+    if (isPlatformBrowser(this.platformId)) {
+      fromEvent(this.angularDocument.defaultView!, 'scroll')
+        .pipe(
+          takeUntilDestroyed(this.destroyRef),
+        ).subscribe(() => this.calculateStrokeDashoffsetWithScrollPosition());
+    }
   }
 
   protected navigateToTop(): void {
