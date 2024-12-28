@@ -77,7 +77,7 @@ export class VitaComponent implements AfterViewInit, OnDestroy {
                     und verschiedenen Webtechnologien wie <mark><span>TypeScript, JavaScript und PHP</span></mark>.
                     Im Zuge dessen beschäftige ich mich mit dem Content-Management-System
                     <mark><span>FirstSpirit</span></mark> und der Portalsoftware <mark><span>Liferay</span></mark>.
-                    In diesem Rahmen betreue ich eine Vielzahl von zentralen
+                    Dabei betreue ich im Rahmen dieser beiden Systemumgebungen eine Vielzahl von zentralen
                     Webseiten und -Anwendungen der MERKUR GROUP (früher Gauselmann Gruppe).
                     Zudem entwickelte ich unter Verwendung moderner Frameworks wie <mark><span>Angular</span></mark> und
                     <mark><span>NestJS</span></mark> eine <mark><span>Plattform zur Steuerung, Planung und Durchführung von Rollout-Prozessen</span></mark>.`,
