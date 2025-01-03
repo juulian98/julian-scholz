@@ -60,12 +60,12 @@ export class VitaComponent implements AfterViewInit, OnDestroy {
       timePeriod: 'Seit März 2024',
       description: `Neben meiner privaten Leidenschaft für das Lösen von CTFs auf Plattformen wie Hack The Box und
                     beruflichen Fort- und Weiterbildungen zu Security-Themen leite ich die Taskforce Application Security.
-                    Ziel dieser ist die <mark><span>kontinuierliche Verbesserung der Sicherheit</span></mark> von
+                    Ziel dieser ist die <mark>kontinuierliche Verbesserung der Sicherheit</mark> von
                     bestehenden und neuen Anwendungen, die innerhalb der Unternehmensgruppe entwickelt und betrieben werden.
                     Inhaltlich konzentriert sich die Arbeit der Taskforce unter anderem auf die Begleitung von
-                    <mark><span>Penetrationstests</span></mark>, die Evaluierung der Sicherheit verschiedenster
-                    <mark><span>System- und Softwarearchitekturen</span></mark> sowie die Ausgestaltung von
-                    <mark><span>sicheren Programmierpraktiken</span></mark>.`,
+                    <mark>Penetrationstests</mark>, die Evaluierung der Sicherheit verschiedenster
+                    <mark>System- und Softwarearchitekturen</mark> sowie die Ausgestaltung von
+                    <mark>sicheren Programmierpraktiken</mark>.`,
     },
     {
       iconDefinition: faTerminal,
@@ -73,14 +73,14 @@ export class VitaComponent implements AfterViewInit, OnDestroy {
       location: 'BEIT GmbH (MERKUR GROUP)',
       titleDescription: 'Latest',
       timePeriod: 'Seit August 2020',
-      description: `In meiner Tätigkeit als Entwickler liegt mein Schwerpunkt auf der Arbeit mit <mark><span>Java, Node.js</span></mark>
-                    und verschiedenen Webtechnologien wie <mark><span>TypeScript, JavaScript und PHP</span></mark>.
+      description: `In meiner Tätigkeit als Entwickler liegt mein Schwerpunkt auf der Arbeit mit <mark>Java, Node.js</mark>
+                    und verschiedenen Webtechnologien wie <mark>TypeScript, JavaScript und PHP</mark>.
                     Im Zuge dessen beschäftige ich mich mit dem Content-Management-System
-                    <mark><span>FirstSpirit</span></mark> und der Portalsoftware <mark><span>Liferay</span></mark>.
+                    <mark>FirstSpirit</mark> und der Portalsoftware <mark>Liferay</mark>.
                     Dabei betreue ich im Rahmen dieser beiden Systemumgebungen eine Vielzahl von zentralen
                     Webseiten und -Anwendungen der MERKUR GROUP (früher Gauselmann Gruppe).
-                    Zudem entwickelte ich unter Verwendung moderner Frameworks wie <mark><span>Angular</span></mark> und
-                    <mark><span>NestJS</span></mark> eine <mark><span>Plattform zur Steuerung, Planung und Durchführung von Rollout-Prozessen</span></mark>.`,
+                    Zudem entwickelte ich unter Verwendung moderner Frameworks wie <mark>Angular</mark> und
+                    <mark>NestJS</mark> eine <mark>Plattform zur Steuerung, Planung und Durchführung von Rollout-Prozessen</mark>.`,
     },
     {
       iconDefinition: faGraduationCap,
@@ -90,12 +90,12 @@ export class VitaComponent implements AfterViewInit, OnDestroy {
       description: `Während meines Studiums der Wirtschaftsinformatik beschäftigte ich mich neben vielen theoretischen
                     Aspekten im Rahmen einiger Module intensiv mit praktischen Projekten.
                     Dazu gehören unter anderem die Programmierung einer prototypischen iOS-App mit einem Backend zur Steuerung
-                    einer DJI-Drohne für eine <mark><span>automatisierte Lagerverwaltung</span></mark>, die <mark><span>Entwicklung eines Chatbots</span></mark> sowie die
-                    <mark><span>Programmierung eines Alexa-Skills</span></mark>. Diese Projekte ermöglichten es mir,
+                    einer DJI-Drohne für eine <mark>automatisierte Lagerverwaltung</mark>, die <mark>Entwicklung eines Chatbots</mark> sowie die
+                    <mark>Programmierung eines Alexa-Skills</mark>. Diese Projekte ermöglichten es mir,
                     mein theoretisch erlerntes Wissen anzuwenden und oftmals im Rahmen von Gruppenarbeiten innovative
-                    Lösungen zu entwickeln. In den späteren Semestern wählte ich den <mark><span>Schwerpunkt E-Business</span></mark>.<br>
+                    Lösungen zu entwickeln. In den späteren Semestern wählte ich den <mark>Schwerpunkt E-Business</mark>.<br>
                     Meine Bachelorarbeit umfasste die Konzeption, den Entwurf und die
-                    Java-Implementierung einer <mark><span>Erweiterung für ein Content-Management-System</span></mark>.`,
+                    Java-Implementierung einer <mark>Erweiterung für ein Content-Management-System</mark>.`,
     },
     {
       iconDefinition: faComputer,
@@ -106,10 +106,10 @@ export class VitaComponent implements AfterViewInit, OnDestroy {
                     Ausbildung als Fachinformatiker für Systemintegration. Nach jeder Theoriephase an der Hochschule wechselte
                     ich innerhalb des Unternehmens die Abteilung. So konnte ich vielfältige Einblicke in sowohl administrative
                     Aufgaben als auch in Softwareentwicklungsprozesse gewinnen. Dabei sammelte ich unter anderem Erfahrung mit
-                    <mark><span>Datenbanken</span></mark>, <mark><span>Virtualisierungstechnologien</span></mark> und
-                    der <mark><span>Individualentwicklung</span></mark>.<br>
+                    <mark>Datenbanken</mark>, <mark>Virtualisierungstechnologien</mark> und
+                    der <mark>Individualentwicklung</mark>.<br>
                     In meinem Abschlussprojekt beschäftigte ich mich mit der Konzeption und Implementierung einer Lösung für ein
-                    <mark><span>Ende-zu-Ende-Monitoring von E-Mail-Infrastrukturen</span></mark>.`,
+                    <mark>Ende-zu-Ende-Monitoring von E-Mail-Infrastrukturen</mark>.`,
     },
     {
       iconDefinition: faSchool,
@@ -117,11 +117,11 @@ export class VitaComponent implements AfterViewInit, OnDestroy {
       location: 'Gymnasium Petershagen',
       timePeriod: 'August 2009 - Juli 2017',
       description: `Schon während meiner Schulzeit entdeckte ich meine Leidenschaft für Informatik,
-                    die sich durch einen <mark><span>Informatik-Differenzierungskurs</span></mark> in der Mittelstufe entwickelte und
-                    durch ein <mark><span>Praktikum im Bereich der Automatisierungstechnik</span></mark> weiter gefestigt wurde.
+                    die sich durch einen <mark>Informatik-Differenzierungskurs</mark> in der Mittelstufe entwickelte und
+                    durch ein <mark>Praktikum im Bereich der Automatisierungstechnik</mark> weiter gefestigt wurde.
                     Zusätzlich war ich neben dem normalen Schulalltag als Administrator im Selbstlernzentrum des Gymnasiums tätig,
                     was mir bereits damals erste wertvolle praktische Erfahrungen einbrachte.
-                    In der Oberstufe belegte ich die beiden <mark><span>Leistungskurse Mathematik und Sozialwissenschaften</span></mark>.
+                    In der Oberstufe belegte ich die beiden <mark>Leistungskurse Mathematik und Sozialwissenschaften</mark>.
                     Insbesondere die Kombination aus meinem Interesse an Zahlen und Logik sowie
                     meinem Verständnis von wirtschaftlichen Zusammenhängen führte dazu, dass ich mich schon während des Abiturs für
                     ein Studium der Wirtschaftsinformatik entschied.`,
