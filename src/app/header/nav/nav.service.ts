@@ -25,7 +25,7 @@ export class NavService {
     gitHub: {
       name: 'GitHub',
       iconDefinition: faGithub,
-      url: 'https://github.com/juulian98',
+      url: 'https://github.com/julian-scholz',
       order: 2,
     },
     instagram: {
