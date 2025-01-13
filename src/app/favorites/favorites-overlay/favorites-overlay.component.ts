@@ -58,9 +58,9 @@ export class FavoritesOverlayComponent {
     const fourRandomNumbers = Array.from({ length: 4 }, () =>
       this.randomBorderRadius(),
     );
-    this.borderRadius
-      .set(`${fourRandomNumbers[0]}% ${100 - fourRandomNumbers[0]}% ${fourRandomNumbers[1]}% ${100 - fourRandomNumbers[1]}% /
-    ${fourRandomNumbers[2]}% ${fourRandomNumbers[3]}% ${100 - fourRandomNumbers[3]}% ${100 - fourRandomNumbers[2]}%`);
+    this.borderRadius.set(
+      `${fourRandomNumbers[0]}% ${100 - fourRandomNumbers[0]}% ${fourRandomNumbers[1]}% ${100 - fourRandomNumbers[1]}% / ${fourRandomNumbers[2]}% ${fourRandomNumbers[3]}% ${100 - fourRandomNumbers[3]}% ${100 - fourRandomNumbers[2]}%`,
+    );
   }
 
   private shuffleTagList(): void {
