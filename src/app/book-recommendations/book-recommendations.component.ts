@@ -49,8 +49,7 @@ export class BookRecommendationsComponent implements AfterViewInit {
         subtitle:
           "How the Powerful Bend Society's Rules, and How to Bend them Back",
         summary:
-          'Bruce Schneier zeigt eindrucksvoll, welche mitunter gefährlichen Abhängigkeiten in den letzten ' +
-          'Jahrzehnten zwischen der Computerwelt und unseren sozialen, wirtschaftlichen und politischen Systemen entstanden sind.',
+          'Bruce Schneier zeigt eindrucksvoll, welche mitunter gefährlichen Abhängigkeiten in den letzten Jahrzehnten zwischen der Computerwelt und unseren sozialen, wirtschaftlichen und politischen Systemen entstanden sind.',
       },
     },
     {
@@ -66,8 +65,7 @@ export class BookRecommendationsComponent implements AfterViewInit {
         subtitle:
           'Exploitation and Countermeasures for Modern Web Applications',
         summary:
-          'Andrew Hoffman gliedert Anwendungssicherheit in drei Säulen und zeigt aktuelle ' +
-          'Angriffe und Gegenmaßnahmen im Rahmen eines sicheren Entwicklungsprozesses.',
+          'Andrew Hoffman gliedert Anwendungssicherheit in drei Säulen und zeigt aktuelle Angriffe und Gegenmaßnahmen im Rahmen eines sicheren Entwicklungsprozesses.',
       },
     },
     {
@@ -82,9 +80,7 @@ export class BookRecommendationsComponent implements AfterViewInit {
         title: 'Countdown to Zero Day',
         subtitle: "Stuxnet and the Launch of the World's First Digital Weapon",
         summary:
-          'Mit Spannung erzählt Kim Zetter die Geschichte eines Virus, der Irans Nuklearprogramm sabotierte und ' +
-          'eröffnet den Blick auf eine neue Ära der digitalen Kriegsführung, in der digitale Angriffe ungeahnte ' +
-          'Zerstörung anrichten können.',
+          'Mit Spannung erzählt Kim Zetter die Geschichte eines Virus, der Irans Nuklearprogramm sabotierte und eröffnet den Blick auf eine neue Ära der digitalen Kriegsführung, in der digitale Angriffe ungeahnte Zerstörung anrichten können.',
       },
     },
     {
@@ -99,9 +95,7 @@ export class BookRecommendationsComponent implements AfterViewInit {
         title: 'Angular: Das große Praxisbuch',
         subtitle: 'Grundlagen, fortgeschrittene Themen und Best Practices',
         summary:
-          'Die Autoren haben es mit diesem Buch geschafft, sowohl Einsteiger- als auch fortgeschrittenere ' +
-          'Theorien klar und verständlich zu erklären. Die theoretischen Aspekte werden durch sehr gute Beispiele ' +
-          'veranschaulicht.',
+          'Die Autoren haben es mit diesem Buch geschafft, sowohl Einsteiger- als auch fortgeschrittenere Theorien klar und verständlich zu erklären. Die theoretischen Aspekte werden durch sehr gute Beispiele veranschaulicht.',
       },
     },
   ];
