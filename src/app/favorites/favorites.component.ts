@@ -45,8 +45,8 @@ export class FavoritesComponent implements OnInit, OnDestroy {
     inject(ChangeDetectorRef);
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
-  private readonly lightForegroundImagePath: string = `${environment.imagesUrl}/favorites/tv/tv_light`;
-  private readonly darkForegroundImagePath: string = `${environment.imagesUrl}/favorites/tv/tv_dark`;
+  private readonly lightForegroundImagePath: string = `${environment.assetsUrl}/images/favorites/tv/tv_light`;
+  private readonly darkForegroundImagePath: string = `${environment.assetsUrl}/images/favorites/tv/tv_dark`;
   private readonly backgroundImagesCount: number = 22;
   protected selectedForegroundImage: string | undefined;
   protected notSelectedForegroundImage: string | undefined;
@@ -66,7 +66,7 @@ export class FavoritesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      this.selectedBackgroundImagePath = `${environment.imagesUrl}/favorites/bg/${gsap.utils.random(0, this.backgroundImagesCount - 1, 1)}`;
+      this.selectedBackgroundImagePath = `${environment.assetsUrl}/images/favorites/bg/${gsap.utils.random(0, this.backgroundImagesCount - 1, 1)}`;
     }
 
     this.themeModeToggleService.modeChanged$

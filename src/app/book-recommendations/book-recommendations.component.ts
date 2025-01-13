@@ -40,7 +40,7 @@ export class BookRecommendationsComponent implements AfterViewInit {
       url: 'https://www.schneier.com/books/a-hackers-mind/',
       backfaceColor: '#64c3c1',
       cover: {
-        imagePath: `${environment.imagesUrl}/books/0`,
+        imagePath: `${environment.assetsUrl}/images/books/0`,
         height: 302,
       },
       details: {
@@ -56,7 +56,7 @@ export class BookRecommendationsComponent implements AfterViewInit {
       url: 'https://www.andrewhoffman.me/web-application-security-oreilly/',
       backfaceColor: '#796052',
       cover: {
-        imagePath: `${environment.imagesUrl}/books/1`,
+        imagePath: `${environment.assetsUrl}/images/books/1`,
         height: 262,
       },
       details: {
@@ -72,7 +72,7 @@ export class BookRecommendationsComponent implements AfterViewInit {
       url: 'https://a.co/d/hmiPrkS',
       backfaceColor: '#5c5440',
       cover: {
-        imagePath: `${environment.imagesUrl}/books/2`,
+        imagePath: `${environment.assetsUrl}/images/books/2`,
         height: 308,
       },
       details: {
@@ -87,7 +87,7 @@ export class BookRecommendationsComponent implements AfterViewInit {
       url: 'https://angular-buch.com/',
       backfaceColor: '#ca020a',
       cover: {
-        imagePath: `${environment.imagesUrl}/books/3`,
+        imagePath: `${environment.assetsUrl}/images/books/3`,
         height: 291,
       },
       details: {
