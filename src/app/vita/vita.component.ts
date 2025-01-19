@@ -66,7 +66,7 @@ export class VitaComponent implements AfterViewInit, OnDestroy {
       location: 'BEIT GmbH (MERKUR GROUP)',
       titleDescription: 'Latest',
       timePeriod: 'Seit August 2020',
-      description: `In meiner Tätigkeit als Entwickler liegt mein Schwerpunkt auf der Arbeit mit <mark>Java, Node.js</mark> und verschiedenen Webtechnologien wie <mark>TypeScript, JavaScript und PHP</mark>. Im Zuge dessen beschäftige ich mich mit dem Content-Management-System <mark>FirstSpirit</mark> und der Portalsoftware <mark>Liferay</mark>. Dabei betreue ich im Rahmen dieser beiden Systemumgebungen eine Vielzahl von zentralen Webseiten und -Anwendungen der MERKUR GROUP (früher Gauselmann Gruppe). Zudem entwickelte ich unter Verwendung moderner Frameworks wie <mark>Angular</mark> und <mark>NestJS</mark> eine <mark>Plattform zur Steuerung, Planung und Durchführung von Rollout-Prozessen</mark>.`,
+      description: `In meiner Tätigkeit als Full-Stack-Entwickler liegt mein Schwerpunkt auf der Arbeit mit <mark>Java, Node.js</mark> und verschiedenen Webtechnologien wie <mark>TypeScript, JavaScript und PHP</mark>. Im Zuge dessen beschäftige ich mich mit dem Content-Management-System <mark>FirstSpirit</mark> und der Portalsoftware <mark>Liferay</mark>. Dabei betreue ich im Rahmen dieser beiden Systemumgebungen eine Vielzahl von zentralen Webseiten und -Anwendungen der MERKUR GROUP (früher Gauselmann Gruppe). Zudem entwickelte ich unter Verwendung moderner Frameworks wie <mark>Angular</mark> und <mark>NestJS</mark> eine <mark>Plattform zur Steuerung, Planung und Durchführung von Rollout-Prozessen</mark>.`,
     },
     {
       iconDefinition: faGraduationCap,
