@@ -18,7 +18,6 @@ import { RingModel } from './models/ring.model';
 import { ThemeModeToggleService } from '../lib/theme-mode-toggle/theme-mode-toggle.service';
 import { debounceTime, fromEvent } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { TAILWIND_COLORS } from '../../../tailwind.colors';
 import { gsap } from '../lib/misc/gsap/gsap';
 
 @Component({
@@ -63,13 +62,17 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
+      const documentStyles = this.angularDocument.defaultView!.getComputedStyle(
+        this.angularDocument.documentElement,
+      );
+
       this.themeModeToggleService.modeChanged$
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe({
           next: (themeMode) => {
             this.themeMode = themeMode;
             if (this.gsapAnimations.length > 0) {
-              this.initComponent();
+              this.initComponent(documentStyles);
             }
           },
           error: (error) => console.error(error),
@@ -82,14 +85,14 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
             typeof this.windowWidth === 'number' &&
             this.angularDocument.defaultView!.innerWidth !== this.windowWidth
           ) {
-            this.initComponent();
+            this.initComponent(documentStyles);
           }
         });
 
       setTimeout(() => {
-        this.initComponent();
+        this.initComponent(documentStyles);
 
-        this.startRingAnimations();
+        this.startRingAnimations(documentStyles);
 
         this.showCanvas.set(true);
       }, 500);
@@ -108,7 +111,7 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
     this.gsapAnimations = [];
   }
 
-  private initComponent() {
+  private initComponent(documentStyles: CSSStyleDeclaration) {
     if (!this.themeMode) {
       return;
     }
@@ -144,8 +147,8 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
 
     this.textContext.fillStyle =
       this.themeMode !== ThemeMode.DARK
-        ? TAILWIND_COLORS.snow
-        : TAILWIND_COLORS['dark-void'].DEFAULT;
+        ? documentStyles.getPropertyValue('--color-snow')
+        : documentStyles.getPropertyValue('--color-dark-void');
     this.textContext.textAlign = 'center';
     this.textContext.textBaseline = 'middle';
     this.textContext.font = `${this.fontWeight} ${getFontSize() * this.dpi}px ${this.font}`;
@@ -197,7 +200,10 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
     );
   }
 
-  private initRingAnimations() {
+  private initRingAnimations(
+    lightGradientColorStops: [string, string],
+    darkGradientColorStops: [string, string],
+  ) {
     this.ringContext.clearRect(
       0,
       0,
@@ -214,11 +220,11 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
       this.ringCanvas.width / 2,
     );
     if (this.themeMode !== ThemeMode.DARK) {
-      gradient.addColorStop(0, TAILWIND_COLORS.vanilla['extra-dark']);
-      gradient.addColorStop(0.5, TAILWIND_COLORS['dark-void'].dark);
+      gradient.addColorStop(0, lightGradientColorStops[0]);
+      gradient.addColorStop(0.5, lightGradientColorStops[1]);
     } else {
-      gradient.addColorStop(0, TAILWIND_COLORS['dark-void'].light);
-      gradient.addColorStop(0.5, TAILWIND_COLORS.vanilla.light);
+      gradient.addColorStop(0, darkGradientColorStops[0]);
+      gradient.addColorStop(0.5, darkGradientColorStops[1]);
     }
     this.ringContext.fillStyle = gradient;
 
@@ -251,13 +257,28 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
     this.context.drawImage(this.ringCanvas, 0, 0);
   }
 
-  private startRingAnimations() {
+  private startRingAnimations(documentStyles: CSSStyleDeclaration) {
     if (!this.themeMode) {
       return;
     }
 
+    const lightGradientColorStops: [string, string] = [
+      documentStyles.getPropertyValue('--color-vanilla-extra-dark'),
+      documentStyles.getPropertyValue('--color-dark-void-dark'),
+    ];
+
+    const darkGradientFirstColorStops: [string, string] = [
+      documentStyles.getPropertyValue('--color-dark-void-light'),
+      documentStyles.getPropertyValue('--color-vanilla-light'),
+    ];
+
     gsap.ticker.fps(24);
-    this.gsapTickerCallback = gsap.ticker.add(() => this.initRingAnimations());
+    this.gsapTickerCallback = gsap.ticker.add(() =>
+      this.initRingAnimations(
+        lightGradientColorStops,
+        darkGradientFirstColorStops,
+      ),
+    );
 
     this.changeDetectorRef.detectChanges();
   }

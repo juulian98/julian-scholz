@@ -19,10 +19,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { VitaEntryModel } from './models/vita-entry.model';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
-import { isPlatformBrowser, NgStyle, UpperCasePipe } from '@angular/common';
+import {
+  DOCUMENT,
+  isPlatformBrowser,
+  NgStyle,
+  UpperCasePipe,
+} from '@angular/common';
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 import { gsap } from '../lib/misc/gsap/gsap';
-import { TAILWIND_COLORS } from '../../../tailwind.colors';
 
 @Component({
   selector: 'app-vita',
@@ -31,24 +35,11 @@ import { TAILWIND_COLORS } from '../../../tailwind.colors';
 })
 export class VitaComponent implements AfterViewInit, OnDestroy {
   private readonly platformId: object = inject(PLATFORM_ID);
+  private readonly angularDocument: Document = inject(DOCUMENT);
   private readonly renderer: Renderer2 = inject(Renderer2);
   private markerIntersectionObserver: IntersectionObserver | undefined;
   private readonly vitaEntriesElement =
     viewChild.required<ElementRef<HTMLDivElement>>('vitaEntriesElement');
-
-  private readonly highlightColors = [
-    TAILWIND_COLORS.vanilla.light,
-    TAILWIND_COLORS.vanilla.DEFAULT,
-    TAILWIND_COLORS.vanilla.dark,
-    TAILWIND_COLORS.vanilla.darker,
-    TAILWIND_COLORS.vanilla['extra-dark'],
-  ];
-  private readonly randomHighlightColorIndex: () => number = gsap.utils.random(
-    0,
-    this.highlightColors.length - 1,
-    1,
-    true,
-  );
 
   protected readonly faLocationDot: IconDefinition = faLocationDot;
   protected readonly vitaEntries: VitaEntryModel[] = [
@@ -93,12 +84,29 @@ export class VitaComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
+      const documentStyles = this.angularDocument.defaultView!.getComputedStyle(
+        this.angularDocument.documentElement,
+      );
+      const highlightColors = [
+        documentStyles.getPropertyValue('--color-vanilla-light'),
+        documentStyles.getPropertyValue('--color-vanilla'),
+        documentStyles.getPropertyValue('--color-vanilla-dark'),
+        documentStyles.getPropertyValue('--color-vanilla-darker'),
+        documentStyles.getPropertyValue('--color-vanilla-extra-dark'),
+      ];
+      const getRandomHighlightColorIndex: () => number = gsap.utils.random(
+        0,
+        highlightColors.length - 1,
+        1,
+        true,
+      );
+
       this.markerIntersectionObserver = new IntersectionObserver(
         (entries) => {
           for (const entry of entries) {
             if (entry.isIntersecting) {
               const newHighlightColor =
-                this.highlightColors[this.randomHighlightColorIndex()];
+                highlightColors[getRandomHighlightColorIndex()];
               this.renderer.setStyle(
                 entry.target,
                 '--vita-entry-mark-highlight-color-light',

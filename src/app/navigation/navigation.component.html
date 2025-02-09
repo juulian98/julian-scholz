@@ -13,7 +13,7 @@
          class="grid grid-cols-[auto_calc(var(--header-nav-expanded)*(var(--header-nav-item-count)*var(--header-nav-item-width)))_auto]
                 transition-[grid-template-columns] duration-1000 ease-header-nav-function"
     >
-      <button class="grid w-12 place-items-center pl-[--header-nav-logo-gap]" (click)="navigateToTop()"
+      <button class="grid w-12 place-items-center pl-(--header-nav-logo-gap)" (click)="navigateToTop()"
               aria-label="Zurück zum Seitenanfang">
         <fa-icon [icon]="faJs" size="xl"
                  class="rotate-[calc(var(--header-nav-intent,0)*360deg)]
@@ -21,7 +21,7 @@
                         duration-500 hover:[--header-nav-intent:1] focus-visible:[--header-nav-intent:1]">
         </fa-icon>
       </button>
-      <ul class="m-0 flex list-none items-center px-[--header-nav-ul-gap] py-0">
+      <ul class="m-0 flex list-none items-center px-(--header-nav-ul-gap) py-0">
         @for (navigationEntry of sortedRouteEntries; track navigationEntry; let i = $index; let isLast = $last) {
           <li
             class="size-full">
@@ -33,8 +33,8 @@
           </li>
         }
       </ul>
-      <div class="relative flex items-center gap-x-0 gap-y-[--header-nav-logo-gap] bg-dark-void
-                  px-[--header-nav-logo-gap] transition-[padding] duration-1000 ease-header-nav-function before:absolute before:right-full
+      <div class="relative flex items-center gap-x-0 gap-y-(--header-nav-logo-gap) bg-dark-void
+                  px-(--header-nav-logo-gap) transition-[padding] duration-1000 ease-header-nav-function before:absolute before:right-full
                   before:h-12 before:w-14 before:origin-[100%_50%] before:transition-[scale]
                   before:duration-200 before:[scale:calc(1-var(--header-nav-expanded))_1] dark:bg-dark-void-light"
       >

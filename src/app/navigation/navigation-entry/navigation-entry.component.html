@@ -3,9 +3,9 @@
     '--header-nav-i': navigationEntryIndex(),
     '--header-nav-active': opacity()
   }"
-  class="h-full opacity-[--header-nav-expanded]
+  class="h-full opacity-(--header-nav-expanded)
          transition-opacity delay-[calc(750ms+(var(--header-nav-i)*50ms))] duration-200
-         hover:*:opacity-100 focus-visible:*:opacity-100"
+         *:hover:opacity-100 *:focus-visible:opacity-100"
 >
   <button class="grid size-full place-items-center whitespace-nowrap text-snow
             opacity-[calc(0.5+(var(--header-nav-active)))] transition-opacity duration-200"

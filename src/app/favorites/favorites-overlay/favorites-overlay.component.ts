@@ -15,7 +15,7 @@ export class FavoritesOverlayComponent {
 
   private readonly minBorderRadiusValue: number = 18;
   private readonly maxBorderRadiusValue: number = 82;
-  private readonly randomBorderRadius: () => number = gsap.utils.random(
+  private readonly getRandomBorderRadius: () => number = gsap.utils.random(
     this.minBorderRadiusValue,
     this.maxBorderRadiusValue,
     1,
@@ -56,7 +56,7 @@ export class FavoritesOverlayComponent {
 
   private generateNewBorderRadius(): void {
     const fourRandomNumbers = Array.from({ length: 4 }, () =>
-      this.randomBorderRadius(),
+      this.getRandomBorderRadius(),
     );
     this.borderRadius.set(
       `${fourRandomNumbers[0]}% ${100 - fourRandomNumbers[0]}% ${fourRandomNumbers[1]}% ${100 - fourRandomNumbers[1]}% / ${fourRandomNumbers[2]}% ${fourRandomNumbers[3]}% ${100 - fourRandomNumbers[3]}% ${100 - fourRandomNumbers[2]}%`,

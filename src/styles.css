@@ -1,0 +1,206 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --color-dark-void-light: #302d39;
+  --color-dark-void: #151419;
+  --color-dark-void-dark: #0a090b;
+
+  --color-vanilla-light: #ffdb99;
+  --color-vanilla: #ffcd70;
+  --color-vanilla-dark: #ffbf47;
+  --color-vanilla-darker: #ffb01f;
+  --color-vanilla-extra-dark: #f59f00;
+
+  --color-snow: #fbfbfb;
+
+  --font-*: initial;
+  --font-sans:
+    Geist Sans, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+  --ease-header-nav-function: linear(
+    0 0%,
+    0.0012 14.95%,
+    0.0089 22.36%,
+    0.0297 28.43%,
+    0.0668 33.43%,
+    0.0979 36.08%,
+    0.1363 38.55%,
+    0.2373 43.07%,
+    0.3675 47.01%,
+    0.5984 52.15%,
+    0.7121 55.23%,
+    0.8192 59.21%,
+    0.898 63.62%,
+    0.9297 66.23%,
+    0.9546 69.06%,
+    0.9733 72.17%,
+    0.9864 75.67%,
+    0.9982 83.73%,
+    1 100%
+  );
+
+  @keyframes themeModeToggleRevealDark {
+    from {
+      clip-path: circle(60% at 200% -200%);
+      filter: brightness(0.2);
+    }
+    40% {
+      clip-path: circle(60% at 50% 50%);
+      filter: brightness(0.2);
+    }
+    to {
+      clip-path: circle(100% at 50% 50%);
+      filter: brightness(1);
+    }
+  }
+  @keyframes themeModeToggleRevealLight {
+    0% {
+      clip-path: circle(100% at 50% 50%);
+      filter: brightness(1);
+    }
+    20% {
+      clip-path: circle(60% at 50% 50%);
+      filter: brightness(0.2);
+    }
+    100% {
+      clip-path: circle(60% at -200% 200%);
+      filter: brightness(0.2);
+    }
+  }
+  @keyframes favoritesOverlayLoop {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+@utility divider {
+  @apply w-36 mb-8 border-[1px] border-vanilla;
+}
+@utility bg-custom-light-dark {
+  @apply bg-snow dark:bg-dark-void;
+}
+@utility text-custom-light-dark {
+  @apply text-dark-void dark:text-snow;
+}
+@utility rounded-4xl {
+  @apply rounded-[50px];
+}
+@utility rounded-5xl {
+  @apply rounded-[100px];
+}
+
+@layer base {
+  @font-face {
+    font-family: "Geist Sans";
+    font-style: normal;
+    font-weight: 100 900;
+    src: url("https://assets.julian-scholz.dev/fonts/geist/geist-sans/Geist-wght.woff2") format("woff2"),
+    url("https://assets.julian-scholz.dev/fonts/geist/geist-sans/Geist-wght.ttf") format("truetype");
+    font-display: block;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    @apply bg-snow dark:bg-dark-void w-[10px];
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-dark-void dark:bg-dark-void-light rounded-5xl;
+  }
+
+  /* Thememode-Toggler */
+  ::view-transition-group(root) {
+    @apply [animation-duration:2s];
+  }
+
+  ::view-transition-new(root),
+  ::view-transition-old(root) {
+    @apply mix-blend-normal;
+  }
+
+  ::view-transition-new(root) {
+    @apply dark:animate-[themeModeToggleRevealDark_2.25s] dark:z-101;
+  }
+
+  ::view-transition-old(root) {
+    @apply animate-[themeModeToggleRevealLight_2.25s] dark:animate-none z-100 dark:z-auto;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  section {
+    @apply container mx-auto px-8 pt-20 pb-10;
+  }
+
+  h1 {
+    @apply text-8xl font-extrabold mb-8;
+  }
+
+  h2 {
+    @apply text-5xl font-bold mb-4;
+  }
+
+  h3 {
+    @apply text-2xl font-semibold mb-2;
+  }
+
+  h4 {
+    @apply text-xl font-medium mb-1.5;
+  }
+
+  h5 {
+    @apply text-lg font-medium mb-1;
+  }
+
+  h6 {
+    @apply text-base font-medium mb-0.5;
+  }
+
+  .modal-body {
+    h3 {
+      @apply mt-4;
+    }
+
+    h4 {
+      @apply mt-3;
+    }
+
+    h5 {
+      @apply mt-2;
+    }
+
+    h6 {
+      @apply mt-1;
+    }
+
+    ul {
+      @apply list-disc list-inside;
+    }
+  }
+
+  .book-cover, .modal-body {
+    a {
+      @apply border-b border-dotted border-dark-void dark:border-snow hover:border-solid hover:border-vanilla;
+    }
+  }
+
+  .book-cover {
+    a {
+      @apply border-dark-void;
+    }
+  }
+}
